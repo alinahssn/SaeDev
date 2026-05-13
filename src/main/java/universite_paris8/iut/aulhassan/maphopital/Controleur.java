@@ -30,7 +30,7 @@ public class Controleur implements Initializable {
     }
 
     public void creerVueModele() {
-        Image im0 = chargerImage("8.png");
+        Image im0 = chargerImage("sol(1).png");
         Image im1 = chargerImage("carré-blanc-cadre-gris-seul.png");
 
         //tilehopital.getChildren().clear();

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.image.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
@@ -9,6 +10,9 @@
 
 <BorderPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="universite_paris8.iut.aulhassan.maphopital.Controleur">
    <center>
-      <TilePane fx:id="tilehopital" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefColumns="20" prefHeight="800.0" prefRows="20" prefWidth="800.0" BorderPane.alignment="CENTER" />
+      <TilePane fx:id="tilehopital" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefColumns="20" prefHeight="640" prefRows="20" prefTileWidth="32" prefTileHeight="32" prefWidth="640.0" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin></TilePane>
    </center>
 </BorderPane>
