@@ -23,20 +23,32 @@ public class Controleur implements Initializable {
         creerVueModele();
     }
 
+
+    private Image chargerImage(String nomFichier) {
+        URL url = getClass().getResource("image/" + nomFichier);
+        return new Image(String.valueOf(url));
+    }
+
     public void creerVueModele() {
-        Image image = new Image ("8.png");
-        Image image2 = new Image ("carré-blanc-cadre-gris-seul.png");
-        for (int i=0; i<terrain.getHauteur(); i++){
-            for (int j=0; j<terrain.getLargeur(); j++){
-                if (terrain.getMap()[i][j]==0) {
-                    ImageView imageView = new ImageView();
-                    imageView.setImage(image);
-                    tilehopital.getChildren().add(imageView);
+        Image im0 = chargerImage("8.png");
+        Image im1 = chargerImage("carré-blanc-cadre-gris-seul.png");
+
+        //tilehopital.getChildren().clear();
+
+        for (int i = 0; i < terrain.getHauteur(); i++) {
+            for (int j = 0; j < terrain.getLargeur(); j++) {
+
+                ImageView imv = new ImageView();
+                imv.setFitWidth(32);
+                imv.setFitHeight(32);
+
+                if (terrain.getMap()[i][j] == 0) {
+                    imv.setImage(im0);
                 } else {
-                    ImageView imageView = new ImageView();
-                    imageView.setImage(image2);
-                    tilehopital.getChildren().add(imageView);
+                    imv.setImage(im1);
                 }
+
+                tilehopital.getChildren().add(imv);
             }
         }
     }
