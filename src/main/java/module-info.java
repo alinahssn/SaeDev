@@ -6,4 +6,6 @@ module universite_paris8.iut.aulhassan.maphopital {
 
     opens universite_paris8.iut.aulhassan.maphopital to javafx.fxml;
     exports universite_paris8.iut.aulhassan.maphopital;
+    exports universite_paris8.iut.aulhassan.maphopital.modele;
+    opens universite_paris8.iut.aulhassan.maphopital.modele to javafx.fxml;
 }

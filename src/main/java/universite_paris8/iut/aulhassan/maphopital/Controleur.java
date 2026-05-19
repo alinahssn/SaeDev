@@ -1,15 +1,12 @@
 package universite_paris8.iut.aulhassan.maphopital;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import javafx.util.Duration;
-import universite_paris8.iut.aulhassan.maphopital.modele.Terrain;
+import universite_paris8.iut.aulhassan.maphopital.modele.Ennemi;
 import universite_paris8.iut.aulhassan.maphopital.modele.Terrain;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;

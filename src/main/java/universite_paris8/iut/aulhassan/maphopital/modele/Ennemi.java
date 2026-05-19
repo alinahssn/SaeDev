@@ -1,11 +1,7 @@
-package universite_paris8.iut.aulhassan.maphopital;
+package universite_paris8.iut.aulhassan.maphopital.modele;
 
 import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-
-import java.util.Random;
 
 public class Ennemi {
 
