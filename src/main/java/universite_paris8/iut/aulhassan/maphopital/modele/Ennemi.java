@@ -5,17 +5,10 @@ import javafx.beans.property.SimpleDoubleProperty;
 
 public class Ennemi {
 
-    private DoubleProperty x = new SimpleDoubleProperty(50);
-    private DoubleProperty y = new SimpleDoubleProperty(50);
+    private DoubleProperty x = new SimpleDoubleProperty(-200);
+    private DoubleProperty y = new SimpleDoubleProperty(-200);
 
-    public void bouger() {
-        int choix = (int) (Math.random() * 4);// 0, 1, 2 ou 3
 
-        if (choix == 0) this.setX(this.getX() + 32);
-        if (choix == 1) this.setX(this.getX() - 32);
-        if (choix == 2) this.setY(this.getY() + 32);
-        if (choix == 3) this.setY(this.getY() - 32);
-    }
 
     public double getX() { return this.x.get(); }
     public void setX(double nouveauX) { this.x.set(nouveauX); }

@@ -1,11 +1,14 @@
 package universite_paris8.iut.aulhassan.maphopital;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.util.Duration;
 import universite_paris8.iut.aulhassan.maphopital.modele.Ennemi;
 import universite_paris8.iut.aulhassan.maphopital.modele.Terrain;
 import javafx.scene.image.Image;
@@ -15,6 +18,9 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class Controleur implements Initializable {
+
+    private Timeline gameloop;
+    private int temps;
 
     @FXML
     private TilePane tilehopital;
@@ -37,6 +43,8 @@ public class Controleur implements Initializable {
         rondRouge.translateYProperty().bind(ennemi1.yProperty());
 
         panneauJeu.getChildren().add(rondRouge); //PAS DANS LA TILEMAP
+        initAnimation();
+        gameloop.play();
 
     }
 
@@ -71,4 +79,29 @@ public class Controleur implements Initializable {
         }
     }
 
-}
+    private void initAnimation(){
+        gameloop = new Timeline();
+        temps=0;
+        gameloop.setCycleCount(Timeline.INDEFINITE);
+
+        KeyFrame keyFrame = new KeyFrame(
+                Duration.seconds(0.017),
+                (ev ->{
+                    if(temps==200){
+                        System.out.println("fini");
+                        gameloop.stop();
+                    }
+                    else if (temps%5==0){
+                        System.out.println("un tour");
+                        ennemi1.setX(ennemi1.getX()+5);
+                        ennemi1.setY(ennemi1.getY()+5);
+
+                    }
+                    temps++;
+                })
+        );
+        gameloop.getKeyFrames().add(keyFrame);
+    }
+
+    }
+
