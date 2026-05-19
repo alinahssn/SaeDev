@@ -10,9 +10,15 @@
 
 <BorderPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="universite_paris8.iut.aulhassan.maphopital.Controleur">
    <center>
-      <TilePane fx:id="tilehopital" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefColumns="20" prefHeight="640" prefRows="20" prefTileWidth="32" prefTileHeight="32" prefWidth="640.0" BorderPane.alignment="CENTER">
+      <StackPane fx:id="panneauJeu" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="640.0" BorderPane.alignment="CENTER">
+         <children>
+
+            <TilePane fx:id="tilehopital" prefColumns="20" prefRows="20" prefTileWidth="32" prefTileHeight="32" StackPane.alignment="TOP_LEFT" />
+
+         </children>
          <BorderPane.margin>
             <Insets />
-         </BorderPane.margin></TilePane>
+         </BorderPane.margin>
+      </StackPane>
    </center>
 </BorderPane>
