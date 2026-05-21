@@ -53,7 +53,7 @@ public class Ennemi {
         return this.pv = pv;
     }
     public int setPvMax(int pvMax){
-       return this.pvMax = pvMax;
+        return this.pvMax = pvMax;
     }
     public int setAttaque(int attaque){
         return this.attaque = attaque;
@@ -77,5 +77,4 @@ public class Ennemi {
     public void setY(int nouveauY) { this.y.set(nouveauY); }
     public SimpleIntegerProperty yProperty() { return this.y; }
 }
-
 

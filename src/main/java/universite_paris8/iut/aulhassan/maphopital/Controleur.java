@@ -64,9 +64,17 @@ public class Controleur implements Initializable {
     }
 
     public void creerVueModele() {
-        Image im0 = chargerImage("sol(1).png");
-        Image im1 = chargerImage("carré-blanc-cadre-gris-seul.png");
-
+        Image im0 = chargerImage("solhopital.png");//placer les tours
+        Image im1 = chargerImage("solchambre.png");//chemin pr les ennemis
+        Image im2 = chargerImage("mur.png");
+        Image im3 = chargerImage("lit.png");
+        Image im4 = chargerImage("chevet.png");
+        Image im5 = chargerImage("chaise.png");
+        Image im6 = chargerImage("machine.png");
+        Image im7 = chargerImage("bureau.png");
+        Image im8 = chargerImage("chaise2.png");
+        Image im9 = chargerImage("distrib.png");
+        Image im10 = chargerImage("plante.png");
 
         //tilehopital.getChildren().clear();
         //TailSet
@@ -78,13 +86,46 @@ public class Controleur implements Initializable {
                 imv.setFitWidth(32);
                 imv.setFitHeight(32);
 
-                if (terrain.getMap()[i][j] == 0) {
-                    imv.setImage(im0);
-                } else {
-                    imv.setImage(im1);
+                int valeurTuile = terrain.getMap()[i][j];
+
+                switch (valeurTuile) {
+                    case 0:
+                        imv.setImage(im1);
+                        break;
+                    case 1:
+                        imv.setImage(im0);
+                        break;
+                    case 2:
+                        imv.setImage(im2);
+                        break;
+                    case 3:
+                        imv.setImage(im3);
+                        break;
+                    case 4:
+                        imv.setImage(im4);
+                        break;
+                    case 5:
+                        imv.setImage(im5);
+                        break;
+                    case 6:
+                        imv.setImage(im6);
+                        break;
+                    case 7:
+                        imv.setImage(im7);
+                        break;
+                    case 8:
+                        imv.setImage(im8);
+                        break;
+                    case 9:
+                        imv.setImage(im9);
+                        break;
+                    case 10:
+                        imv.setImage(im10);
+                        break;
+                    default:
+                        imv.setImage(im1);
+                        break;
                 }
-
-
                 tilehopital.getChildren().add(imv);
             }
         }
@@ -116,5 +157,4 @@ public class Controleur implements Initializable {
 
 
 
-    }
-
+}
