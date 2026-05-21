@@ -17,7 +17,7 @@ public void start(Stage stage) throws IOException {
     Scene scene1 = new Scene(fxmlLoader.load(), 800, 600);
 
 
-    stage.setTitle("Tower Defense Hopital");
+    stage.setTitle("CODE ROUGE : INVASION A L'HOPITAL");
     stage.setScene(scene1);
     stage.show();
 }
