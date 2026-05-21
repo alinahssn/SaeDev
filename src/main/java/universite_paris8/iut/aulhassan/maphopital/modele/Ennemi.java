@@ -49,21 +49,21 @@ public class Ennemi {
         return recompense;
     }
 
-    public int setPv(int pv) {
-        return this.pv = pv;
+    public void setPv(int pv) {
+         this.pv = pv;
     }
-    public int setPvMax(int pvMax){
-        return this.pvMax = pvMax;
+    public void setPvMax(int pvMax){
+        this.pvMax = pvMax;
     }
-    public int setAttaque(int attaque){
-        return this.attaque = attaque;
+    public void setAttaque(int attaque){
+        this.attaque = attaque;
     }
 
-    public int setVitesse(int vitesse){
-        return this.vitesse = vitesse;
+    public void setVitesse(int vitesse){
+        this.vitesse = vitesse;
     }
-    public int setRecompense(int recompense){
-        return this.recompense = recompense;
+    public void setRecompense(int recompense){
+        this.recompense = recompense;
     }
 
 
@@ -76,5 +76,7 @@ public class Ennemi {
     public int getY() { return this.y.get(); }
     public void setY(int nouveauY) { this.y.set(nouveauY); }
     public SimpleIntegerProperty yProperty() { return this.y; }
+
+
 }
 

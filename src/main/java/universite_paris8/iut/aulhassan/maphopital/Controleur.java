@@ -75,6 +75,7 @@ public class Controleur implements Initializable {
         Image im8 = chargerImage("chaise2.png");
         Image im9 = chargerImage("distrib.png");
         Image im10 = chargerImage("plante.png");
+        Image im11 = chargerImage("lit2.png");
 
         //tilehopital.getChildren().clear();
         //TailSet
@@ -121,6 +122,9 @@ public class Controleur implements Initializable {
                         break;
                     case 10:
                         imv.setImage(im10);
+                        break;
+                    case 11:
+                        imv.setImage(im11);
                         break;
                     default:
                         imv.setImage(im1);
