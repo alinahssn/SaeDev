@@ -1,0 +1,16 @@
+@font-face {
+    src: url("PressStart2P-Regular.ttf");
+}
+
+
+.btn-bas {
+    -fx-font-family: "Press Start 2P";
+    -fx-font-size: 11px;
+    -fx-text-fill: white;
+    -fx-background-image: url("image/bouton2.png");
+    -fx-background-size: 100% 100%;
+    -fx-background-repeat: no-repeat;
+    -fx-background-color: transparent;
+    -fx-padding: 12 20 12 20;
+    -fx-border-width: 0;
+}
