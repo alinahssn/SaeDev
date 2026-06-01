@@ -6,15 +6,19 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.util.Duration;
-import universite_paris8.iut.aulhassan.maphopital.modele.Ennemi;
-import universite_paris8.iut.aulhassan.maphopital.modele.Gastrique;
-import universite_paris8.iut.aulhassan.maphopital.modele.Terrain;
+import universite_paris8.iut.aulhassan.maphopital.modele.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.control.Button;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.paint.Color;
 
+import javafx.scene.control.Label;
+import java.awt.dnd.DragSource;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -22,31 +26,54 @@ public class Controleur implements Initializable {
 
     private Timeline gameloop;
     private int temps;
+    private Rectangle caseHighlight = null;
+
+    @FXML
+    private Button btnInterne;
+
+    @FXML
+    private VBox panneauTour;
+
+    private int idTourSelect = -1;//quelle tour jai select
+
 
     @FXML
     private TilePane tilehopital;
 
     @FXML
+    private Button btnBonus;
+
+    @FXML
+    private Label labelPV;
+
+    @FXML
     private Pane panneauJeu; //superposition avec le tilepane sinon decallage des images
 
+    private Patient patient;
     private Terrain terrain;
     private Ennemi ennemi1;
     private Gastrique gastrique;
+    private int[][] distMap;
 
     @Override
     public void initialize (URL url, ResourceBundle rb) {
         this.terrain = new Terrain();
         this.ennemi1 = new Ennemi();
+        this.patient = new Patient();
         this.gastrique = new Gastrique();
         creerVueModele();
 
+        BFS bfs = new BFS(terrain, 23, 12);
+        this.distMap = bfs.getDistMap();
+
+        creerBoutonInventaire();
 
         ImageView rondGastrique = new ImageView(chargerImage("test_gastrique.png"));
 
         rondGastrique.setFitWidth(32);
         rondGastrique.setFitHeight(32);
-        gastrique.setX(10);
-        gastrique.setY(10);
+        gastrique.setX(16*32);
+        gastrique.setY(0*32);
 
         rondGastrique.translateXProperty().bind(gastrique.xProperty());
         rondGastrique.translateYProperty().bind(gastrique.yProperty());
@@ -77,7 +104,6 @@ public class Controleur implements Initializable {
         Image im10 = chargerImage("plante.png");
         Image im11 = chargerImage("lit2.png");
 
-        //tilehopital.getChildren().clear();
         //TailSet
 
         for (int i = 0; i < terrain.getHauteur(); i++) {
@@ -143,21 +169,98 @@ public class Controleur implements Initializable {
         KeyFrame keyFrame = new KeyFrame(
                 Duration.seconds(0.017),
                 (ev ->{
-                    if(temps==100){
-                        System.out.println("fini");
-                        gameloop.stop();
-                    }
-                    else if (temps%5==0){
-                        System.out.println("un tour");
-                        gastrique.setX(gastrique.getX()+5);
-                        gastrique.setY(gastrique.getY()+5);
+                    if (temps%5==0){
+                        gastrique.deplacer(distMap);
 
                     }
+                    else if (gastrique.getX()==23*32 && gastrique.getY()==12*32 && patient.estVivant()){
+                        int nouveauPv = patient.getPv()-gastrique.getAttaque();
+                        patient.setPv(nouveauPv);
+                        labelPV.setText(patient.getPv() + " / " + patient.getPvMax());
+
+
+                        //gastrique.setX(gastrique.getX()+5);
+                        //gastrique.setY(gastrique.getY()+5);
+
+                        if(patient.getPv()<=0){
+                            patient.setPv(0);
+                            labelPV.setText("0" + " / " + "MORT");
+
+                        }
+
+
+                    }
+                    System.out.println(patient.estVivant());
                     temps++;
                 })
         );
         gameloop.getKeyFrames().add(keyFrame);
     }
+
+    @FXML
+    private void ajouteBonus(){
+        if(patient.estVivant()){
+            patient.soigner(5);
+            labelPV.setText(patient.getPv() + " / " + patient.getPvMax());
+        }
+    }
+
+    private void creerBoutonInventaire() {
+        btnInterne.setOnAction(event -> {
+            this.idTourSelect = 1;
+            System.out.println("Interne sélectionné, clique sur la map pour poser");
+        });
+
+        panneauJeu.setOnMouseClicked(event -> {
+            if (idTourSelect == -1) return; // aucune tour sélectionnée
+
+            //clic en case de grille
+            int col   = (int) event.getX() / 32; //convertir pixel en tuile
+            int ligne = (int) event.getY() / 32;
+
+            //case valide pour poser la tour
+            if (terrain.getMap()[ligne][col] == 1) {
+                terrain.getMap()[ligne][col] = 12;
+                ImageView tourPosee = new ImageView(
+                        ((ImageView) btnInterne.getGraphic()).getImage()//balises de la vue
+                );
+                tourPosee.setFitWidth(32);
+                tourPosee.setFitHeight(32);//image taille d'une case
+                tourPosee.setLayoutX(col * 32);
+                tourPosee.setLayoutY(ligne * 32); //reconverti en pixels
+                panneauJeu.getChildren().add(tourPosee);
+
+                idTourSelect = -1;
+                System.out.println("Tour posée en [" + ligne + "][" + col + "]");
+            } else {
+                System.out.println("Case invalide !");
+            }
+        });
+
+        panneauJeu.setOnMouseMoved(event -> {
+            if (caseHighlight != null) {
+                panneauJeu.getChildren().remove(caseHighlight);//on l'enlève à chaque mouvement
+            }
+            if (idTourSelect == -1) return;
+
+            int col   = (int) event.getX() / 32;
+            int ligne = (int) event.getY() / 32;
+
+            caseHighlight = new Rectangle(32, 32);
+            caseHighlight.setLayoutX(col * 32);
+            caseHighlight.setLayoutY(ligne * 32);
+            caseHighlight.setMouseTransparent(true);//pas bloquer les clics
+
+            if (terrain.getMap()[ligne][col] == 1) {
+                caseHighlight.setFill(Color.rgb(0, 255, 0, 0.4));
+            } else {
+                caseHighlight.setFill(Color.rgb(255, 0, 0, 0.4));
+            }
+
+            panneauJeu.getChildren().add(caseHighlight);
+        });
+    }
+
 
 
 

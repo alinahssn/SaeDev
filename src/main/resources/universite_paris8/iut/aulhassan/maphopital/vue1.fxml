@@ -45,7 +45,7 @@
          <Label fx:id="labelBudget" alignment="CENTER" prefHeight="57.0" prefWidth="205.0" styleClass="btn-bas" text="BUDGET" />
          <Label fx:id="labelPV" alignment="CENTER" prefHeight="57.0" prefWidth="221.0" styleClass="btn-bas" text="PV Patient" />
          <Label alignment="CENTER" prefHeight="58.0" prefWidth="146.0" styleClass="btn-bas" text="Vague" />
-         <Button fx:id="btnBonus" onAction="ajouteBonus" prefHeight="54.0" prefWidth="147.0" styleClass="btn-bas" text="BONUS" />
+         <Button fx:id="btnBonus" onAction="#ajouteBonus" prefHeight="54.0" prefWidth="147.0" styleClass="btn-bas" text="BONUS" />
          <Button prefHeight="51.0" prefWidth="148.0" styleClass="btn-bas" text="Lancer vague" />
       </HBox>
    </bottom>
