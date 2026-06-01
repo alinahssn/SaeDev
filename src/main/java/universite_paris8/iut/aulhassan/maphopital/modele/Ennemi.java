@@ -6,7 +6,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 
 public class Ennemi {
 
-    private SimpleIntegerProperty x = new SimpleIntegerProperty(0);
+    private SimpleIntegerProperty x = new SimpleIntegerProperty(16);
     private SimpleIntegerProperty y = new SimpleIntegerProperty(0);
 
     private int pv;
@@ -14,7 +14,9 @@ public class Ennemi {
     private int attaque;
     private int vitesse;
     private int recompense;
-    private boolean vivant;
+    private boolean estMort;
+    private Terrain terrain;
+
 
     public Ennemi(int pv, int attaque, int vitesse, int recompense) {
         this.pv = pv;
@@ -22,61 +24,124 @@ public class Ennemi {
         this.attaque = attaque;
         this.vitesse = vitesse;
         this.recompense = recompense;
-        this.vivant = true;
+
     }
+
     public Ennemi() {
-        this(80,5,1,15);
+        this(80, 5, 1, 15);
     }
 
-    // fonction qui retourne true si l'ennemi vivant /false mort
-    public boolean estVivant() {
-        return vivant;
-    }
-
-    public int getPv(){
+    public int getPv() {
         return pv;
     }
-    public int getPvMax(){
+
+    public int getPvMax() {
         return pvMax;
     }
-    public int getAttaque(){
+
+    public int getAttaque() {
         return attaque;
     }
-    public int getVitesse(){
+
+    public int getVitesse() {
         return vitesse;
     }
-    public int getRecompense(){
+
+    public int getRecompense() {
         return recompense;
     }
 
     public void setPv(int pv) {
-         this.pv = pv;
+        this.pv = pv;
     }
-    public void setPvMax(int pvMax){
+
+    public void setPvMax(int pvMax) {
         this.pvMax = pvMax;
     }
-    public void setAttaque(int attaque){
+
+    public void setAttaque(int attaque) {
         this.attaque = attaque;
     }
 
-    public void setVitesse(int vitesse){
+    public void setVitesse(int vitesse) {
         this.vitesse = vitesse;
     }
-    public void setRecompense(int recompense){
+
+    public void setRecompense(int recompense) {
         this.recompense = recompense;
     }
 
+    public void subirDegats(int degats) {
+        this.pv -= degats;
 
+        if (this.pv <= 0) {
+            this.pv = 0;
+            mourir();
+        }
+    }
 
+    private void mourir() {
+        this.estMort = true;
+    }
 
-    public int getX() { return this.x.get(); }
-    public void setX(int nouveauX) { this.x.set(nouveauX); }
-    public SimpleIntegerProperty xProperty() { return this.x; }
+    public boolean estVivant() {
+        return this.pv > 0;
+    }
 
-    public int getY() { return this.y.get(); }
-    public void setY(int nouveauY) { this.y.set(nouveauY); }
-    public SimpleIntegerProperty yProperty() { return this.y; }
+    public int getX() {
+        return this.x.get();
+    }
 
+    public void setX(int nouveauX) {
+        this.x.set(nouveauX);
+    }
+
+    public SimpleIntegerProperty xProperty() {
+        return this.x;
+    }
+
+    public int getY() {
+        return this.y.get();
+    }
+
+    public void setY(int nouveauY) {
+        this.y.set(nouveauY);
+    }
+
+    public SimpleIntegerProperty yProperty() {
+        return this.y;
+    }
+
+    public void deplacer(int[][] distMap) {
+        int col = getX() / 32; // 32 = taille d'une tuile
+        int lig = getY() / 32;
+
+        int[][] directions = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
+
+        int bestCol = col, bestLig = lig;
+        int bestDist = distMap[lig][col]; // distance actuelle
+
+        for (int[] dir : directions) {
+            int nc = col + dir[0];
+            int nl = lig + dir[1];
+
+            // Hors grille ?
+            if (nc < 0 || nc >= distMap[0].length) continue;
+            if (nl < 0 || nl >= distMap.length) continue;
+            // Case non atteignable ?
+            if (distMap[nl][nc] == -1) continue;
+
+            if (distMap[nl][nc] < bestDist) {
+                bestDist = distMap[nl][nc];
+                bestCol = nc;
+                bestLig = nl;
+            }
+        }
+
+        // On se déplace vers la meilleure case
+        setX(bestCol * 32);
+        setY(bestLig * 32);
+    }
 
 }
 
