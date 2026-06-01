@@ -20,14 +20,23 @@
    <center>
       <Pane fx:id="panneauJeu" prefHeight="2700.0" prefWidth="2700.0" BorderPane.alignment="CENTER">
          <children>
-            <TilePane fx:id="tilehopital" layoutX="0" layoutY="0" prefColumns="50" prefRows="27" prefTileWidth="32" prefTileHeight="32" prefWidth="1600" prefHeight="864" />
+            <TilePane fx:id="tilehopital" layoutX="0" layoutY="0" prefColumns="50" prefHeight="864" prefRows="27" prefTileHeight="32" prefTileWidth="32" prefWidth="1600" />
          </children>
       </Pane>
    </center>
 
    <right>
-      <VBox prefWidth="150" styleClass="panneau-tours">
-         <Label styleClass="label-tour" text="TOUR" />
+      <VBox fx:id="panneauTour" alignment="TOP_CENTER" prefWidth="250" spacing="15" styleClass="panneau-tours" BorderPane.alignment="CENTER">
+            <Label styleClass="label-tour" text="TOURS" textAlignment="CENTER"/>
+            <Button fx:id="btnInterne" alignment="CENTER" contentDisplay="TOP" prefHeight="85.0" prefWidth="228.0" text="Interne de Garde">
+               <graphic>
+                  <ImageView fitHeight="55.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@image/Interne.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
       </VBox>
    </right>
 
@@ -36,7 +45,7 @@
          <Label fx:id="labelBudget" alignment="CENTER" prefHeight="57.0" prefWidth="205.0" styleClass="btn-bas" text="BUDGET" />
          <Label fx:id="labelPV" alignment="CENTER" prefHeight="57.0" prefWidth="221.0" styleClass="btn-bas" text="PV Patient" />
          <Label alignment="CENTER" prefHeight="58.0" prefWidth="146.0" styleClass="btn-bas" text="Vague" />
-         <Button prefHeight="54.0" prefWidth="147.0" styleClass="btn-bas" text="BONUS" />
+         <Button fx:id="btnBonus" onAction="ajouteBonus" prefHeight="54.0" prefWidth="147.0" styleClass="btn-bas" text="BONUS" />
          <Button prefHeight="51.0" prefWidth="148.0" styleClass="btn-bas" text="Lancer vague" />
       </HBox>
    </bottom>
