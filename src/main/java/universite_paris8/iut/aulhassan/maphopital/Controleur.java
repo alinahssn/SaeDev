@@ -68,7 +68,7 @@ public class Controleur implements Initializable {
 
         creerBoutonInventaire();
 
-        ImageView rondGastrique = new ImageView(chargerImage("test_gastrique.png"));
+        ImageView rondGastrique = new ImageView(chargerImage("gastrique.png"));
 
         rondGastrique.setFitWidth(32);
         rondGastrique.setFitHeight(32);
@@ -190,7 +190,6 @@ public class Controleur implements Initializable {
 
 
                     }
-                    System.out.println(patient.estVivant());
                     temps++;
                 })
         );
@@ -207,12 +206,16 @@ public class Controleur implements Initializable {
 
     private void creerBoutonInventaire() {
         btnInterne.setOnAction(event -> {
+            if (this.patient.getPv()== 0) {
+                System.out.println("GAME OVER : Le patient est mort ! Impossible de poser une tour");
+                return;
+            }
             this.idTourSelect = 1;
             System.out.println("Interne sélectionné, clique sur la map pour poser");
         });
 
         panneauJeu.setOnMouseClicked(event -> {
-            if (idTourSelect == -1) return; // aucune tour sélectionnée
+            if (idTourSelect == -1 ) {return;} //aucune tour selectionnée
 
             //clic en case de grille
             int col   = (int) event.getX() / 32; //convertir pixel en tuile
@@ -220,7 +223,7 @@ public class Controleur implements Initializable {
 
             //case valide pour poser la tour
             if (terrain.getMap()[ligne][col] == 1) {
-                terrain.getMap()[ligne][col] = 12;
+                terrain.getMap()[ligne][col] = 12;//pour ne pas en poser une par dessus l'autre
                 ImageView tourPosee = new ImageView(
                         ((ImageView) btnInterne.getGraphic()).getImage()//balises de la vue
                 );
@@ -231,6 +234,7 @@ public class Controleur implements Initializable {
                 panneauJeu.getChildren().add(tourPosee);
 
                 idTourSelect = -1;
+
                 System.out.println("Tour posée en [" + ligne + "][" + col + "]");
             } else {
                 System.out.println("Case invalide !");
@@ -241,6 +245,7 @@ public class Controleur implements Initializable {
             if (caseHighlight != null) {
                 panneauJeu.getChildren().remove(caseHighlight);//on l'enlève à chaque mouvement
             }
+
             if (idTourSelect == -1) return;
 
             int col   = (int) event.getX() / 32;
@@ -253,7 +258,7 @@ public class Controleur implements Initializable {
 
             if (terrain.getMap()[ligne][col] == 1) {
                 caseHighlight.setFill(Color.rgb(0, 255, 0, 0.4));
-            } else {
+            } else {//12 si tour posée
                 caseHighlight.setFill(Color.rgb(255, 0, 0, 0.4));
             }
 
