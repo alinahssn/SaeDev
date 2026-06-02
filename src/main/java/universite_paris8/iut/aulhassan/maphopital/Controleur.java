@@ -169,27 +169,28 @@ public class Controleur implements Initializable {
         KeyFrame keyFrame = new KeyFrame(
                 Duration.seconds(0.017),
                 (ev ->{
-                    if (temps%5==0){
+                    if (temps%12==0){
                         gastrique.deplacer(distMap);
-
-                    }
-                    else if (gastrique.getX()==23*32 && gastrique.getY()==12*32 && patient.estVivant()){
-                        int nouveauPv = patient.getPv()-gastrique.getAttaque();
-                        patient.setPv(nouveauPv);
-                        labelPV.setText(patient.getPv() + " / " + patient.getPvMax());
+                        if (gastrique.getX()==23*32 && gastrique.getY()==12*32 && patient.estVivant()){
+                            int nouveauPv = patient.getPv()-gastrique.getAttaque();
+                            patient.setPv(nouveauPv);
+                            labelPV.setText(patient.getPv() + " / " + patient.getPvMax());
 
 
-                        //gastrique.setX(gastrique.getX()+5);
-                        //gastrique.setY(gastrique.getY()+5);
+                            //gastrique.setX(gastrique.getX()+5);
+                            //gastrique.setY(gastrique.getY()+5);
 
-                        if(patient.getPv()<=0){
-                            patient.setPv(0);
-                            labelPV.setText("0" + " / " + "MORT");
+                            if(patient.getPv()<=0){
+                                patient.setPv(0);
+                                labelPV.setText("0" + " / " + "MORT");
+
+                            }
+
 
                         }
 
-
                     }
+
                     temps++;
                 })
         );
