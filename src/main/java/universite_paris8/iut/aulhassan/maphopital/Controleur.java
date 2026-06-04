@@ -49,8 +49,8 @@ public class Controleur implements Initializable {
     private Terrain terrain;
     private int[][] distMap;
 
-    private List<Tour>       toursActives      = new ArrayList<>();
-    private List<Ennemi>     ennemisActifs     = new ArrayList<>();
+    private List<Tour> toursActives = new ArrayList<>();
+    private List<Ennemi> ennemisActifs = new ArrayList<>();
     private List<Projectile> projectilesActifs = new ArrayList<>();
     private Map<Projectile, Circle> vuesProjectiles = new HashMap<>();
 
@@ -123,14 +123,25 @@ public class Controleur implements Initializable {
 
         KeyFrame keyFrame = new KeyFrame(Duration.seconds(0.017), ev -> {
 
-            // 1. Déplacement ennemis
+            //Déplacement ennemis + Dégât patient
             if (temps % 12 == 0) {
                 for (Ennemi e : ennemisActifs) {
                     if (e.estVivant()) e.deplacer(distMap);
                 }
+                for (Ennemi e : ennemisActifs) {
+                    if (e.estVivant() && e.getX() == 23 * 32 && e.getY() == 12 * 32 && patient.estVivant()) {
+                        patient.setPv(patient.getPv() - e.getAttaque());
+                        if (patient.getPv() <= 0) {
+                            patient.setPv(0);
+                            labelPV.setText("0 / MORT");
+                        } else {
+                            labelPV.setText(patient.getPv() + " / " + patient.getPvMax());
+                        }
+                    }
+                }
             }
 
-            // 2. Spawn vague
+            //Spawn vague
             if (ennemisRestantsDansVague > 0) {
                 timerSpawn++;
                 if (timerSpawn >= intervalleSpawn) {
@@ -151,25 +162,13 @@ public class Controleur implements Initializable {
                 }
             }
 
-            // 3. Dégâts sur le patient
-            for (Ennemi e : ennemisActifs) {
-                if (e.estVivant() && e.getX() == 23 * 32 && e.getY() == 12 * 32 && patient.estVivant()) {
-                    patient.setPv(patient.getPv() - e.getAttaque());
-                    if (patient.getPv() <= 0) {
-                        patient.setPv(0);
-                        labelPV.setText("0 / MORT");
-                    } else {
-                        labelPV.setText(patient.getPv() + " / " + patient.getPvMax());
-                    }
-                }
-            }
 
-            // 4. tickCooldown : on décrémente le compteur de chaque tour à chaque frame
+            //tickCooldown : on décrémente le compteur de chaque tour à chaque frame
             for (Tour tour : toursActives) {
                 tour.tickCooldown();
             }
 
-            // 5. Tours : tir sur le premier ennemi à portée
+            //Tours : tir sur le premier ennemi à portée
             for (Tour tour : toursActives) {
                 for (Ennemi e : ennemisActifs) {
                     if (e.estVivant() && tour.peutTirer(e)) {
@@ -187,7 +186,7 @@ public class Controleur implements Initializable {
                 }
             }
 
-            // 6. Déplacer projectiles + mettre à jour position
+            //Déplacer projectiles + mettre à jour position
             for (Projectile proj : projectilesActifs) {
                 proj.deplacer();
                 Circle cercle = vuesProjectiles.get(proj);
@@ -197,7 +196,7 @@ public class Controleur implements Initializable {
                 }
             }
 
-            // 7. Retirer les projectiles arrivés
+            //Retirer les projectiles arrivés
             List<Projectile> aSupprimer = new ArrayList<>();
             for (Projectile proj : projectilesActifs) {
                 if (!proj.estActif()) {
