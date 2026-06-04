@@ -15,6 +15,9 @@ import universite_paris8.iut.aulhassan.maphopital.modele.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.control.Button;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.paint.Color;
+
 import javafx.scene.control.Label;
 
 import java.net.URL;
@@ -266,6 +269,7 @@ public class Controleur implements Initializable {
                 panneauJeu.getChildren().add(tourPosee);
 
                 idTourSelect = -1;
+
                 System.out.println("Tour posée en [" + ligne + "][" + col + "]");
             } else {
                 System.out.println("Case invalide !");

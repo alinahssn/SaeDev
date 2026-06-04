@@ -34,16 +34,16 @@ public class BFS {
                 int nc = c + dir[0];
                 int nl = l + dir[1];
 
-                // Hors grille ?
-                if (nc < 0 || nc >= terrain.getLargeur()) continue;
-                if (nl < 0 || nl >= terrain.getHauteur()) continue;
-                // Déjà visité ?
-                if (distMap[nl][nc] != -1) continue;
-                // Pas une case praticable ?
-                if (terrain.getMap()[nl][nc] != 0) continue;
-
-                distMap[nl][nc] = distMap[l][c] + 1;
-                file.add(new int[]{nc, nl});
+                if (nc >= 0 && nc < terrain.getLargeur()) {
+                    if (nl >= 0 && nl < terrain.getHauteur()) {
+                        if (distMap[nl][nc] == -1) {
+                            if (terrain.getMap()[nl][nc] == 0) {
+                                distMap[nl][nc] = distMap[l][c] + 1;
+                                file.add(new int[]{nc, nl});
+                            }
+                        }
+                    }
+                }
             }
         }
     }

@@ -6,7 +6,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 
 public class Ennemi {
 
-    private SimpleIntegerProperty x = new SimpleIntegerProperty(16);
+    private SimpleIntegerProperty x = new SimpleIntegerProperty(0);
     private SimpleIntegerProperty y = new SimpleIntegerProperty(0);
 
     private int pv;
@@ -16,7 +16,8 @@ public class Ennemi {
     private int recompense;
     private boolean estMort;
     private Terrain terrain;
-
+    private int ciblePixelX;
+    private int ciblePixelY;
 
     public Ennemi(int pv, int attaque, int vitesse, int recompense) {
         this.pv = pv;
@@ -113,34 +114,49 @@ public class Ennemi {
     }
 
     public void deplacer(int[][] distMap) {
-        int col = getX() / 32; // 32 = taille d'une tuile
+
+
+        if (ciblePixelX == 0 && ciblePixelY == 0) {
+            ciblePixelX = getX();
+            ciblePixelY = getY();
+        }
+
+        if(getX() == ciblePixelX && getY() == ciblePixelY) {
+
+        int col = getX() / 32;
         int lig = getY() / 32;
 
         int[][] directions = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
 
         int bestCol = col, bestLig = lig;
-        int bestDist = distMap[lig][col]; // distance actuelle
+        int bestDist = distMap[lig][col];
 
         for (int[] dir : directions) {
             int nc = col + dir[0];
             int nl = lig + dir[1];
 
-            // Hors grille ?
-            if (nc < 0 || nc >= distMap[0].length) continue;
-            if (nl < 0 || nl >= distMap.length) continue;
-            // Case non atteignable ?
-            if (distMap[nl][nc] == -1) continue;
-
-            if (distMap[nl][nc] < bestDist) {
-                bestDist = distMap[nl][nc];
-                bestCol = nc;
-                bestLig = nl;
+            if (nc >= 0 && nc < distMap[0].length) {
+                if (nl >= 0 && nl < distMap.length) {
+                    if (distMap[nl][nc] != -1) {
+                        if (distMap[nl][nc] < bestDist) {
+                            bestDist = distMap[nl][nc];
+                            bestCol = nc;
+                            bestLig = nl;
+                        }
+                    }
+                }
             }
         }
+        ciblePixelX = bestCol * 32;
+        ciblePixelY = bestLig * 32;
+        }
 
-        // On se déplace vers la meilleure case
-        setX(bestCol * 32);
-        setY(bestLig * 32);
+
+        if (getX() < ciblePixelX) setX(getX() + vitesse);
+        if (getX() > ciblePixelX) setX(getX() - vitesse);
+        if (getY() < ciblePixelY) setY(getY() + vitesse);
+        if (getY() > ciblePixelY) setY(getY() - vitesse);
+
     }
 
 }
