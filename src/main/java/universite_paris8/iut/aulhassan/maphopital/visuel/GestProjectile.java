@@ -1,0 +1,73 @@
+package universite_paris8.iut.aulhassan.maphopital.visuel;
+
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import universite_paris8.iut.aulhassan.maphopital.modele.*;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public class GestProjectile {
+
+    private Pane panneauJeu;
+    private EnvironnementJeu environnement;
+
+    // On rapatrie les listes qui gèrent les projectiles et leurs ronds orange ici
+    private List<Projectile> projectilesActifs = new ArrayList<>();
+    private Map<Projectile, Circle> vuesProjectiles = new HashMap<>();
+
+    // Le constructeur reçoit le panneau pour dessiner et l'environnement pour lire les données
+    public GestProjectile(Pane panneauJeu, EnvironnementJeu environnement) {
+        this.panneauJeu = panneauJeu;
+        this.environnement = environnement;
+    }
+
+    public void tiquerProjectiles() {
+        // 1. tickCooldown : on décrémente le compteur de chaque tour
+        for (Tour tour : environnement.getToursActives()) {
+            tour.tickCooldown();
+        }
+
+        // 2. Tours : tir sur le premier ennemi à portée et création du rond orange
+        for (Tour tour : environnement.getToursActives()) {
+            for (Ennemi e : environnement.getEnnemisActifs()) {
+                if (e.estVivant() && tour.peutTirer(e)) {
+                    Projectile proj = new Projectile(tour.getX() + 16, tour.getY() + 16, e, tour.getDegat());
+                    projectilesActifs.add(proj);
+
+                    Circle cercle = new Circle(5, Color.ORANGE);
+                    cercle.setLayoutX(proj.getX());
+                    cercle.setLayoutY(proj.getY());
+                    panneauJeu.getChildren().add(cercle);
+                    vuesProjectiles.put(proj, cercle);
+                }
+            }
+        }
+
+        // 3. Déplacer projectiles + mettre à jour la position du cercle sur l'écran
+        for (Projectile proj : projectilesActifs) {
+            proj.deplacer();
+            Circle cercle = vuesProjectiles.get(proj);
+            if (cercle != null) {
+                cercle.setLayoutX(proj.getX());
+                cercle.setLayoutY(proj.getY());
+            }
+        }
+
+        // 4. Retirer les projectiles arrivés (Moteur mathématique + Moteur graphique)
+        List<Projectile> aSupprimer = new ArrayList<>();
+        for (Projectile proj : projectilesActifs) {
+            if (!proj.estActif()) {
+                aSupprimer.add(proj);
+                Circle cercle = vuesProjectiles.remove(proj);
+                if (cercle != null) {
+                    panneauJeu.getChildren().remove(cercle);
+                }
+            }
+        }
+        projectilesActifs.removeAll(aSupprimer);
+    }
+}
