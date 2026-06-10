@@ -27,7 +27,7 @@ public class Vague {
                 timerSpawn = 0;
                 ennemisRestantsDansVague--;
 
-                // Création purement mathématique de l'objet Ennemi
+                // Création purement mathématique de l'objet universite_paris8.iut.aulhassan.maphopital.modele.Ennemi.Ennemi
                 Gastrique nouvelEnnemi = new Gastrique();
                 nouvelEnnemi.setX(16 * 32);
                 nouvelEnnemi.setY(0 * 32);

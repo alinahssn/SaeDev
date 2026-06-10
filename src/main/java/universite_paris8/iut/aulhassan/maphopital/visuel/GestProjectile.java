@@ -1,10 +1,12 @@
 package universite_paris8.iut.aulhassan.maphopital.visuel;
 
+import javafx.scene.Node;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
+
+import universite_paris8.iut.aulhassan.maphopital.Controleur;
 import universite_paris8.iut.aulhassan.maphopital.modele.*;
 
+import javafx.scene.image.ImageView;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -14,15 +16,17 @@ public class GestProjectile {
 
     private Pane panneauJeu;
     private EnvironnementJeu environnement;
+    private Controleur controleur;
 
     // On rapatrie les listes qui gèrent les projectiles et leurs ronds orange ici
     private List<Projectile> projectilesActifs = new ArrayList<>();
-    private Map<Projectile, Circle> vuesProjectiles = new HashMap<>();
+    private Map<Projectile, Node> vuesProjectiles = new HashMap<>();
 
     // Le constructeur reçoit le panneau pour dessiner et l'environnement pour lire les données
-    public GestProjectile(Pane panneauJeu, EnvironnementJeu environnement) {
+    public GestProjectile(Pane panneauJeu, EnvironnementJeu environnement, Controleur controleur) {
         this.panneauJeu = panneauJeu;
         this.environnement = environnement;
+        this.controleur = controleur;
     }
 
     public void tiquerProjectiles() {
@@ -38,11 +42,17 @@ public class GestProjectile {
                     Projectile proj = new Projectile(tour.getX() + 16, tour.getY() + 16, e, tour.getDegat());
                     projectilesActifs.add(proj);
 
-                    Circle cercle = new Circle(5, Color.ORANGE);
-                    cercle.setLayoutX(proj.getX());
-                    cercle.setLayoutY(proj.getY());
-                    panneauJeu.getChildren().add(cercle);
-                    vuesProjectiles.put(proj, cercle);
+                    ImageView vueProj = new ImageView(controleur.chargerImage(tour.getNomImageProjectile()));//ajout des attributs dans la classe tour
+                    int taille = tour.getTailleProjectile();
+
+                    vueProj.setFitWidth(taille);
+                    vueProj.setFitHeight(taille);
+
+                    vueProj.setLayoutX(proj.getX());
+                    vueProj.setLayoutY(proj.getY());
+
+                    panneauJeu.getChildren().add(vueProj);
+                    vuesProjectiles.put(proj, vueProj);
                 }
             }
         }
@@ -50,10 +60,13 @@ public class GestProjectile {
         // 3. Déplacer projectiles + mettre à jour la position du cercle sur l'écran
         for (Projectile proj : projectilesActifs) {
             proj.deplacer();
-            Circle cercle = vuesProjectiles.get(proj);
-            if (cercle != null) {
-                cercle.setLayoutX(proj.getX());
-                cercle.setLayoutY(proj.getY());
+            Node vue = vuesProjectiles.get(proj);
+            if (vue != null) {
+                int taille = (int) vue.getBoundsInLocal().getWidth();//seulement le gel qui a un etaille de 62
+                 if (taille==16) {
+                     vue.setLayoutX(proj.getX());
+                     vue.setLayoutY(proj.getY());
+                 }
             }
         }
 
@@ -62,9 +75,9 @@ public class GestProjectile {
         for (Projectile proj : projectilesActifs) {
             if (!proj.estActif()) {
                 aSupprimer.add(proj);
-                Circle cercle = vuesProjectiles.remove(proj);
-                if (cercle != null) {
-                    panneauJeu.getChildren().remove(cercle);
+                Node vue = vuesProjectiles.remove(proj);
+                if (vue != null) {
+                    panneauJeu.getChildren().remove(vue);
                 }
             }
         }
