@@ -11,6 +11,11 @@ public class Tour {
     private int vitesse;
     private int portee;
 
+    private String nomImageProj;
+    private int tailleProj;
+    private boolean projFixe;
+
+
     // cooldownMax : nombre de frames à attendre entre chaque tir
     // la game loop tourne à ~60 frames/sec, donc 60 = 1 tir par seconde
     private int cooldownMax = 60;
@@ -19,12 +24,20 @@ public class Tour {
     // quand il vaut 0, la tour est prête à tirer
     private int cooldownActuel = 0;
 
-    public Tour(int cout, int degat, int vitesse, int portee) {
+    public Tour(int cout, int degat, int vitesse, int portee, String nomImageProj, int tailleProj, boolean projFixe) {
         this.cout = cout;
         this.degat = degat;
         this.vitesse = vitesse;
         this.portee = portee;
+
+        this.nomImageProj = nomImageProj;
+        this.tailleProj = tailleProj;
+        this.projFixe = projFixe;
     }
+
+    public String getNomImageProjectile() { return nomImageProj; }
+    public int getTailleProjectile()      { return tailleProj; }
+    public boolean isProjectileFixe()     { return projFixe; }
 
     public int getCout()    { return cout; }
     public int getDegat()   { return degat; }

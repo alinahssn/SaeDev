@@ -23,6 +23,11 @@ public class Controleur implements Initializable {
     private GestClic clictours;
 
     @FXML private Button btnInterne;
+    @FXML private Button btnGel;
+    @FXML private Button btnBranca;
+    @FXML private Button btnAne;
+    @FXML private Button btnMasque;
+    @FXML private Button btnChir;
     @FXML private TilePane tilehopital;
     @FXML private Label labelPV;
     @FXML private Pane panneauJeu;
@@ -38,10 +43,10 @@ public class Controleur implements Initializable {
         VueTerrain vueTerrain = new VueTerrain(tilehopital, environnement.getTerrain(), this);
         vueTerrain.dessinerCartographie();
 
-        this.clictours = new GestClic(this, btnInterne, panneauJeu, environnement);
+        this.clictours = new GestClic(this, btnInterne, btnGel, btnBranca, btnAne, btnMasque, btnChir, panneauJeu, environnement);
         this.clictours.configurer();
 
-        this.gestProjectile = new GestProjectile(panneauJeu, environnement);
+        this.gestProjectile = new GestProjectile(panneauJeu, environnement, this);
         this.vague = new Vague(environnement);
 
         environnement.getPatient().pvProperty().addListener((observable, ancienneValeur, nouvelleValeur) -> {

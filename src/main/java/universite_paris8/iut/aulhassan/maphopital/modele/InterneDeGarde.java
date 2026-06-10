@@ -7,6 +7,6 @@ public class InterneDeGarde extends Tour {
     private static final int PORTEE  = 3;
 
     public InterneDeGarde() {
-        super(COUT, ATTAQUE, VITESSE, PORTEE);
+        super(COUT, ATTAQUE, VITESSE, PORTEE, "pillule.png",16, false);
     }
 }
