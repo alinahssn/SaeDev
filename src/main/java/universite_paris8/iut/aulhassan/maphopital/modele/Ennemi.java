@@ -1,31 +1,32 @@
-package universite_paris8.iut.aulhassan.maphopital.modele;
+package universite_paris8.iut.aulhassan.maphopital.modele.Ennemi;
 
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.binding.NumberBinding;
+import javafx.beans.binding.NumberExpression;
 import javafx.beans.property.SimpleIntegerProperty;
+import universite_paris8.iut.aulhassan.maphopital.modele.Terrain;
+import javafx.beans.binding.NumberExpression;
+import javafx.beans.property.SimpleIntegerProperty;
+import universite_paris8.iut.aulhassan.maphopital.modele.Terrain;
 
 public class Ennemi {
 
-    private SimpleIntegerProperty x = new SimpleIntegerProperty(0);
+    private SimpleIntegerProperty x = new SimpleIntegerProperty(16);
     private SimpleIntegerProperty y = new SimpleIntegerProperty(0);
 
-    private int pv;
+    private SimpleIntegerProperty pv;
     private int pvMax;
     private int attaque;
     private int vitesse;
     private int recompense;
     private boolean estMort;
     private Terrain terrain;
-    private int ciblePixelX;
-    private int ciblePixelY;
 
     public Ennemi(int pv, int attaque, int vitesse, int recompense) {
-        this.pv = pv;
         this.pvMax = pv;
+        this.pv = new SimpleIntegerProperty(pv);
         this.attaque = attaque;
         this.vitesse = vitesse;
         this.recompense = recompense;
-
     }
 
     public Ennemi() {
@@ -33,7 +34,7 @@ public class Ennemi {
     }
 
     public int getPv() {
-        return pv;
+        return pv.get();
     }
 
     public int getPvMax() {
@@ -52,12 +53,8 @@ public class Ennemi {
         return recompense;
     }
 
-    public void setPv(int pv) {
-        this.pv = pv;
-    }
-
-    public void setPvMax(int pvMax) {
-        this.pvMax = pvMax;
+    public void setPv(int val) {
+        pv.set(val);
     }
 
     public void setAttaque(int attaque) {
@@ -73,12 +70,8 @@ public class Ennemi {
     }
 
     public void subirDegats(int degats) {
-        this.pv -= degats;
-
-        if (this.pv <= 0) {
-            this.pv = 0;
-            mourir();
-        }
+        pv.set(Math.max(0, pv.get() - degats));
+        if (pv.get() <= 0) mourir();
     }
 
     private void mourir() {
@@ -86,7 +79,7 @@ public class Ennemi {
     }
 
     public boolean estVivant() {
-        return this.pv > 0;
+        return this.pv.get() > 0;
     }
 
     public int getX() {
@@ -114,15 +107,6 @@ public class Ennemi {
     }
 
     public void deplacer(int[][] distMap) {
-
-
-        if (ciblePixelX == 0 && ciblePixelY == 0) {
-            ciblePixelX = getX();
-            ciblePixelY = getY();
-        }
-
-        if(getX() == ciblePixelX && getY() == ciblePixelY) {
-
         int col = getX() / 32;
         int lig = getY() / 32;
 
@@ -135,28 +119,22 @@ public class Ennemi {
             int nc = col + dir[0];
             int nl = lig + dir[1];
 
-            if (nc >= 0 && nc < distMap[0].length) {
-                if (nl >= 0 && nl < distMap.length) {
-                    if (distMap[nl][nc] != -1) {
-                        if (distMap[nl][nc] < bestDist) {
-                            bestDist = distMap[nl][nc];
-                            bestCol = nc;
-                            bestLig = nl;
-                        }
-                    }
-                }
+            if (nc < 0 || nc >= distMap[0].length) continue;
+            if (nl < 0 || nl >= distMap.length) continue;
+            if (distMap[nl][nc] == -1) continue;
+
+            if (distMap[nl][nc] < bestDist) {
+                bestDist = distMap[nl][nc];
+                bestCol = nc;
+                bestLig = nl;
             }
         }
-        ciblePixelX = bestCol * 32;
-        ciblePixelY = bestLig * 32;
-        }
 
-
-        if (getX() < ciblePixelX) setX(getX() + vitesse);
-        if (getX() > ciblePixelX) setX(getX() - vitesse);
-        if (getY() < ciblePixelY) setY(getY() + vitesse);
-        if (getY() > ciblePixelY) setY(getY() - vitesse);
-
+        setX(bestCol * 32);
+        setY(bestLig * 32);
     }
 
+    public SimpleIntegerProperty pvProperty() {
+        return pv;
+    }
 }

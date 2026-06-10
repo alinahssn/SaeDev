@@ -8,6 +8,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.util.Duration;
 import universite_paris8.iut.aulhassan.maphopital.modele.*;
+import universite_paris8.iut.aulhassan.maphopital.modele.Ennemi.Ennemi;
 import universite_paris8.iut.aulhassan.maphopital.visuel.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -15,6 +16,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import java.net.URL;
 import java.util.ResourceBundle;
+import universite_paris8.iut.aulhassan.maphopital.visuel.BarreVie;
+
 
 public class Controleur implements Initializable {
 
@@ -23,15 +26,8 @@ public class Controleur implements Initializable {
     private GestClic clictours;
 
     @FXML private Button btnInterne;
-    @FXML private Button btnGel;
-    @FXML private Button btnBranca;
-    @FXML private Button btnAne;
-    @FXML private Button btnMasque;
-    @FXML private Button btnChir;
-    @FXML private Button btnRevente;
     @FXML private TilePane tilehopital;
     @FXML private Label labelPV;
-    @FXML private Label labelBudget;
     @FXML private Pane panneauJeu;
 
     private Vague vague;
@@ -45,10 +41,10 @@ public class Controleur implements Initializable {
         VueTerrain vueTerrain = new VueTerrain(tilehopital, environnement.getTerrain(), this);
         vueTerrain.dessinerCartographie();
 
-        this.clictours = new GestClic(this, btnInterne, btnGel, btnBranca, btnAne, btnMasque, btnChir, btnRevente, panneauJeu, environnement);
+        this.clictours = new GestClic(this, btnInterne, panneauJeu, environnement);
         this.clictours.configurer();
 
-        this.gestProjectile = new GestProjectile(panneauJeu, environnement, this);
+        this.gestProjectile = new GestProjectile(panneauJeu, environnement);
         this.vague = new Vague(environnement);
 
         environnement.getPatient().pvProperty().addListener((observable, ancienneValeur, nouvelleValeur) -> {
@@ -60,7 +56,6 @@ public class Controleur implements Initializable {
         });
 
         labelPV.setText(environnement.getPatient().getPv() + " / " + environnement.getPatient().getPvMax());
-        rafraichirBudget();
 
         initAnimation();
         gameloop.play();
@@ -96,12 +91,14 @@ public class Controleur implements Initializable {
             Ennemi nouvelEnnemi = vague.tickSpawn();
 
             if (nouvelEnnemi != null) {
+                BarreVie barreVie = new BarreVie(nouvelEnnemi);
+
                 ImageView vueEnnemi = new ImageView(chargerImage("gastrique.png"));
                 vueEnnemi.setFitWidth(32);
                 vueEnnemi.setFitHeight(32);
                 vueEnnemi.translateXProperty().bind(nouvelEnnemi.xProperty());
                 vueEnnemi.translateYProperty().bind(nouvelEnnemi.yProperty());
-                panneauJeu.getChildren().add(vueEnnemi);
+                panneauJeu.getChildren().addAll(barreVie, vueEnnemi);
             }
 
             gestProjectile.tiquerProjectiles();
@@ -122,10 +119,6 @@ public class Controleur implements Initializable {
         if (environnement.getPatient().estVivant()) {
             environnement.getPatient().soigner(5);
         }
-    }
-
-    public void rafraichirBudget() {
-        labelBudget.setText("Budget : "+environnement.getBudget() + "€");
     }
 
 
