@@ -1,5 +1,7 @@
 package universite_paris8.iut.aulhassan.maphopital.modele;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -7,6 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EnvironnementJeu {
+
+    private static final int BUDGET_DEPART = 200;
+    private IntegerProperty budget = new SimpleIntegerProperty(BUDGET_DEPART);
 
     // On regroupe les objets du modèle qu'on a déjà
     private Terrain terrain;
@@ -42,4 +47,20 @@ public class EnvironnementJeu {
     public ObservableList<Ennemi> getEnnemisActifs() { return ennemisActifs; }
 
     public List<Projectile> getProjectilesActifs() { return projectilesActifs; }
+
+    public int getBudget() { return budget.get(); }
+    public void setBudget(int valeur) { budget.set(valeur); }
+    public IntegerProperty budgetProperty() { return budget; }
+
+
+    public boolean acheterTour(int cout) {
+        if (budget.get() < cout) return false;
+        budget.set(budget.get() - cout);
+        return true;
+    }
+
+
+    public void encaisserRecompense(int recompense) {
+        budget.set(budget.get() + recompense);
+    }
 }

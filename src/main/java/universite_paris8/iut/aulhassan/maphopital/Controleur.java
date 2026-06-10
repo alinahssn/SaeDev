@@ -31,6 +31,7 @@ public class Controleur implements Initializable {
     @FXML private TilePane tilehopital;
     @FXML private Label labelPV;
     @FXML private Pane panneauJeu;
+    @FXML private Label labelBudget;
 
     private Vague vague;
     private GestProjectile gestProjectile;
@@ -58,6 +59,11 @@ public class Controleur implements Initializable {
         });
 
         labelPV.setText(environnement.getPatient().getPv() + " / " + environnement.getPatient().getPvMax());
+
+        environnement.budgetProperty().addListener((observable, ancienneValeur, nouvelleValeur) -> {
+            labelBudget.setText("Budget : " + nouvelleValeur);
+        });
+        labelBudget.setText("Budget : " + environnement.getBudget());
 
         initAnimation();
         gameloop.play();
