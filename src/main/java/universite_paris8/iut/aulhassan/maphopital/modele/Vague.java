@@ -5,7 +5,7 @@ public class Vague {
     private EnvironnementJeu environnement;
     private int ennemisRestantsDansVague = 0;
     private int timerSpawn = 0;
-    private int intervalleSpawn = 80;
+    private int intervalleSpawn = 60;
 
     public Vague(EnvironnementJeu environnement) {
         this.environnement = environnement;
