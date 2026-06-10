@@ -18,11 +18,9 @@ public class GestProjectile {
     private EnvironnementJeu environnement;
     private Controleur controleur;
 
-    // On rapatrie les listes qui gèrent les projectiles et leurs ronds orange ici
     private List<Projectile> projectilesActifs = new ArrayList<>();
     private Map<Projectile, Node> vuesProjectiles = new HashMap<>();
 
-    // Le constructeur reçoit le panneau pour dessiner et l'environnement pour lire les données
     public GestProjectile(Pane panneauJeu, EnvironnementJeu environnement, Controleur controleur) {
         this.panneauJeu = panneauJeu;
         this.environnement = environnement;
@@ -35,14 +33,14 @@ public class GestProjectile {
             tour.tickCooldown();
         }
 
-        // 2. Tours : tir sur le premier ennemi à portée et création du rond orange
+        // 2. Tours : tir sur le premier ennemi à portée
         for (Tour tour : environnement.getToursActives()) {
             for (Ennemi e : environnement.getEnnemisActifs()) {
                 if (e.estVivant() && tour.peutTirer(e)) {
                     Projectile proj = new Projectile(tour.getX() + 16, tour.getY() + 16, e, tour.getDegat());
                     projectilesActifs.add(proj);
 
-                    ImageView vueProj = new ImageView(controleur.chargerImage(tour.getNomImageProjectile()));//ajout des attributs dans la classe tour
+                    ImageView vueProj = new ImageView(controleur.chargerImage(tour.getNomImageProjectile()));//ajout des attributs dans la classe tour= pas de repetition de code
                     int taille = tour.getTailleProjectile();
 
                     vueProj.setFitWidth(taille);
@@ -57,7 +55,7 @@ public class GestProjectile {
             }
         }
 
-        // 3. Déplacer projectiles + mettre à jour la position du cercle sur l'écran
+        // 3. Déplacer projectiles + mettre à jour la position du proj
         for (Projectile proj : projectilesActifs) {
             proj.deplacer();
             Node vue = vuesProjectiles.get(proj);

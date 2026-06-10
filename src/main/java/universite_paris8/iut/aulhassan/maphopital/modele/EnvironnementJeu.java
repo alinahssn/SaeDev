@@ -1,7 +1,5 @@
 package universite_paris8.iut.aulhassan.maphopital.modele;
 
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -10,13 +8,11 @@ import java.util.List;
 
 public class EnvironnementJeu {
 
-    private static final int BUDGET_DEPART = 200;
-    private IntegerProperty budget = new SimpleIntegerProperty(BUDGET_DEPART);
-
     // On regroupe les objets du modèle qu'on a déjà
     private Terrain terrain;
     private Patient patient;
     private int[][] distMap;
+    private int budget = 200;
 
     // On regroupe les listes de données qui étaient dans le contrôleur
     private List<Tour> toursActives;
@@ -41,6 +37,7 @@ public class EnvironnementJeu {
     public Terrain getTerrain() { return terrain; }
     public Patient getPatient() { return patient; }
     public int[][] getDistMap() { return distMap; }
+    public int getBudget() { return budget; }
 
     public List<Tour> getToursActives() { return toursActives; }
 
@@ -48,19 +45,15 @@ public class EnvironnementJeu {
 
     public List<Projectile> getProjectilesActifs() { return projectilesActifs; }
 
-    public int getBudget() { return budget.get(); }
-    public void setBudget(int valeur) { budget.set(valeur); }
-    public IntegerProperty budgetProperty() { return budget; }
-
-
-    public boolean acheterTour(int cout) {
-        if (budget.get() < cout) return false;
-        budget.set(budget.get() - cout);
-        return true;
+    public void ajouterBudget (int montant) {
+        this.budget += montant;
     }
 
-
-    public void encaisserRecompense(int recompense) {
-        budget.set(budget.get() + recompense);
+    public boolean dépense (int montant){
+        if(this.budget >= montant){
+            this.budget -= montant;
+            return true;
+        }
+        return false;
     }
 }

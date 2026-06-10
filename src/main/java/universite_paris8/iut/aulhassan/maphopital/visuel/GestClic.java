@@ -20,10 +20,11 @@ public class GestClic {
     private Pane panneauJeu;
     private EnvironnementJeu environnement;
 
+    // Variables internes pour mémoriser l'état du clic
     private int idTourSelect = -1;
     private Rectangle caseHighlight = null;
 
-    public GestClic(Controleur controleur, Button btnInterne, Button btnGel, Button btnBranca, Button btnAne, Button btnMasque, Button btnChir, Pane panneauJeu, EnvironnementJeu environnement) {
+    public GestClic(Controleur controleur, Button btnInterne, Button btnGel, Button btnBranca , Button btnAne, Button btnMasque, Button btnChir, Pane panneauJeu, EnvironnementJeu environnement) {
         this.controleur = controleur;
         this.btnInterne = btnInterne;
         this.btnGel = btnGel;
@@ -35,28 +36,10 @@ public class GestClic {
         this.environnement = environnement;
     }
 
-    private Tour creerTour(int idTour) {
-        switch (idTour) {
-            case 1: return new InterneDeGarde();
-            case 2: return new Infirmier();
-            case 3: return new Brancardier();
-            case 4: return new Anesthésiste();
-            case 5: return new Masquier();
-            case 6: return new Chirurgien();
-            default: return null;
-        }
-    }
-
     private void enregistrerClicBouton(Button bouton, int idTour, String nomTour) {
         bouton.setOnAction(event -> {
             if (environnement.getPatient().getPv() == 0) {
                 System.out.println("GAME OVER : Le patient est mort ! Impossible de poser une tour");
-                return;
-            }
-            // Vérification budget avant même de sélectionner la tour
-            Tour tourTemp = creerTour(idTour);
-            if (tourTemp != null && environnement.getBudget() < tourTemp.getCout()) {
-                System.out.println("Budget insuffisant");
                 return;
             }
             this.idTourSelect = idTour;
@@ -65,13 +48,13 @@ public class GestClic {
     }
 
     public void configurer() {
-        // 1. Clic sur les boutons
+        // 1. Clic sur le bouton
         enregistrerClicBouton(btnInterne, 1, "Interne de Garde");
-        enregistrerClicBouton(btnGel,     2, "Infirmier");
-        enregistrerClicBouton(btnBranca,  3, "Brancardier");
-        enregistrerClicBouton(btnAne,     4, "Anesthésiste");
-        enregistrerClicBouton(btnMasque,  5, "Masquier");
-        enregistrerClicBouton(btnChir,    6, "Chir");
+        enregistrerClicBouton(btnGel, 2, "Infirmier");
+        enregistrerClicBouton(btnBranca, 3, "Brancardier");
+        enregistrerClicBouton(btnAne, 4, "Anesthésiste");
+        enregistrerClicBouton(btnMasque, 5, "Masquier");
+        enregistrerClicBouton(btnChir, 6, "Chir");
 
         // 2. Clic sur le panneau pour poser la tour
         panneauJeu.setOnMouseClicked(event -> {
@@ -81,56 +64,69 @@ public class GestClic {
             int ligne = (int) event.getY() / 32;
 
             if (environnement.getTerrain().getMap()[ligne][col] == 1) {
+                //environnement.getTerrain().getMap()[ligne][col] = 12; avant le budget
 
-                Tour nouvelleTour = creerTour(idTourSelect);
-                if (nouvelleTour == null) { idTourSelect = -1; return; }
-
-                if (!environnement.acheterTour(nouvelleTour.getCout())) {
-                    System.out.println("Budget insuffisant");
-                    idTourSelect = -1;
-                    return;
-                }
-
-                environnement.getTerrain().getMap()[ligne][col] = 12;
-                nouvelleTour.setX(col * 32);
-                nouvelleTour.setY(ligne * 32);
-                environnement.getToursActives().add(nouvelleTour);
-
+                // On déclare nos objets vides
+                Tour nouvelleTour = null;
                 ImageView tourPosee = new ImageView();
-                if (idTourSelect == 1) {
-                    nouvelleTour = new InterneDeGarde();
-                    tourPosee.setImage(((ImageView) btnInterne.getGraphic()).getImage());
-                } else if (idTourSelect == 2) {
-                    nouvelleTour = new Infirmier();
-                    tourPosee.setImage(((ImageView) btnGel.getGraphic()).getImage());
-                } else if (idTourSelect == 3) {
-                    nouvelleTour = new Brancardier();
-                    tourPosee.setImage(((ImageView) btnBranca.getGraphic()).getImage());
-                } else if (idTourSelect == 4) {
-                    nouvelleTour = new Anesthésiste();
-                    tourPosee.setImage(((ImageView) btnAne.getGraphic()).getImage());
-                } else if (idTourSelect == 5) {
-                    nouvelleTour = new Masquier();
-                    tourPosee.setImage(((ImageView) btnMasque.getGraphic()).getImage());
-                } else if (idTourSelect == 6) {
-                    nouvelleTour = new Anesthésiste();
-                    tourPosee.setImage(((ImageView) btnChir.getGraphic()).getImage());
+
+                switch (idTourSelect) {
+                    case 1 -> {
+                        nouvelleTour = new InterneDeGarde();
+                        tourPosee.setImage(((ImageView) btnInterne.getGraphic()).getImage());
+                    }
+                    case 2 -> {
+                        nouvelleTour = new Infirmier();
+                        tourPosee.setImage(((ImageView) btnGel.getGraphic()).getImage());
+                    }
+                    case 3 -> {
+                        nouvelleTour = new Brancardier();
+                        tourPosee.setImage(((ImageView) btnBranca.getGraphic()).getImage());
+                    }
+                    case 4 -> {
+                        nouvelleTour = new Anesthésiste();
+                        tourPosee.setImage(((ImageView) btnAne.getGraphic()).getImage());
+                    }
+                    case 5 -> {
+                        nouvelleTour = new Masquier();
+                        tourPosee.setImage(((ImageView) btnMasque.getGraphic()).getImage());
+                    }
+                    case 6 -> {
+                        nouvelleTour = new Chirurgien();
+                        tourPosee.setImage(((ImageView) btnChir.getGraphic()).getImage());
+                    }
                 }
-                tourPosee.setFitWidth(32);
-                tourPosee.setFitHeight(32);
-                tourPosee.setLayoutX(col * 32);
-                tourPosee.setLayoutY(ligne * 32);
-                panneauJeu.getChildren().add(tourPosee);
 
-                System.out.println("Tour posée en [" + ligne + "][" + col + "]");
-                idTourSelect = -1;
+                // Si la tour a bien été créée, on la place avant on verifie le budget
+                if (nouvelleTour != null) {
+                    int coutTour = nouvelleTour.getCout();
 
+                    if (environnement.dépense(coutTour)) {
+                        environnement.getTerrain().getMap()[ligne][col] = 12;
+
+                        nouvelleTour.setX(col * 32);
+                        nouvelleTour.setY(ligne * 32);
+                        environnement.getToursActives().add(nouvelleTour);
+
+                        tourPosee.setFitWidth(32);
+                        tourPosee.setFitHeight(32);
+                        tourPosee.setLayoutX(col * 32);
+                        tourPosee.setLayoutY(ligne * 32);
+                        panneauJeu.getChildren().add(tourPosee);
+
+                        System.out.println("Tour posée en [" + ligne + "][" + col + "]");
+                        controleur.rafraichirBudget();
+                    } else {
+                        System.out.println("Achat impossible :Pas assez d'argent (Coût : " + coutTour + " €)");
+                    }
+                }
+                idTourSelect = -1; // Réinitialisation sélection
             } else {
                 System.out.println("Case invalide !");
             }
         });
 
-        // 3. Survol souris — prévisualisation colorée
+        // 3. Déplacement de la souris pour la prévisualisation (Highlight)
         panneauJeu.setOnMouseMoved(event -> {
             if (caseHighlight != null) panneauJeu.getChildren().remove(caseHighlight);
             if (idTourSelect == -1) return;

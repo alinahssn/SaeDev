@@ -8,6 +8,6 @@ public class Infirmier extends Tour {
     private static final int PORTEE  = 2;
 
     public Infirmier() {
-        super(COUT, ATTAQUE, VITESSE, PORTEE, "flaque.png", 64, true);
+        super(COUT, ATTAQUE, VITESSE, PORTEE, "flaque.png", 72, true);
     }
 }

@@ -27,7 +27,7 @@
 
    <right>
       <VBox fx:id="panneauTour" alignment="TOP_CENTER" prefWidth="250" spacing="15" styleClass="panneau-tours" BorderPane.alignment="CENTER">
-            <Label styleClass="label-tour" text="TOURS" textAlignment="CENTER"/>
+            <Label styleClass="label-tour" text="TOURS" textAlignment="CENTER" />
             <Button fx:id="btnInterne" alignment="CENTER" contentDisplay="TOP" prefHeight="85.0" prefWidth="228.0" text="Interne de Garde">
                <graphic>
                   <ImageView fitHeight="55.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true">
@@ -83,12 +83,16 @@
             </graphic>
          </Button>
 
+         <Button fx:id="btnRevente" alignment="CENTER" contentDisplay="TOP" prefHeight="57.0" prefWidth="232.0" text="Revente" />
+
+
+
       </VBox>
    </right>
 
    <bottom>
       <HBox alignment="CENTER" spacing="10" styleClass="barre-bas">
-         <Label fx:id="labelBudget" alignment="CENTER" prefHeight="57.0" prefWidth="205.0" styleClass="btn-bas" text="BUDGET" />
+         <Label fx:id="labelBudget" alignment="CENTER" prefHeight="56.0" prefWidth="228.0" styleClass="btn-bas" text="BUDGET" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" />
          <Label fx:id="labelPV" alignment="CENTER" prefHeight="57.0" prefWidth="221.0" styleClass="btn-bas" text="PV Patient" />
          <Label alignment="CENTER" prefHeight="58.0" prefWidth="146.0" styleClass="btn-bas" text="Vague" />
          <Button fx:id="btnBonus" onAction="#ajouteBonus" prefHeight="54.0" prefWidth="147.0" styleClass="btn-bas" text="BONUS" />
