@@ -6,7 +6,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 
 public class Ennemi {
 
-    private SimpleIntegerProperty x = new SimpleIntegerProperty(0);
+    private SimpleIntegerProperty x = new SimpleIntegerProperty(16);
     private SimpleIntegerProperty y = new SimpleIntegerProperty(0);
 
     private int pv;
