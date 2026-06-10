@@ -17,6 +17,7 @@ public class GestClic {
     private Button btnAne;
     private Button btnMasque;
     private Button btnChir;
+    private Button btnRevente;
     private Pane panneauJeu;
     private EnvironnementJeu environnement;
 
@@ -24,7 +25,12 @@ public class GestClic {
     private int idTourSelect = -1;
     private Rectangle caseHighlight = null;
 
-    public GestClic(Controleur controleur, Button btnInterne, Button btnGel, Button btnBranca , Button btnAne, Button btnMasque, Button btnChir, Pane panneauJeu, EnvironnementJeu environnement) {
+    private Tour tourSelectionnee = null;
+    private ImageView imageTourSelectionnee = null;
+
+
+
+    public GestClic(Controleur controleur, Button btnInterne, Button btnGel, Button btnBranca , Button btnAne, Button btnMasque, Button btnChir, Button btnRevente, Pane panneauJeu, EnvironnementJeu environnement) {
         this.controleur = controleur;
         this.btnInterne = btnInterne;
         this.btnGel = btnGel;
@@ -32,6 +38,7 @@ public class GestClic {
         this.btnAne = btnAne;
         this.btnMasque = btnMasque;
         this.btnChir = btnChir;
+        this.btnRevente = btnRevente;
         this.panneauJeu = panneauJeu;
         this.environnement = environnement;
     }
@@ -114,6 +121,16 @@ public class GestClic {
                         tourPosee.setLayoutY(ligne * 32);
                         panneauJeu.getChildren().add(tourPosee);
 
+                        //ajout de l'venement de clique pour le revente ici pour différencier chaque tours
+                        Tour tourAVendre = nouvelleTour;
+                        ImageView imageTourAVendre = new ImageView();
+
+                        tourPosee.setOnMouseClicked(clickSurTour->{
+                            this.tourSelectionnee = tourAVendre;
+                            this.imageTourSelectionnee = (ImageView) clickSurTour.getSource();
+                            System.out.println("Tour sélectionnée pour revente ! Cliquez sur 'Revente' pour valider.");
+                        });
+
                         System.out.println("Tour posée en [" + ligne + "][" + col + "]");
                         controleur.rafraichirBudget();
                     } else {
@@ -147,5 +164,32 @@ public class GestClic {
 
             panneauJeu.getChildren().add(caseHighlight);
         });
+
+
+        btnRevente.setOnAction(event -> {
+            if (tourSelectionnee != null && imageTourSelectionnee != null) {
+                int col = (int) tourSelectionnee.getX() / 32;
+                int ligne = (int) tourSelectionnee.getY() / 32;
+                environnement.getTerrain().getMap()[ligne][col] = 1;
+
+                revendreTour(tourSelectionnee, imageTourSelectionnee);
+
+
+                this.tourSelectionnee = null;
+                this.imageTourSelectionnee = null;
+            }else{
+                System.out.println("Impossible de vendre : Aucune tour n'a été sélectionnée!");
+            }
+        });
+    }
+
+    public void revendreTour (Tour tourAvendre, ImageView tourAEffacer) {
+        int argentRecupere = (int) (tourAvendre.getCout() * 0.7);
+        environnement.ajouterBudget(argentRecupere);
+        environnement.getToursActives().remove(tourAvendre);
+        panneauJeu.getChildren().remove(tourAEffacer);
+        controleur.rafraichirBudget();
+
+        System.out.println("Tour revendue pour " + argentRecupere + " €");
     }
 }

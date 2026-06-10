@@ -28,6 +28,7 @@ public class Controleur implements Initializable {
     @FXML private Button btnAne;
     @FXML private Button btnMasque;
     @FXML private Button btnChir;
+    @FXML private Button btnRevente;
     @FXML private TilePane tilehopital;
     @FXML private Label labelPV;
     @FXML private Label labelBudget;
@@ -44,7 +45,7 @@ public class Controleur implements Initializable {
         VueTerrain vueTerrain = new VueTerrain(tilehopital, environnement.getTerrain(), this);
         vueTerrain.dessinerCartographie();
 
-        this.clictours = new GestClic(this, btnInterne, btnGel, btnBranca, btnAne, btnMasque, btnChir, panneauJeu, environnement);
+        this.clictours = new GestClic(this, btnInterne, btnGel, btnBranca, btnAne, btnMasque, btnChir, btnRevente, panneauJeu, environnement);
         this.clictours.configurer();
 
         this.gestProjectile = new GestProjectile(panneauJeu, environnement, this);
