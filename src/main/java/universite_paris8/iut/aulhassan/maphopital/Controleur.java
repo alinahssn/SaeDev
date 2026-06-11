@@ -51,7 +51,7 @@ public class Controleur implements Initializable {
         this.gestProjectile = new GestProjectile(panneauJeu, environnement);
         this.vague = new Vague(environnement);
 
-        new VueBouton(environnement, labelPV, labelBudget); // ← les listeners sont là-dedans
+        new VueBouton(environnement, labelPV, labelBudget);
 
         initAnimation();
         gameloop.play();
