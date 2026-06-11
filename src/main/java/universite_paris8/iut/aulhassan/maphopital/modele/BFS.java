@@ -1,52 +1,74 @@
 package universite_paris8.iut.aulhassan.maphopital.modele;
 
-import java.util.LinkedList;
+import java.util.*;
 
 public class BFS {
 
-    private int[][] distMap;
-    private Terrain terrain;
+    private Graphes g;
+    private Sommet source;
+    private ArrayList<Sommet> parcours;
+    private Map<Sommet, Sommet> predecesseurs;
 
-    public BFS(Terrain terrain, int cibleCol, int cibleLigne) {
-        this.terrain = terrain;
-        this.distMap = new int[terrain.getHauteur()][terrain.getLargeur()];
-
-        // On remplit tout à -1 (= non visité)
-        for (int[] ligne : distMap)
-            java.util.Arrays.fill(ligne, -1);
-
-        calculer(cibleCol, cibleLigne);
+    public BFS(Graphes g, Sommet source) {
+        this.g = g;
+        this.source = source;
+        parcours = new ArrayList<>();
+        predecesseurs = new HashMap<>();
+        algoBFS();
     }
 
-    private void calculer(int cibleCol, int cibleLigne) {
-        LinkedList<int[]> file = new LinkedList<>();
-
-        distMap[cibleLigne][cibleCol] = 0;
-        file.add(new int[]{cibleCol, cibleLigne});
-
-        int[][] directions = {{0,1},{0,-1},{1,0},{-1,0}};
-
-        while (!file.isEmpty()) {
-            int[] actuel = file.poll();
-            int c = actuel[0], l = actuel[1];
-
-            for (int[] dir : directions) {
-                int nc = c + dir[0];
-                int nl = l + dir[1];
-
-                if (nc >= 0 && nc < terrain.getLargeur()) {
-                    if (nl >= 0 && nl < terrain.getHauteur()) {
-                        if (distMap[nl][nc] == -1) {
-                            if (terrain.getMap()[nl][nc] == 0) {
-                                distMap[nl][nc] = distMap[l][c] + 1;
-                                file.add(new int[]{nc, nl});
-                            }
-                        }
-                    }
+    private void algoBFS() {
+        LinkedList<Sommet> fifo = new LinkedList<>();
+        fifo.add(source);
+        predecesseurs.put(source, null);
+        while (!fifo.isEmpty()) {
+            Sommet actuel = fifo.poll();
+            parcours.add(actuel);
+            for (Sommet voisin : g.adjacents(actuel)) {
+                if (!predecesseurs.containsKey(voisin)) {
+                    predecesseurs.put(voisin, actuel);
+                    fifo.add(voisin);
                 }
             }
         }
     }
 
-    public int[][] getDistMap() { return distMap; }
+    public ArrayList<Sommet> cheminVersSource(Sommet cible) {
+        if (!predecesseurs.containsKey(cible)) {
+            return new ArrayList<>();
+        }
+        ArrayList<Sommet> chemin = new ArrayList<>();
+        Sommet actuel = cible;
+        while (actuel != null) {
+            chemin.add(actuel);
+            actuel = predecesseurs.get(actuel);
+        }
+        Collections.reverse(chemin);
+        return chemin;
+    }
+
+    public ArrayList<Sommet> getParcours() {
+        return parcours;
+    }
+
+    public Map<Sommet, Sommet> getPredecesseurs() {
+        return predecesseurs;
+    }
+
+    public void setSource(Sommet source) {
+        this.source = source;
+        clear();
+        algoBFS();
+    }
+
+    public void setG(Graphes g) {
+        this.g = g;
+        clear();
+        algoBFS();
+    }
+
+    private void clear() {
+        this.parcours.clear();
+        this.predecesseurs.clear();
+    }
 }

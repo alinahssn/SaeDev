@@ -3,6 +3,8 @@ package universite_paris8.iut.aulhassan.maphopital.modele.Ennemi;
 import javafx.beans.property.SimpleIntegerProperty;
 import universite_paris8.iut.aulhassan.maphopital.modele.Terrain;
 
+import java.util.ArrayList;
+
 public class Ennemi {
 
     private SimpleIntegerProperty x = new SimpleIntegerProperty(16*32);
@@ -15,6 +17,12 @@ public class Ennemi {
     private int recompense;
     private boolean estMort;
     private Terrain terrain;
+    private ArrayList<Sommet> chemin;
+    private int indexChemin = 0;
+    private int ciblePixelX = 0;
+    private int ciblePixelY = 0;
+
+
 
     public Ennemi(int pv, int attaque, int vitesse, int recompense) {
         this.pvMax = pv;
@@ -98,33 +106,38 @@ public class Ennemi {
         return this.y;
     }
 
-    public void deplacer(int[][] distMap) {
-        int col = getX() / 32;
-        int lig = getY() / 32;
+    public void setChemin(ArrayList<Sommet> chemin) {
+        this.chemin = chemin;
 
-        int[][] directions = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
+        if (chemin != null && chemin.size() > 1) {
 
-        int bestCol = col, bestLig = lig;
-        int bestDist = distMap[lig][col];
+            indexChemin = 1;
 
-        for (int[] dir : directions) {
-            int nc = col + dir[0];
-            int nl = lig + dir[1];
+            Sommet premier = chemin.get(1);
 
-            if (nc < 0 || nc >= distMap[0].length) continue;
-            if (nl < 0 || nl >= distMap.length) continue;
-            if (distMap[nl][nc] == -1) continue;
-
-            if (distMap[nl][nc] < bestDist) {
-                bestDist = distMap[nl][nc];
-                bestCol = nc;
-                bestLig = nl;
-            }
+            ciblePixelX = premier.getX() * 32;
+            ciblePixelY = premier.getY() * 32;
         }
-
-        setX(bestCol * 32);
-        setY(bestLig * 32);
     }
+
+    public void deplacer() {
+        if (chemin == null) return;
+
+
+        if (getX() < ciblePixelX) setX(getX() + vitesse);
+        else if (getX() > ciblePixelX) setX(getX() - vitesse);
+        if (getY() < ciblePixelY) setY(getY() + vitesse);
+        else if (getY() > ciblePixelY) setY(getY() - vitesse);
+
+
+        if (getX() == ciblePixelX && getY() == ciblePixelY && indexChemin < chemin.size()) {
+            Sommet prochaine = chemin.get(indexChemin);
+            ciblePixelX = prochaine.getX() * 32;
+            ciblePixelY = prochaine.getY() * 32;
+            indexChemin++;
+        }
+    }
+
 
     public SimpleIntegerProperty pvProperty() {
         return pv;
