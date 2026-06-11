@@ -7,7 +7,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import universite_paris8.iut.aulhassan.maphopital.Controleur;
 import universite_paris8.iut.aulhassan.maphopital.modele.*;
-
+//
 public class GestClic {
 
     private Controleur controleur;
