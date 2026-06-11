@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
+import javafx.scene.paint.Color;
 import javafx.util.Duration;
 import universite_paris8.iut.aulhassan.maphopital.modele.*;
 import universite_paris8.iut.aulhassan.maphopital.visuel.*;
@@ -60,8 +61,16 @@ public class Controleur implements Initializable {
             }
         });
 
-        labelPV.setText(environnement.getPatient().getPv() + " / " + environnement.getPatient().getPvMax());
-        rafraichirBudget();
+        environnement.budgetProperty().addListener((observable, ancienneValeur, nouvelleValeur) -> {
+            labelBudget.setText("Budget : " + nouvelleValeur + "€");
+
+            if (nouvelleValeur.intValue() < 100) {
+                labelBudget.setTextFill(Color.RED);
+            } else {
+                labelBudget.setTextFill(Color.WHITE);
+            }
+        });
+
 
         initAnimation();
         gameloop.play();
@@ -125,10 +134,6 @@ public class Controleur implements Initializable {
         if (environnement.getPatient().estVivant()) {
             environnement.getPatient().soigner(5);
         }
-    }
-
-    public void rafraichirBudget() {
-        labelBudget.setText("Budget : "+environnement.getBudget() + "€");
     }
 
 

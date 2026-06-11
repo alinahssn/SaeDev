@@ -1,5 +1,6 @@
 package universite_paris8.iut.aulhassan.maphopital.modele;
 
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -12,7 +13,7 @@ public class EnvironnementJeu {
     private Terrain terrain;
     private Patient patient;
     private int[][] distMap;
-    private int budget = 200;
+    private SimpleIntegerProperty budget = new SimpleIntegerProperty(200);
 
     // On regroupe les listes de données qui étaient dans le contrôleur
     private List<Tour> toursActives;
@@ -37,7 +38,7 @@ public class EnvironnementJeu {
     public Terrain getTerrain() { return terrain; }
     public Patient getPatient() { return patient; }
     public int[][] getDistMap() { return distMap; }
-    public int getBudget() { return budget; }
+    public int getBudget() { return this.budget.get(); }
 
     public List<Tour> getToursActives() { return toursActives; }
 
@@ -45,13 +46,17 @@ public class EnvironnementJeu {
 
     public List<Projectile> getProjectilesActifs() { return projectilesActifs; }
 
-    public void ajouterBudget (int montant) {
-        this.budget += montant;
+    public SimpleIntegerProperty budgetProperty() {
+        return this.budget;
     }
 
-    public boolean dépense (int montant){
-        if(this.budget >= montant){
-            this.budget -= montant;
+    public void ajouterBudget (int montant) {
+        this.budget.set(this.budget.get() + montant);
+    }
+
+    public boolean dépense(int montant) {
+        if (this.budget.get() >= montant) {
+            this.budget.set(this.budget.get() - montant);
             return true;
         }
         return false;

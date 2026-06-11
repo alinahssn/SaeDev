@@ -132,7 +132,6 @@ public class GestClic {
                         });
 
                         System.out.println("Tour posée en [" + ligne + "][" + col + "]");
-                        controleur.rafraichirBudget();
                     } else {
                         System.out.println("Achat impossible :Pas assez d'argent (Coût : " + coutTour + " €)");
                     }
@@ -188,7 +187,6 @@ public class GestClic {
         environnement.ajouterBudget(argentRecupere);
         environnement.getToursActives().remove(tourAvendre);
         panneauJeu.getChildren().remove(tourAEffacer);
-        controleur.rafraichirBudget();
 
         System.out.println("Tour revendue pour " + argentRecupere + " €");
     }
