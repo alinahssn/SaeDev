@@ -5,7 +5,7 @@ import universite_paris8.iut.aulhassan.maphopital.modele.Terrain;
 
 public class Ennemi {
 
-    private SimpleIntegerProperty x = new SimpleIntegerProperty(16);
+    private SimpleIntegerProperty x = new SimpleIntegerProperty(16*32);
     private SimpleIntegerProperty y = new SimpleIntegerProperty(0);
 
     private SimpleIntegerProperty pv;
