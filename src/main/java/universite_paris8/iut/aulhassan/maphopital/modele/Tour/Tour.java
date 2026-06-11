@@ -3,6 +3,8 @@ package universite_paris8.iut.aulhassan.maphopital.modele.Tour;
 import javafx.beans.property.SimpleIntegerProperty;
 import universite_paris8.iut.aulhassan.maphopital.modele.Ennemi.Ennemi;
 
+import java.util.List;
+
 public class Tour {
     private SimpleIntegerProperty x = new SimpleIntegerProperty(0);
     private SimpleIntegerProperty y = new SimpleIntegerProperty(0);
@@ -23,7 +25,7 @@ public class Tour {
 
     // cooldownActuel : compteur qui décompte de cooldownMax jusqu'à 0
     // quand il vaut 0, la tour est prête à tirer
-    private int cooldownActuel = 0;
+    protected int cooldownActuel = 0;
 
     public Tour(int cout, int degat, int vitesse, int portee, String nomImageProj, int tailleProj, boolean projFixe) {
         this.cout = cout;
@@ -38,7 +40,7 @@ public class Tour {
 
     public String getNomImageProjectile() { return nomImageProj; }
     public int getTailleProjectile()      { return tailleProj; }
-    public boolean isProjectileFixe()     { return projFixe; }
+    public boolean getProjectileFixe()     { return projFixe; }
 
     public int getCout()    { return cout; }
     public int getDegat()   { return degat; }
@@ -50,6 +52,8 @@ public class Tour {
     public void setX(int nx) { x.set(nx); }
     public void setY(int ny) { y.set(ny); }
 
+
+
     // appelé à chaque frame dans la game loop
     // décrémente le compteur de 1 jusqu'à ce qu'il atteigne 0
     public void tickCooldown() {
@@ -58,19 +62,26 @@ public class Tour {
 
     public boolean peutTirer(Ennemi cible) {
         if (cible == null || !cible.estVivant()) return false;
-
-        // si le cooldown n'est pas terminé, on ne peut pas tirer
         if (cooldownActuel > 0) return false;
 
         int dx = this.x.get() - cible.getX();
         int dy = this.y.get() - cible.getY();
         double distance = Math.sqrt(dx * dx + dy * dy);
 
-        if (distance <= this.portee * 32) {//1 case
-            // on tire : on remet le cooldown au maximum pour attendre avant le prochain tir
-            cooldownActuel = cooldownMax;
-            return true;
+        return distance <= (this.portee * 32);
+
+    }
+
+    public Projectile agir(List<Ennemi> ennemisActifs) {
+        tickCooldown();
+
+        for(Ennemi e :  ennemisActifs) {
+            if(peutTirer(e)) {
+                Projectile proj = new Projectile(getX() + 16, getY() + 16, e, getDegat(), getProjectileFixe());
+                this.cooldownActuel = this.cooldownMax;
+                return proj;
+            }
         }
-        return false;
+        return null;
     }
 }

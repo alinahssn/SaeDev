@@ -8,13 +8,15 @@ public class Projectile {
     private Ennemi cible;
     private int degats;
     private double vitesse = 15.0;
-    private boolean actif = true;
+    protected boolean actif = true;
+    private boolean fixe;
 
-    public Projectile(double startX, double startY, Ennemi cible, int degats) {
+    public Projectile(double startX, double startY, Ennemi cible, int degats,boolean fixe) {
         this.x = startX;
         this.y = startY;
         this.cible = cible;
         this.degats = degats;
+        this.fixe = fixe;
     }
 
     public void deplacer() {
@@ -37,4 +39,10 @@ public class Projectile {
     public boolean estActif() { return actif; }
     public double getX()      { return x; }
     public double getY()      { return y; }
+    public boolean estFixe() { return fixe; }
+
+    public Ennemi getCible() {return this.cible;}
+    public void setActif(boolean actif) {this.actif = actif;}
+
+
 }

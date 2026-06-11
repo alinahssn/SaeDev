@@ -121,10 +121,10 @@ public class GestClic {
                         tourPosee.setOnMouseClicked(clickSurTour->{
                             this.tourSelectionnee = tourAVendre;
                             this.imageTourSelectionnee = (ImageView) clickSurTour.getSource();
-                            System.out.println("universite_paris8.iut.aulhassan.maphopital.modele.Tour.Tour sélectionnée pour revente ! Cliquez sur 'Revente' pour valider.");
+                            System.out.println("Tour.Tour sélectionnée pour revente ! Cliquez sur 'Revente' pour valider.");
                         });
 
-                        System.out.println("universite_paris8.iut.aulhassan.maphopital.modele.Tour.Tour posée en [" + ligne + "][" + col + "]");
+                        System.out.println("Tour posée en [" + ligne + "][" + col + "]");
 
                     } else {
                         System.out.println("Achat impossible :Pas assez d'argent (Coût : " + coutTour + " €)");
