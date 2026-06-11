@@ -1,4 +1,4 @@
-package universite_paris8.iut.aulhassan.maphopital.modele;
+package universite_paris8.iut.aulhassan.maphopital.modele.Tour;
 
 public class InterneDeGarde extends Tour {
     private static final int COUT    = 50;

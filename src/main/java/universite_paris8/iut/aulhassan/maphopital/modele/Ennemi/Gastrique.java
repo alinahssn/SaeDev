@@ -1,4 +1,4 @@
-package universite_paris8.iut.aulhassan.maphopital.modele;
+package universite_paris8.iut.aulhassan.maphopital.modele.Ennemi;
 /*
 Description :
     Version plus faible de l'enrhumé, sans mouchoirs. PV réduits pour justifier la récompense moindre.

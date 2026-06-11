@@ -3,6 +3,9 @@ package universite_paris8.iut.aulhassan.maphopital.modele;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import universite_paris8.iut.aulhassan.maphopital.modele.Ennemi.Ennemi;
+import universite_paris8.iut.aulhassan.maphopital.modele.Tour.Projectile;
+import universite_paris8.iut.aulhassan.maphopital.modele.Tour.Tour;
 
 import java.util.ArrayList;
 import java.util.List;

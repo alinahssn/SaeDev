@@ -1,10 +1,5 @@
-package universite_paris8.iut.aulhassan.maphopital.modele;
+package universite_paris8.iut.aulhassan.maphopital.modele.Ennemi;
 
-import javafx.beans.binding.NumberBinding;
-import javafx.beans.binding.NumberExpression;
-import javafx.beans.property.SimpleIntegerProperty;
-import universite_paris8.iut.aulhassan.maphopital.modele.Terrain;
-import javafx.beans.binding.NumberExpression;
 import javafx.beans.property.SimpleIntegerProperty;
 import universite_paris8.iut.aulhassan.maphopital.modele.Terrain;
 
@@ -53,9 +48,6 @@ public class Ennemi {
         return recompense;
     }
 
-    public void setPv(int val) {
-        pv.set(val);
-    }
 
     public void setAttaque(int attaque) {
         this.attaque = attaque;
