@@ -15,6 +15,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import java.net.URL;
 import java.util.ResourceBundle;
+//import universite_paris8.iut.aulhassan.maphopital.visuel.BarreVie;
 
 public class Controleur implements Initializable {
 
