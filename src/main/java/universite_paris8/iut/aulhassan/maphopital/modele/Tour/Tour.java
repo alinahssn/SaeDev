@@ -66,7 +66,7 @@ public class Tour {
         int dy = this.y.get() - cible.getY();
         double distance = Math.sqrt(dx * dx + dy * dy);
 
-        if (distance <= this.portee * 32) {
+        if (distance <= this.portee * 32) {//1 case
             // on tire : on remet le cooldown au maximum pour attendre avant le prochain tir
             cooldownActuel = cooldownMax;
             return true;

@@ -1,7 +1,7 @@
 package universite_paris8.iut.aulhassan.maphopital.modele.Ennemi;
 
 import javafx.beans.property.SimpleIntegerProperty;
-import universite_paris8.iut.aulhassan.maphopital.modele.Sommet;
+import universite_paris8.iut.aulhassan.maphopital.modele.BFS.Sommet;
 import universite_paris8.iut.aulhassan.maphopital.modele.Terrain;
 
 import java.util.ArrayList;

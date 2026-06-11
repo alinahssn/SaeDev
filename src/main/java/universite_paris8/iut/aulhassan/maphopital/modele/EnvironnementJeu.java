@@ -3,6 +3,9 @@ package universite_paris8.iut.aulhassan.maphopital.modele;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import universite_paris8.iut.aulhassan.maphopital.modele.BFS.BFS;
+import universite_paris8.iut.aulhassan.maphopital.modele.BFS.Graphes;
+import universite_paris8.iut.aulhassan.maphopital.modele.BFS.Sommet;
 import universite_paris8.iut.aulhassan.maphopital.modele.Ennemi.Ennemi;
 import universite_paris8.iut.aulhassan.maphopital.modele.Tour.Projectile;
 import universite_paris8.iut.aulhassan.maphopital.modele.Tour.Tour;
@@ -15,7 +18,6 @@ public class EnvironnementJeu {
     // On regroupe les objets du modèle qu'on a déjà
     private Terrain terrain;
     private Patient patient;
-    private int[][] distMap;
     private SimpleIntegerProperty budget = new SimpleIntegerProperty(200);
 
     // On regroupe les listes de données qui étaient dans le contrôleur
@@ -46,7 +48,6 @@ public class EnvironnementJeu {
 
     public Terrain getTerrain() { return terrain; }
     public Patient getPatient() { return patient; }
-    public int[][] getDistMap() { return distMap; }
     public int getBudget() { return this.budget.get(); }
 
     public List<Tour> getToursActives() { return toursActives; }

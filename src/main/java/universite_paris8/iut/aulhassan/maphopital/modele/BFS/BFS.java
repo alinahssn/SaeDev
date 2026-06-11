@@ -1,4 +1,4 @@
-package universite_paris8.iut.aulhassan.maphopital.modele;
+package universite_paris8.iut.aulhassan.maphopital.modele.BFS;
 
 import java.util.*;
 

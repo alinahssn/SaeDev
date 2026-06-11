@@ -8,7 +8,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.util.Duration;
 import universite_paris8.iut.aulhassan.maphopital.modele.*;
-import universite_paris8.iut.aulhassan.maphopital.modele.Ennemi.Ennemi;
+import universite_paris8.iut.aulhassan.maphopital.modele.BFS.Sommet;
 import universite_paris8.iut.aulhassan.maphopital.modele.Ennemi.Ennemi;
 import universite_paris8.iut.aulhassan.maphopital.visuel.*;
 import javafx.scene.control.Button;
@@ -16,6 +16,7 @@ import javafx.scene.control.Label;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+//import universite_paris8.iut.aulhassan.maphopital.visuel.BarreVie;
 
 public class Controleur implements Initializable {
 
@@ -65,6 +66,7 @@ public class Controleur implements Initializable {
 
         KeyFrame keyFrame = new KeyFrame(Duration.seconds(0.017), ev -> {
 
+            //Déplacement ennemis + Dégât patient
             if (temps % 12 == 0) {
                 for (Ennemi e : environnement.getEnnemisActifs()) {
                     if (e.estVivant()) e.deplacer();
@@ -77,7 +79,9 @@ public class Controleur implements Initializable {
                 temps = 0;
             }
 
+            //Spawn vague
             Ennemi nouvelEnnemi = vague.tickSpawn();
+
             if (nouvelEnnemi != null) {
                 // Calculer le chemin via BFS
                 ArrayList<Sommet> chemin = environnement.getBfs()
@@ -89,6 +93,7 @@ public class Controleur implements Initializable {
             }
 
             gestProjectile.tiquerProjectiles();
+
             temps++;
         });
 
@@ -106,4 +111,6 @@ public class Controleur implements Initializable {
             environnement.getPatient().soigner(5);
         }
     }
+
+
 }

@@ -1,4 +1,4 @@
-package universite_paris8.iut.aulhassan.maphopital.modele;
+package universite_paris8.iut.aulhassan.maphopital.modele.BFS;
 
 
 import java.util.HashMap;
@@ -6,8 +6,8 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+
+import universite_paris8.iut.aulhassan.maphopital.modele.Terrain;
 
 public class Graphes {
 
