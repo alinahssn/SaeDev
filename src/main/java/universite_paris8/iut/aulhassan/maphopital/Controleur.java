@@ -50,7 +50,7 @@ public class Controleur implements Initializable {
         this.clictours = new GestClic(btnInterne, btnGel, btnBranca, btnAne, btnMasque, btnChir, btnRevente, panneauJeu, environnement);
         this.clictours.configurer();
 
-        this.gestProjectile = new GestProjectile(panneauJeu, environnement, this);
+        this.gestProjectile = new GestProjectile(panneauJeu, environnement);
         this.vague = new Vague(environnement);
 
         environnement.getPatient().pvProperty().addListener((observable, ancienneValeur, nouvelleValeur) -> {
