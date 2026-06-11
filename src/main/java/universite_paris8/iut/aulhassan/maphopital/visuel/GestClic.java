@@ -7,10 +7,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import universite_paris8.iut.aulhassan.maphopital.Controleur;
 import universite_paris8.iut.aulhassan.maphopital.modele.*;
-//
+
 public class GestClic {
 
-    private Controleur controleur;
     private Button btnInterne;
     private Button btnGel;
     private Button btnBranca;
@@ -30,8 +29,7 @@ public class GestClic {
 
 
 
-    public GestClic(Controleur controleur, Button btnInterne, Button btnGel, Button btnBranca , Button btnAne, Button btnMasque, Button btnChir, Button btnRevente, Pane panneauJeu, EnvironnementJeu environnement) {
-        this.controleur = controleur;
+    public GestClic(Button btnInterne, Button btnGel, Button btnBranca , Button btnAne, Button btnMasque, Button btnChir, Button btnRevente, Pane panneauJeu, EnvironnementJeu environnement) {
         this.btnInterne = btnInterne;
         this.btnGel = btnGel;
         this.btnBranca = btnBranca;
