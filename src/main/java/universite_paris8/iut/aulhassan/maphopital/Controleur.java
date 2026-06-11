@@ -113,7 +113,7 @@ public class Controleur implements Initializable {
                 vueEnnemi.translateXProperty().bind(nouvelEnnemi.xProperty());
                 vueEnnemi.translateYProperty().bind(nouvelEnnemi.yProperty());
                 nouvelEnnemi.pvProperty().addListener((obs, ancienPv, nouveauPv) -> {
-
+//modif pourenlever les ennemis
                     if (ancienPv.intValue() > 0 && nouveauPv.intValue() <= 0) {
 
                         environnement.ajouterBudget(nouvelEnnemi.getRecompense());
