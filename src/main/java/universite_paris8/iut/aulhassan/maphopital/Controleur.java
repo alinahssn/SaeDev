@@ -97,12 +97,14 @@ public class Controleur implements Initializable {
             Ennemi nouvelEnnemi = vague.tickSpawn();
 
             if (nouvelEnnemi != null) {
+                BarreVie barreVie = new BarreVie(nouvelEnnemi);
                 ImageView vueEnnemi = new ImageView(chargerImage("gastrique.png"));
                 vueEnnemi.setFitWidth(32);
                 vueEnnemi.setFitHeight(32);
                 vueEnnemi.translateXProperty().bind(nouvelEnnemi.xProperty());
                 vueEnnemi.translateYProperty().bind(nouvelEnnemi.yProperty());
                 panneauJeu.getChildren().add(vueEnnemi);
+                panneauJeu.getChildren().add(barreVie);
             }
 
             gestProjectile.tiquerProjectiles();

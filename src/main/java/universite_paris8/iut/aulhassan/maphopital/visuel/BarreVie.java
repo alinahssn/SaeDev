@@ -3,7 +3,8 @@ package universite_paris8.iut.aulhassan.maphopital.visuel;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import universite_paris8.iut.aulhassan.maphopital.modele.Ennemi.Ennemi;
+import universite_paris8.iut.aulhassan.maphopital.modele.Ennemi;
+import universite_paris8.iut.aulhassan.maphopital.modele.Ennemi;
 
 public class BarreVie extends Group {
 
@@ -36,4 +37,5 @@ public class BarreVie extends Group {
 
         getChildren().addAll(fond, barre);
     }
+
 }
