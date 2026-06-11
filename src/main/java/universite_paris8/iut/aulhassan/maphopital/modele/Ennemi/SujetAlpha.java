@@ -1,6 +1,6 @@
-package universite_paris8.iut.aulhassan.maphopital.modele;
+package universite_paris8.iut.aulhassan.maphopital.modele.Ennemi;
 
-public class SujetAlpha extends Ennemi{
+public class SujetAlpha extends Ennemi {
     private static final int PV_DEPART = 500;
     private static final int ATTAQUE = 100;
     private static final int  VITESSE = 1;

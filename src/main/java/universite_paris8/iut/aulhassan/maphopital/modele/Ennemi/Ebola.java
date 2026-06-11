@@ -1,6 +1,6 @@
-package universite_paris8.iut.aulhassan.maphopital.modele;
+package universite_paris8.iut.aulhassan.maphopital.modele.Ennemi;
 
-public class Ebola extends Ennemi{
+public class Ebola extends Ennemi {
     private static final int PV_DEPART = 150;
     private static final int RECOMPENSE = 60;
 

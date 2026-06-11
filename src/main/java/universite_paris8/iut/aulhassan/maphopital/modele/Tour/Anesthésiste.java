@@ -1,4 +1,4 @@
-package universite_paris8.iut.aulhassan.maphopital.modele;
+package universite_paris8.iut.aulhassan.maphopital.modele.Tour;
 
 public class Anesthésiste extends Tour {
     private static final int COUT    = 75;

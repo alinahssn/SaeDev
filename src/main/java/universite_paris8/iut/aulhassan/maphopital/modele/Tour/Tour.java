@@ -1,6 +1,7 @@
-package universite_paris8.iut.aulhassan.maphopital.modele;
+package universite_paris8.iut.aulhassan.maphopital.modele.Tour;
 
 import javafx.beans.property.SimpleIntegerProperty;
+import universite_paris8.iut.aulhassan.maphopital.modele.Ennemi.Ennemi;
 
 public class Tour {
     private SimpleIntegerProperty x = new SimpleIntegerProperty(0);

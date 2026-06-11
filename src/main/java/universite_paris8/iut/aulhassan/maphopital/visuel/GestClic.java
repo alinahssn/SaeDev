@@ -5,8 +5,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import universite_paris8.iut.aulhassan.maphopital.Controleur;
 import universite_paris8.iut.aulhassan.maphopital.modele.*;
+import universite_paris8.iut.aulhassan.maphopital.modele.Tour.*;
 
 public class GestClic {
 
@@ -69,9 +69,6 @@ public class GestClic {
             int ligne = (int) event.getY() / 32;
 
             if (environnement.getTerrain().getMap()[ligne][col] == 1) {
-                //environnement.getTerrain().getMap()[ligne][col] = 12; avant le budget
-
-                // On déclare nos objets vides
                 Tour nouvelleTour = null;
                 ImageView tourPosee = new ImageView();
 
@@ -101,8 +98,6 @@ public class GestClic {
                         tourPosee.setImage(((ImageView) btnChir.getGraphic()).getImage());
                     }
                 }
-
-                // Si la tour a bien été créée, on la place avant on verifie le budget
                 if (nouvelleTour != null) {
                     int coutTour = nouvelleTour.getCout();
 
@@ -126,10 +121,11 @@ public class GestClic {
                         tourPosee.setOnMouseClicked(clickSurTour->{
                             this.tourSelectionnee = tourAVendre;
                             this.imageTourSelectionnee = (ImageView) clickSurTour.getSource();
-                            System.out.println("Tour sélectionnée pour revente ! Cliquez sur 'Revente' pour valider.");
+                            System.out.println("universite_paris8.iut.aulhassan.maphopital.modele.Tour.Tour sélectionnée pour revente ! Cliquez sur 'Revente' pour valider.");
                         });
 
-                        System.out.println("Tour posée en [" + ligne + "][" + col + "]");
+                        System.out.println("universite_paris8.iut.aulhassan.maphopital.modele.Tour.Tour posée en [" + ligne + "][" + col + "]");
+
                     } else {
                         System.out.println("Achat impossible :Pas assez d'argent (Coût : " + coutTour + " €)");
                     }
@@ -185,7 +181,6 @@ public class GestClic {
         environnement.ajouterBudget(argentRecupere);
         environnement.getToursActives().remove(tourAvendre);
         panneauJeu.getChildren().remove(tourAEffacer);
-
-        System.out.println("Tour revendue pour " + argentRecupere + " €");
+        System.out.println("universite_paris8.iut.aulhassan.maphopital.modele.Tour.Tour revendue pour " + argentRecupere + " €");
     }
 }
