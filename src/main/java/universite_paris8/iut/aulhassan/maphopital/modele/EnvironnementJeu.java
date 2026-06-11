@@ -22,15 +22,21 @@ public class EnvironnementJeu {
     private List<Tour> toursActives;
     private ObservableList<Ennemi> ennemisActifs = FXCollections.observableArrayList();
     private List<Projectile> projectilesActifs;
+    private Graphes graphe;
+    private BFS bfs;
+    private Sommet cible;
+
 
     public EnvironnementJeu() {
         // Au moment où on crée le jeu, on initialise tout le modèle
         this.terrain = new Terrain();
         this.patient = new Patient();
+        graphe = new Graphes(terrain);
 
-        // On calcule la carte des distances pour les ennemis
-        BFS bfs = new BFS(this.terrain, 23, 12);
-        this.distMap = bfs.getDistMap();
+        Sommet source = graphe.getSommet(16, 0);  // position de départ des ennemis
+        cible = graphe.getSommet(23, 12);  // le lit
+
+        bfs = new BFS(graphe, source);
 
         // On initialise nos listes vides
         this.toursActives = new ArrayList<>();
@@ -64,4 +70,8 @@ public class EnvironnementJeu {
         }
         return false;
     }
+
+    // Dans EnvironnementJeu.java
+    public BFS getBfs() { return bfs; }
+    public Sommet getCible() { return cible; }
 }

@@ -14,6 +14,7 @@ import universite_paris8.iut.aulhassan.maphopital.visuel.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class Controleur implements Initializable {
@@ -66,7 +67,7 @@ public class Controleur implements Initializable {
 
             if (temps % 12 == 0) {
                 for (Ennemi e : environnement.getEnnemisActifs()) {
-                    if (e.estVivant()) e.deplacer(environnement.getDistMap());
+                    if (e.estVivant()) e.deplacer();
                 }
                 for (Ennemi e : environnement.getEnnemisActifs()) {
                     if (e.estVivant() && e.getX() == 23 * 32 && e.getY() == 12 * 32 && environnement.getPatient().estVivant()) {
@@ -78,6 +79,11 @@ public class Controleur implements Initializable {
 
             Ennemi nouvelEnnemi = vague.tickSpawn();
             if (nouvelEnnemi != null) {
+                // Calculer le chemin via BFS
+                ArrayList<Sommet> chemin = environnement.getBfs()
+                        .cheminVersSource(environnement.getCible());
+                nouvelEnnemi.setChemin(chemin);
+
                 environnement.getEnnemisActifs().add(nouvelEnnemi);
                 new VueEnnemi(nouvelEnnemi, panneauJeu, environnement);
             }
