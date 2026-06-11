@@ -9,6 +9,7 @@ import javafx.scene.layout.TilePane;
 import javafx.util.Duration;
 import universite_paris8.iut.aulhassan.maphopital.modele.*;
 import universite_paris8.iut.aulhassan.maphopital.modele.Ennemi.Ennemi;
+import universite_paris8.iut.aulhassan.maphopital.modele.Ennemi.Ennemi;
 import universite_paris8.iut.aulhassan.maphopital.visuel.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
