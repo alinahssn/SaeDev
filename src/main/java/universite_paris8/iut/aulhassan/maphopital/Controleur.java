@@ -112,6 +112,18 @@ public class Controleur implements Initializable {
                 vueEnnemi.setFitHeight(32);
                 vueEnnemi.translateXProperty().bind(nouvelEnnemi.xProperty());
                 vueEnnemi.translateYProperty().bind(nouvelEnnemi.yProperty());
+                nouvelEnnemi.pvProperty().addListener((obs, ancienPv, nouveauPv) -> {
+
+                    if (ancienPv.intValue() > 0 && nouveauPv.intValue() <= 0) {
+
+                        environnement.ajouterBudget(nouvelEnnemi.getRecompense());
+
+                        panneauJeu.getChildren().remove(vueEnnemi);
+                        panneauJeu.getChildren().remove(barreVie);
+
+                        environnement.getEnnemisActifs().remove(nouvelEnnemi);
+                    }
+                });
                 panneauJeu.getChildren().add(vueEnnemi);
                 panneauJeu.getChildren().add(barreVie);
             }
