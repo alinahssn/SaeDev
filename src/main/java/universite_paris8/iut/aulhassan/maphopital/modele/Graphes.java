@@ -79,7 +79,7 @@ public class Graphes {
     public Set<Sommet> adjacents(Sommet s) {
         return !estDeconnecte(s) ? listeAdj.get(s) : new HashSet<>();
     }
-
+//
     public Sommet getSommet(int x, int y) {
         Iterator var4 = this.listeAdj.keySet().iterator();
 

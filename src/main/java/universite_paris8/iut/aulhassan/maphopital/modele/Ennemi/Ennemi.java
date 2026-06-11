@@ -1,6 +1,7 @@
 package universite_paris8.iut.aulhassan.maphopital.modele.Ennemi;
 
 import javafx.beans.property.SimpleIntegerProperty;
+import universite_paris8.iut.aulhassan.maphopital.modele.Sommet;
 import universite_paris8.iut.aulhassan.maphopital.modele.Terrain;
 
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ public class Ennemi {
     private int ciblePixelY = 0;
 
 
-
+//
     public Ennemi(int pv, int attaque, int vitesse, int recompense) {
         this.pvMax = pv;
         this.pv = new SimpleIntegerProperty(pv);

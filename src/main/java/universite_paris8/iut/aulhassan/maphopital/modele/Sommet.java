@@ -22,7 +22,7 @@ public class Sommet {
         result = 31 * result + this.y;
         return result;
     }
-
+//
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;

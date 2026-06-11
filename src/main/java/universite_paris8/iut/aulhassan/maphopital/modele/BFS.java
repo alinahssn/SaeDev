@@ -16,6 +16,7 @@ public class BFS {
         predecesseurs = new HashMap<>();
         algoBFS();
     }
+    //
 
     private void algoBFS() {
         LinkedList<Sommet> fifo = new LinkedList<>();

@@ -70,4 +70,8 @@ public class EnvironnementJeu {
         }
         return false;
     }
+
+    // Dans EnvironnementJeu.java
+    public BFS getBfs() { return bfs; }
+    public Sommet getCible() { return cible; }
 }
