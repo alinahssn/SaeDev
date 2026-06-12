@@ -23,7 +23,8 @@ public class EnvironnementJeu {
     // On regroupe les listes de données qui étaient dans le contrôleur
     private List<Tour> toursActives;
     private ObservableList<Ennemi> ennemisActifs = FXCollections.observableArrayList();
-    private List<Projectile> projectilesActifs;
+    private ObservableList<Projectile> projectilesActifs = FXCollections.observableArrayList();
+
     private Graphes graphe;
     private BFS bfs;
     private Sommet cible;
@@ -36,6 +37,7 @@ public class EnvironnementJeu {
         this.patient = new Patient();
         graphe = new Graphes(terrain);
 
+        Sommet source = graphe.getSommet(16, 0);  // position de départ des ennemis
         cible = graphe.getSommet(23, 12);  // le lit
 
         // BFS calculé depuis la cible : donne le chemin vers la cible
@@ -52,8 +54,39 @@ public class EnvironnementJeu {
 
         // On initialise nos listes vides
         this.toursActives = new ArrayList<>();
-        this.projectilesActifs = new ArrayList<>();
+        this.projectilesActifs = FXCollections.observableArrayList();    }
+
+    public void unTour(int temps) {
+
+        if (temps % 12 == 0) {
+            for (Ennemi e : ennemisActifs) {
+                if (e.estVivant()) {
+                    e.deplacer();
+
+                    if (e.getX() == cible.getX() * 32 && e.getY() == cible.getY() * 32 && patient.estVivant()) {
+                        patient.setPv(patient.getPv() - e.getAttaque());
+                    }
+                }
+            }
+        }
+        for (Tour tour : toursActives) {
+            Projectile nouveauProj = tour.agir(ennemisActifs);
+            // Si la tour a décidé de tirer, on ajoute le projectile à la liste globale
+            if (nouveauProj != null) {
+                projectilesActifs.add(nouveauProj);
+            }
+        }
+        List<Projectile> aSupprimer = new ArrayList<>();
+        for (Projectile proj : projectilesActifs) {
+            proj.deplacer();
+            if (!proj.estActif()) {
+                aSupprimer.add(proj);
+            }
+        }
+        projectilesActifs.removeAll(aSupprimer);
     }
+
+
 
 
     public Terrain getTerrain() { return terrain; }
@@ -61,10 +94,9 @@ public class EnvironnementJeu {
     public int getBudget() { return this.budget.get(); }
 
     public List<Tour> getToursActives() { return toursActives; }
-
     public ObservableList<Ennemi> getEnnemisActifs() { return ennemisActifs; }
 
-    public List<Projectile> getProjectilesActifs() { return projectilesActifs; }
+    public ObservableList<Projectile> getProjectilesActifs() { return projectilesActifs; }
 
     public SimpleIntegerProperty budgetProperty() {
         return this.budget;

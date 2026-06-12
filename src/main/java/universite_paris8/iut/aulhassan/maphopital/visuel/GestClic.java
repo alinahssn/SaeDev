@@ -181,6 +181,6 @@ public class GestClic {
         environnement.ajouterBudget(argentRecupere);
         environnement.getToursActives().remove(tourAvendre);
         panneauJeu.getChildren().remove(tourAEffacer);
-        System.out.println("universite_paris8.iut.aulhassan.maphopital.modele.Tour.Tour revendue pour " + argentRecupere + " €");
+        System.out.println("Tour revendue pour " + argentRecupere + " €");
     }
 }

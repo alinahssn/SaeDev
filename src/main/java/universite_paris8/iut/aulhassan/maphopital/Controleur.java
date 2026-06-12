@@ -67,42 +67,23 @@ public class Controleur implements Initializable {
 
         KeyFrame keyFrame = new KeyFrame(Duration.seconds(0.017), ev -> {
 
-            //Déplacement ennemis + Dégât patient
-            if (temps % 12 == 0) {
-                for (Ennemi e : environnement.getEnnemisActifs()) {
-                    if (e.estVivant()) e.deplacer();
-                }
-                for (Ennemi e : environnement.getEnnemisActifs()) {
-                    if (e.estVivant() && e.getX() == 23 * 32 && e.getY() == 12 * 32 && environnement.getPatient().estVivant()) {
-                        environnement.getPatient().setPv(environnement.getPatient().getPv() - e.getAttaque());
-                    }
-                }
-                temps = 0;
-            }
+            environnement.unTour(temps);
 
             //Spawn vague
             Ennemi nouvelEnnemi = vague.tickSpawn();
-
             if (nouvelEnnemi != null) {
-                // Le sommet de spawn correspond à la position (x,y) déjà définie sur l'ennemi
                 Sommet spawnEnnemi = new Sommet(nouvelEnnemi.getX() / 32, nouvelEnnemi.getY() / 32);
 
-                // cheminVersSource(spawn) renvoie [cible, ..., spawn] car le BFS
-                // part de la cible. On l'inverse pour obtenir [spawn, ..., cible].
-                ArrayList<Sommet> chemin = environnement.getBfs()
-                        .cheminVersSource(spawnEnnemi);
+                ArrayList<Sommet> chemin = environnement.getBfs().cheminVersSource(spawnEnnemi);
                 java.util.Collections.reverse(chemin);
                 nouvelEnnemi.setChemin(chemin);
 
                 environnement.getEnnemisActifs().add(nouvelEnnemi);
                 new VueEnnemi(nouvelEnnemi, panneauJeu, environnement);
             }
-
             gestProjectile.tiquerProjectiles();
-
             temps++;
         });
-
         gameloop.getKeyFrames().add(keyFrame);
     }
 

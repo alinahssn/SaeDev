@@ -121,6 +121,10 @@ public class Ennemi {
         }
     }
 
+    public ArrayList<Sommet> getChemin() {
+        return this.chemin;
+    }
+
     public void deplacer() {
         if (chemin == null) return;
 

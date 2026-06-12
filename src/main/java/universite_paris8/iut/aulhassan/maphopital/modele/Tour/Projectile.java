@@ -39,6 +39,7 @@ public class Projectile {
     public boolean estActif() { return actif; }
     public double getX()      { return x; }
     public double getY()      { return y; }
+
     public boolean estFixe() { return fixe; }
 
     public Ennemi getCible() {return this.cible;}
