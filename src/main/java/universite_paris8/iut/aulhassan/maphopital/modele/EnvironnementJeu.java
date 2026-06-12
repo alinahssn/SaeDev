@@ -74,7 +74,6 @@ public class EnvironnementJeu {
         }
     }
 
-    // ── Logique tours ──
 
     public boolean poserTour(Tour tour, int col, int ligne) {
         if (!dépense(tour.getCout())) return false;
@@ -136,13 +135,13 @@ public class EnvironnementJeu {
         return detruits;
     }
 
-    // ── Vues tours ──
+
 
     public void ajouterVueTour(Tour t, ImageView img) { vuesTours.put(t, img); }
     public ImageView getVueTour(Tour t) { return vuesTours.get(t); }
     public void supprimerVueTour(Tour t) { vuesTours.remove(t); }
 
-    // ── Getters ──
+
 
     public Terrain getTerrain() { return terrain; }
     public Patient getPatient() { return patient; }
