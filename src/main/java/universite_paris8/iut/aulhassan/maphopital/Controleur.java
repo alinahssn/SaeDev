@@ -40,7 +40,7 @@ public class Controleur implements Initializable {
     private VueTour vueTour;
     private VueTerrain vueTerrain;
     private EnvironnementJeu environnement;
-
+//essai
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         this.environnement = new EnvironnementJeu();
