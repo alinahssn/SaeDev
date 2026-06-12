@@ -9,7 +9,7 @@ public class Infirmier extends Tour {
     private FlaqueGel flaqueActuelle = null;
 
     public Infirmier() {
-        super(75, 5, 1, 2, "flaque.png", 64, true);
+        super(75, 5, 1, 2, "flaque.png", 72, true);
     }
 
 
@@ -19,7 +19,6 @@ public class Infirmier extends Tour {
             flaqueActuelle.appliquerDegatsZone(ennemisActifs);
             return null;
         }
-
         if (flaqueActuelle != null && !flaqueActuelle.estEncoreActive()) {
             flaqueActuelle = null;
         }
@@ -28,7 +27,6 @@ public class Infirmier extends Tour {
 
         for (Ennemi e : ennemisActifs) {
             if (e != null && peutTirer(e)) {
-                // On crée la flaque PILE sur les coordonnées actuelles du chemin où est l'ennemi
                 flaqueActuelle = new FlaqueGel(e.getX() - 16, e.getY() - 16, getDegat());
 
                 this.cooldownActuel = 60;

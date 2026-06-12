@@ -30,7 +30,7 @@ public class FlaqueGel extends Projectile {
                 double dy = this.getY() - e.getY();
                 double distance = Math.sqrt(dx * dx + dy * dy);
 
-                if (distance < 40) {
+                if (distance < 20) {
                     e.subirDegats(1);
                 }
             }
