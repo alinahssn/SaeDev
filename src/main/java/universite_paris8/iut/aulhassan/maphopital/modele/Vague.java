@@ -1,6 +1,9 @@
 package universite_paris8.iut.aulhassan.maphopital.modele;
 
 import universite_paris8.iut.aulhassan.maphopital.modele.Ennemi.*;
+import universite_paris8.iut.aulhassan.maphopital.modele.BFS.Sommet;
+
+import java.util.List;
 
 public class Vague {
 
@@ -9,7 +12,7 @@ public class Vague {
     private int numeroVague = 0;
     private int ennemisASpawner = 0;
     private int compteurSpawn = 0;
-    private int delaiSpawn = 90;
+    private int delaiSpawn = 120;
 
     public Vague(EnvironnementJeu environnement) {
         this.environnement = environnement;
@@ -26,7 +29,8 @@ public class Vague {
             case 3: ennemisASpawner = 6;  break; // 3 enrhumé + 2 covidé + 1 grippé
             case 4: ennemisASpawner = 6;  break; // 1 enrhumé + 2 covidé + 2 grippé + 1 ebola
             case 5: ennemisASpawner = 8;  break; // 2 ebola + 1 rabique + 1 grippé + 4 gastrique
-            case 6: ennemisASpawner = 1;  break; // SUJET ALPHA
+            case 6: ennemisASpawner = 8;  break; // 8 gastrique
+            case 7: ennemisASpawner = 1;  break; // SUJET ALPHA
             default:
                 System.out.println("Plus de vagues !");
                 numeroVague--;
@@ -50,7 +54,14 @@ public class Vague {
         // ennemisSpawnés = total de la vague - ennemisASpawner - 1
         int indexDansVague = getTailleVague(numeroVague) - ennemisASpawner - 1;
 
-        return creerEnnemi(numeroVague, indexDansVague);
+        Ennemi ennemi = creerEnnemi(numeroVague, indexDansVague);
+
+        // On choisit le spawn pour cet ennemi parmi les spawns actifs de la vague
+        Sommet spawn = choisirSpawn(numeroVague, indexDansVague);
+        ennemi.setX(spawn.getX() * 32);
+        ennemi.setY(spawn.getY() * 32);
+
+        return ennemi;
     }
 
     private int getTailleVague(int vague) {
@@ -60,7 +71,8 @@ public class Vague {
             case 3: return 6;
             case 4: return 6;
             case 5: return 8;
-            case 6: return 1;
+            case 6: return 8;
+            case 7: return 1;
             default: return 0;
         }
     }
@@ -97,12 +109,43 @@ public class Vague {
                 else                return new Gastrique();
 
             case 6:
+                // 8 gastrique
+                return new Gastrique();
+
+            case 7:
                 // SUJET ALPHA
                 return new SujetAlpha();
 
             default:
                 return new Gastrique();
         }
+    }
+
+
+    public int[] getSpawnsActifsVague() {
+        return getSpawnsActifs(numeroVague);
+    }
+
+    private int[] getSpawnsActifs(int vague) {
+        switch (vague) {
+            case 1: return new int[]{0};             // Spawn 1
+            case 2: return new int[]{1};             // Spawn 2
+            case 3: return new int[]{0, 1};          // Spawn 1, 2
+            case 4: return new int[]{2};             // Spawn 3
+            case 5: return new int[]{0, 1, 2};       // Spawn 1, 2, 3
+            case 6: return new int[]{0, 1, 2, 3};    // Spawn 1, 2, 3, 4
+            case 7: return new int[]{4};             // Spawn 5
+            default: return new int[]{0};
+        }
+    }
+
+
+    private Sommet choisirSpawn(int vague, int index) {
+        int[] spawnsActifs = getSpawnsActifs(vague);
+        List<Sommet> spawns = environnement.getSpawns();
+
+        int indiceSpawn = spawnsActifs[index % spawnsActifs.length];
+        return spawns.get(indiceSpawn);
     }
 
     public boolean vagueEnCours() {

@@ -4,7 +4,6 @@ import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 import javafx.scene.image.ImageView;
 import universite_paris8.iut.aulhassan.maphopital.modele.*;
-import universite_paris8.iut.aulhassan.maphopital.modele.Ennemi.Ennemi;
 import universite_paris8.iut.aulhassan.maphopital.modele.Tour.Projectile;
 import universite_paris8.iut.aulhassan.maphopital.modele.Tour.Tour;
 

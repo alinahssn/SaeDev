@@ -3,6 +3,7 @@ package universite_paris8.iut.aulhassan.maphopital.modele.Ennemi;
 import javafx.beans.property.SimpleIntegerProperty;
 import universite_paris8.iut.aulhassan.maphopital.modele.BFS.Sommet;
 import universite_paris8.iut.aulhassan.maphopital.modele.Terrain;
+import universite_paris8.iut.aulhassan.maphopital.modele.Tour.Masquier;
 
 import java.util.ArrayList;
 
@@ -22,9 +23,9 @@ public class Ennemi {
     private int indexChemin = 0;
     private int ciblePixelX = 0;
     private int ciblePixelY = 0;
+    private int framesBloque = 0;
+    private int cooldownAttaqueMasquier = 0;
 
-
-//
     public Ennemi(int pv, int attaque, int vitesse, int recompense) {
         this.pvMax = pv;
         this.pv = new SimpleIntegerProperty(pv);
@@ -37,99 +38,74 @@ public class Ennemi {
         this(80, 5, 1, 15);
     }
 
-    public int getPv() {
-        return pv.get();
+    public void bloquer(int frames) {
+        this.framesBloque = Math.max(this.framesBloque, frames);
     }
 
-    public int getPvMax() {
-        return pvMax;
+    public boolean estBloque() {
+        return framesBloque > 0;
     }
 
-    public int getAttaque() {
-        return attaque;
+    public void attaquerMasquier(Masquier masquier) {
+        if (cooldownAttaqueMasquier > 0) {
+            cooldownAttaqueMasquier--;
+            return;
+        }
+        masquier.subirDegats(attaque);
+        cooldownAttaqueMasquier = 30;
     }
 
-    public int getVitesse() {
-        return vitesse;
-    }
+    public int getPv() { return pv.get(); }
+    public int getPvMax() { return pvMax; }
+    public int getAttaque() { return attaque; }
+    public int getVitesse() { return vitesse; }
+    public int getRecompense() { return recompense; }
 
-    public int getRecompense() {
-        return recompense;
-    }
-
-
-    public void setAttaque(int attaque) {
-        this.attaque = attaque;
-    }
-
-    public void setVitesse(int vitesse) {
-        this.vitesse = vitesse;
-    }
-
-    public void setRecompense(int recompense) {
-        this.recompense = recompense;
-    }
+    public void setAttaque(int attaque) { this.attaque = attaque; }
+    public void setVitesse(int vitesse) { this.vitesse = vitesse; }
+    public void setRecompense(int recompense) { this.recompense = recompense; }
 
     public void subirDegats(int degats) {
         pv.set(Math.max(0, pv.get() - degats));
         if (pv.get() <= 0) mourir();
     }
 
-    private void mourir() {
-        this.estMort = true;
-    }
+    private void mourir() { this.estMort = true; }
 
-    public boolean estVivant() {
-        return this.pv.get() > 0;
-    }
+    public boolean estVivant() { return this.pv.get() > 0; }
 
-    public int getX() {
-        return this.x.get();
-    }
+    public int getX() { return this.x.get(); }
+    public void setX(int nouveauX) { this.x.set(nouveauX); }
+    public SimpleIntegerProperty xProperty() { return this.x; }
 
-    public void setX(int nouveauX) {
-        this.x.set(nouveauX);
-    }
-
-    public SimpleIntegerProperty xProperty() {
-        return this.x;
-    }
-
-    public int getY() {
-        return this.y.get();
-    }
-
-    public void setY(int nouveauY) {
-        this.y.set(nouveauY);
-    }
-
-    public SimpleIntegerProperty yProperty() {
-        return this.y;
-    }
+    public int getY() { return this.y.get(); }
+    public void setY(int nouveauY) { this.y.set(nouveauY); }
+    public SimpleIntegerProperty yProperty() { return this.y; }
 
     public void setChemin(ArrayList<Sommet> chemin) {
         this.chemin = chemin;
-
         if (chemin != null && chemin.size() > 1) {
-
             indexChemin = 1;
-
             Sommet premier = chemin.get(1);
-
             ciblePixelX = premier.getX() * 32;
             ciblePixelY = premier.getY() * 32;
         }
     }
 
+    public ArrayList<Sommet> getChemin() { return this.chemin; }
+
     public void deplacer() {
         if (chemin == null) return;
 
+        if (framesBloque > 0) {
+            framesBloque--;
+            return;
+        }
 
         if (getX() < ciblePixelX) setX(getX() + vitesse);
         else if (getX() > ciblePixelX) setX(getX() - vitesse);
         if (getY() < ciblePixelY) setY(getY() + vitesse);
         else if (getY() > ciblePixelY) setY(getY() - vitesse);
-
 
         if (getX() == ciblePixelX && getY() == ciblePixelY && indexChemin < chemin.size()) {
             Sommet prochaine = chemin.get(indexChemin);
@@ -139,8 +115,5 @@ public class Ennemi {
         }
     }
 
-
-    public SimpleIntegerProperty pvProperty() {
-        return pv;
-    }
+    public SimpleIntegerProperty pvProperty() { return pv; }
 }

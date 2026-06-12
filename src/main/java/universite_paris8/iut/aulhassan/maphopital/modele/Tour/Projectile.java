@@ -11,7 +11,7 @@ public class Projectile {
     protected boolean actif = true;
     private boolean fixe;
 
-    public Projectile(double startX, double startY, Ennemi cible, int degats,boolean fixe) {
+    public Projectile(double startX, double startY, Ennemi cible, int degats, boolean fixe) {
         this.x = startX;
         this.y = startY;
         this.cible = cible;
@@ -21,6 +21,7 @@ public class Projectile {
 
     public void deplacer() {
         if (!actif) return;
+        if (cible == null) return;
         if (!cible.estVivant()) { actif = false; return; }
 
         double dx = cible.getX() - x;
@@ -37,12 +38,9 @@ public class Projectile {
     }
 
     public boolean estActif() { return actif; }
-    public double getX()      { return x; }
-    public double getY()      { return y; }
+    public double getX() { return x; }
+    public double getY() { return y; }
     public boolean estFixe() { return fixe; }
-
-    public Ennemi getCible() {return this.cible;}
-    public void setActif(boolean actif) {this.actif = actif;}
-
-
+    public Ennemi getCible() { return this.cible; }
+    public void setActif(boolean actif) { this.actif = actif; }
 }

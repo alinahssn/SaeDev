@@ -16,7 +16,6 @@ import javafx.scene.control.Label;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-//import universite_paris8.iut.aulhassan.maphopital.visuel.BarreVie;
 
 public class Controleur implements Initializable {
 
@@ -38,16 +37,19 @@ public class Controleur implements Initializable {
 
     private Vague vague;
     private GestProjectile gestProjectile;
+    private VueTour vueTour;
+    private VueTerrain vueTerrain;
     private EnvironnementJeu environnement;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         this.environnement = new EnvironnementJeu();
 
-        VueTerrain vueTerrain = new VueTerrain(tilehopital, environnement.getTerrain());
+        this.vueTerrain = new VueTerrain(tilehopital, environnement.getTerrain());
         vueTerrain.dessinerCartographie();
 
-        this.clictours = new GestClic(btnInterne, btnGel, btnBranca, btnAne, btnMasque, btnChir, btnRevente, panneauJeu, environnement);
+        this.vueTour = new VueTour(panneauJeu, environnement);
+        this.clictours = new GestClic(btnInterne, btnGel, btnBranca, btnAne, btnMasque, btnChir, btnRevente, panneauJeu, environnement, vueTour);
         this.clictours.configurer();
 
         this.gestProjectile = new GestProjectile(panneauJeu, environnement);
@@ -66,34 +68,20 @@ public class Controleur implements Initializable {
 
         KeyFrame keyFrame = new KeyFrame(Duration.seconds(0.017), ev -> {
 
-            //Déplacement ennemis + Dégât patient
-            if (temps % 12 == 0) {
-                for (Ennemi e : environnement.getEnnemisActifs()) {
-                    if (e.estVivant()) e.deplacer();
-                }
-                for (Ennemi e : environnement.getEnnemisActifs()) {
-                    if (e.estVivant() && e.getX() == 23 * 32 && e.getY() == 12 * 32 && environnement.getPatient().estVivant()) {
-                        environnement.getPatient().setPv(environnement.getPatient().getPv() - e.getAttaque());
-                    }
-                }
-                temps = 0;
-            }
+            environnement.unTour(temps);
 
-            //Spawn vague
             Ennemi nouvelEnnemi = vague.tickSpawn();
-
             if (nouvelEnnemi != null) {
-                // Calculer le chemin via BFS
-                ArrayList<Sommet> chemin = environnement.getBfs()
-                        .cheminVersSource(environnement.getCible());
+                Sommet spawnEnnemi = new Sommet(nouvelEnnemi.getX() / 32, nouvelEnnemi.getY() / 32);
+                ArrayList<Sommet> chemin = environnement.getBfs().cheminVersSource(spawnEnnemi);
+                java.util.Collections.reverse(chemin);
                 nouvelEnnemi.setChemin(chemin);
-
                 environnement.getEnnemisActifs().add(nouvelEnnemi);
                 new VueEnnemi(nouvelEnnemi, panneauJeu, environnement);
             }
 
+            vueTour.supprimerMasquiersDetruits();
             gestProjectile.tiquerProjectiles();
-
             temps++;
         });
 
@@ -103,6 +91,7 @@ public class Controleur implements Initializable {
     @FXML
     private void lancerVague() {
         vague.lancerVague();
+        vueTerrain.afficherSpawns(environnement.getSpawns(), vague.getSpawnsActifsVague());
     }
 
     @FXML
@@ -111,6 +100,4 @@ public class Controleur implements Initializable {
             environnement.getPatient().soigner(5);
         }
     }
-
-
 }
