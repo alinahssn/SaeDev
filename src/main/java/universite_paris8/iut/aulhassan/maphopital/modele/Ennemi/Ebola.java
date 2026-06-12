@@ -25,10 +25,10 @@ public class Ebola extends Ennemi {
         int pv = getPv();
         int nouvellePhase;
 
-        if (pv > SEUIL_2){
+        if (pv >= SEUIL_2){
             nouvellePhase = 1;
         }
-        else if (pv > SEUIL_3){
+        else if (pv >= SEUIL_3){
             nouvellePhase = 2;
         }
         else if (pv > 0){
