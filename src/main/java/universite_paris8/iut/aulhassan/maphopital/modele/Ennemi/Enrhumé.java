@@ -6,9 +6,23 @@ public class Enrhumé extends Ennemi {
     private static final int  VITESSE = 8;
     private static final int RECOMPENSE = 30;
 
+    private int caseParcourues = 0;
+
     public Enrhumé() {
 
         super(PV_DEPART, ATTAQUE, VITESSE, RECOMPENSE);
+    }
+
+    public MouchoirEnrhumé utiliserPouvoir() {
+        if (estArriveSurNouvelleCase()) {
+            caseParcourues++;
+
+            if (caseParcourues % 3 == 0) {
+                return new MouchoirEnrhumé(getX(), getY());
+            }
+        }
+
+        return null;
     }
 
     @Override

@@ -10,6 +10,7 @@ import javafx.util.Duration;
 import universite_paris8.iut.aulhassan.maphopital.modele.*;
 import universite_paris8.iut.aulhassan.maphopital.modele.BFS.Sommet;
 import universite_paris8.iut.aulhassan.maphopital.modele.Ennemi.Ennemi;
+import universite_paris8.iut.aulhassan.maphopital.modele.Ennemi.MouchoirEnrhumé;
 import universite_paris8.iut.aulhassan.maphopital.visuel.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -40,7 +41,8 @@ public class Controleur implements Initializable {
     private VueTour vueTour;
     private VueTerrain vueTerrain;
     private EnvironnementJeu environnement;
-//essai
+
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         this.environnement = new EnvironnementJeu();
@@ -69,6 +71,11 @@ public class Controleur implements Initializable {
         KeyFrame keyFrame = new KeyFrame(Duration.seconds(0.017), ev -> {
 
             environnement.unTour(temps);
+            for (MouchoirEnrhumé mouchoir : environnement.getNouveauxMouchoirs()) {
+                new VueMouchoir(mouchoir, panneauJeu);
+            }
+
+            environnement.viderNouveauxMouchoirs();
 
             Ennemi nouvelEnnemi = vague.tickSpawn();
             if (nouvelEnnemi != null) {
@@ -100,4 +107,6 @@ public class Controleur implements Initializable {
             environnement.getPatient().soigner(5);
         }
     }
+
+
 }

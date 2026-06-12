@@ -25,6 +25,7 @@ public class Ennemi {
     private int ciblePixelY = 0;
     private int framesBloque = 0;
     private int cooldownAttaqueMasquier = 0;
+    private boolean nouvelleCase = false;
 
     public Ennemi(int pv, int attaque, int vitesse, int recompense) {
         this.pvMax = pv;
@@ -106,13 +107,20 @@ public class Ennemi {
             framesBloque--;
             return;
         }
+        nouvelleCase = false;
 
-        if (getX() < ciblePixelX) setX(getX() + vitesse);
-        else if (getX() > ciblePixelX) setX(getX() - vitesse);
-        if (getY() < ciblePixelY) setY(getY() + vitesse);
-        else if (getY() > ciblePixelY) setY(getY() - vitesse);
+        int dx = ciblePixelX - getX();
+        int dy = ciblePixelY - getY();
+
+        if (dx > 0) setX(Math.min(getX() + vitesse, ciblePixelX));
+        else if (dx < 0) setX(Math.max(getX() - vitesse, ciblePixelX));
+
+        if (dy > 0) setY(Math.min(getY() + vitesse, ciblePixelY));
+        else if (dy < 0) setY(Math.max(getY() - vitesse, ciblePixelY));
 
         if (getX() == ciblePixelX && getY() == ciblePixelY && indexChemin < chemin.size()) {
+            nouvelleCase = true;
+
             Sommet prochaine = chemin.get(indexChemin);
             ciblePixelX = prochaine.getX() * 32;
             ciblePixelY = prochaine.getY() * 32;
@@ -121,4 +129,7 @@ public class Ennemi {
     }
 
     public SimpleIntegerProperty pvProperty() { return pv; }
+    public boolean estArriveSurNouvelleCase() {
+        return nouvelleCase;
+    }
 }
