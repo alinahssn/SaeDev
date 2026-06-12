@@ -9,7 +9,7 @@ public class Ebola extends Ennemi {
 
     private int phase = 1;
     public Ebola() {
-        super(PV_DEPART, 5,1, RECOMPENSE);
+        super(PV_DEPART, 5,8, RECOMPENSE);
     }
     public int getPhase() {
         return phase;
@@ -41,9 +41,9 @@ public class Ebola extends Ennemi {
         if(phase != nouvellePhase){
             phase = nouvellePhase;
             switch (phase){
-                case 2 -> {setAttaque(10); setVitesse(2);}
-                case 3 -> {setAttaque(15); setVitesse(3);}
-                case 4 -> {setAttaque(20); setVitesse(4);}
+                case 2 -> {setAttaque(10); setVitesse(16);}
+                case 3 -> {setAttaque(15); setVitesse(32);}
+                case 4 -> {setAttaque(20); setVitesse(64);}
             }
         }
     }
