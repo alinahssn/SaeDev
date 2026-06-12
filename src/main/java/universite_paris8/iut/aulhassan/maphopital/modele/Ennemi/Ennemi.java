@@ -61,9 +61,9 @@ public class Ennemi {
     public int getVitesse() { return vitesse; }
     public int getRecompense() { return recompense; }
 
-    public void setAttaque(int attaque) { this.attaque = attaque; }
-    public void setVitesse(int vitesse) { this.vitesse = vitesse; }
-    public void setRecompense(int recompense) { this.recompense = recompense; }
+    public void setRecompense(int recompense) {
+        this.recompense = recompense;
+    }
 
     public void subirDegats(int degats) {
         pv.set(Math.max(0, pv.get() - degats));

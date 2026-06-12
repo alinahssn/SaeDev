@@ -37,7 +37,6 @@ public class FlaqueGel extends Projectile {
         }
     }
 
-
     @Override
     public void deplacer() {
         if (tempsRestant > 0) {

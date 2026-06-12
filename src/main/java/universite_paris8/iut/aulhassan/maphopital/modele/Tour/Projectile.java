@@ -11,7 +11,7 @@ public class Projectile {
     protected boolean actif = true;
     private boolean fixe;
 
-    public Projectile(double startX, double startY, Ennemi cible, int degats, boolean fixe) {
+    public Projectile(double startX, double startY, Ennemi cible, int degats,boolean fixe) {
         this.x = startX;
         this.y = startY;
         this.cible = cible;
