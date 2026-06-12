@@ -27,6 +27,7 @@ public class EnvironnementJeu {
     private Graphes graphe;
     private BFS bfs;
     private Sommet cible;
+    private List<Sommet> spawns;
 
 
     public EnvironnementJeu() {
@@ -35,10 +36,19 @@ public class EnvironnementJeu {
         this.patient = new Patient();
         graphe = new Graphes(terrain);
 
-        Sommet source = graphe.getSommet(16, 0);  // position de départ des ennemis
         cible = graphe.getSommet(23, 12);  // le lit
 
-        bfs = new BFS(graphe, source);
+        // BFS calculé depuis la cible : donne le chemin vers la cible
+        // depuis n'importe quel sommet du graphe (donc depuis chaque spawn)
+        bfs = new BFS(graphe, cible);
+
+        // Les 5 points de spawn possibles
+        spawns = new ArrayList<>();
+        spawns.add(graphe.getSommet(16, 0));   // Spawn 1
+        spawns.add(graphe.getSommet(47, 0));   // Spawn 2
+        spawns.add(graphe.getSommet(47, 26));  // Spawn 3
+        spawns.add(graphe.getSommet(37, 26));  // Spawn 4
+        spawns.add(graphe.getSommet(0, 13));   // Spawn 5
 
         // On initialise nos listes vides
         this.toursActives = new ArrayList<>();
@@ -75,4 +85,5 @@ public class EnvironnementJeu {
     // Dans EnvironnementJeu.java
     public BFS getBfs() { return bfs; }
     public Sommet getCible() { return cible; }
+    public List<Sommet> getSpawns() { return spawns; }
 }

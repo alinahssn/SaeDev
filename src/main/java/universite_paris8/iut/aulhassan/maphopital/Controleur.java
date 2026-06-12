@@ -39,12 +39,13 @@ public class Controleur implements Initializable {
     private Vague vague;
     private GestProjectile gestProjectile;
     private EnvironnementJeu environnement;
+    private VueTerrain vueTerrain;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         this.environnement = new EnvironnementJeu();
 
-        VueTerrain vueTerrain = new VueTerrain(tilehopital, environnement.getTerrain());
+        this.vueTerrain = new VueTerrain(tilehopital, environnement.getTerrain());
         vueTerrain.dessinerCartographie();
 
         this.clictours = new GestClic(btnInterne, btnGel, btnBranca, btnAne, btnMasque, btnChir, btnRevente, panneauJeu, environnement);
@@ -83,9 +84,14 @@ public class Controleur implements Initializable {
             Ennemi nouvelEnnemi = vague.tickSpawn();
 
             if (nouvelEnnemi != null) {
-                // Calculer le chemin via BFS
+                // Le sommet de spawn correspond à la position (x,y) déjà définie sur l'ennemi
+                Sommet spawnEnnemi = new Sommet(nouvelEnnemi.getX() / 32, nouvelEnnemi.getY() / 32);
+
+                // cheminVersSource(spawn) renvoie [cible, ..., spawn] car le BFS
+                // part de la cible. On l'inverse pour obtenir [spawn, ..., cible].
                 ArrayList<Sommet> chemin = environnement.getBfs()
-                        .cheminVersSource(environnement.getCible());
+                        .cheminVersSource(spawnEnnemi);
+                java.util.Collections.reverse(chemin);
                 nouvelEnnemi.setChemin(chemin);
 
                 environnement.getEnnemisActifs().add(nouvelEnnemi);
@@ -103,6 +109,7 @@ public class Controleur implements Initializable {
     @FXML
     private void lancerVague() {
         vague.lancerVague();
+        vueTerrain.afficherSpawns(environnement.getSpawns(), vague.getSpawnsActifsVague());
     }
 
     @FXML
