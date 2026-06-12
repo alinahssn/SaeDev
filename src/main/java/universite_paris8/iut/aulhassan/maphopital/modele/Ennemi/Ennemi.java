@@ -54,7 +54,12 @@ public class Ennemi {
         masquier.subirDegats(attaque);
         cooldownAttaqueMasquier = 30;
     }
-
+    public void setAttaque(int attaque){
+        this.attaque = attaque;
+    }
+    public void setVitesse(int vitesse){
+        this.vitesse = vitesse;
+    }
     public int getPv() { return pv.get(); }
     public int getPvMax() { return pvMax; }
     public int getAttaque() { return attaque; }
