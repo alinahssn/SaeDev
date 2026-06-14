@@ -12,6 +12,18 @@ public class Rabique extends Ennemi {
     }
 
     @Override
+    public void deplacer() {
+
+        int cibleX = 23 * 32;
+        int cibleY = 12 * 32;
+
+        if (getX() < cibleX) setX(Math.min(getX() + getVitesse(), cibleX));
+        else if (getX() > cibleX) setX(Math.max(getX() - getVitesse(), cibleX));
+        if (getY() < cibleY) setY(Math.min(getY() + getVitesse(), cibleY));
+        else if (getY() > cibleY) setY(Math.max(getY() - getVitesse(), cibleY));
+    }
+
+    @Override
     public String toString(){
         return "Rabique : PV=" + getPv() + "/" + getPvMax() + " | VIVANT=" + estVivant();
     }

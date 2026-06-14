@@ -129,6 +129,7 @@ public class Ennemi {
     }
 
     public SimpleIntegerProperty pvProperty() { return pv; }
+
     public boolean estArriveSurNouvelleCase() {
         return nouvelleCase;
     }
