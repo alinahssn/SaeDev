@@ -77,7 +77,8 @@ public class Tour {
 
     }
 
-    public void setMultiplicateurCooldown(double multiplicateur) {
+    // Fonction pour le Grippé (ralentissemnt des projectils)
+    public void setMultiplicateurCooldownProjectil(double multiplicateur) {
         this.multiplicateurCooldown = multiplicateur;
     }
 
