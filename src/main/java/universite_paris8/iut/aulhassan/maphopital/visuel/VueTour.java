@@ -3,6 +3,7 @@ package universite_paris8.iut.aulhassan.maphopital.visuel;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import universite_paris8.iut.aulhassan.maphopital.modele.EnvironnementJeu;
+import universite_paris8.iut.aulhassan.maphopital.modele.Tour.Brancardier;
 import universite_paris8.iut.aulhassan.maphopital.modele.Tour.Masquier;
 import universite_paris8.iut.aulhassan.maphopital.modele.Tour.Tour;
 
@@ -35,6 +36,18 @@ public class VueTour {
             panneau.getChildren().add(barre.getFond());
             panneau.getChildren().add(barre.getBarre());
             barresVie.put(tour, barre);
+        }
+    }
+
+    public void mettreAJourPositionsTours() {
+        for (Tour tour : environnement.getToursActives()) {
+            if (tour instanceof Brancardier brancardier) {
+                ImageView imageBrancard = environnement.getVueTour(brancardier);
+                if (imageBrancard != null) {
+                    imageBrancard.setLayoutX(brancardier.getBrancardX());
+                    imageBrancard.setLayoutY(brancardier.getBrancardY());
+                }
+            }
         }
     }
 

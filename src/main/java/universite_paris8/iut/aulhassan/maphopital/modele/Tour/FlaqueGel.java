@@ -37,7 +37,7 @@ public class FlaqueGel extends Projectile {
         }
     }
 
-    @Override
+   @Override
     public void deplacer() {
         if (tempsRestant > 0) {
             tempsRestant--;
@@ -53,4 +53,6 @@ public class FlaqueGel extends Projectile {
             this.actif = false;
         }
     }
+
+    
 }

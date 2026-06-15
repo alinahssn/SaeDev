@@ -89,6 +89,9 @@ public class Controleur implements Initializable {
 
             vueTour.supprimerMasquiersDetruits();
             gestProjectile.tiquerProjectiles();
+
+            vueTour.mettreAJourPositionsTours();
+
             temps++;
         });
 
