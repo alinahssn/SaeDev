@@ -1,10 +1,6 @@
-
 @font-face {
     src: url("PressStart2P-Regular.ttf");
 }
-
-
-
 
 .btn-bas {
     -fx-font-family: "Press Start 2P";
@@ -18,9 +14,6 @@
     -fx-border-width: 0;
 }
 
-
-
-
 .btn-accueil {
     -fx-font-family: "Press Start 2P";
     -fx-font-size: 11px;
@@ -32,7 +25,6 @@
     -fx-padding: 12 20 12 20;
     -fx-border-width: 0;
 }
-
 
 .btn-normal {
     -fx-font-family: "Press Start 2P";
@@ -59,4 +51,34 @@
 .panneau-tours .button:hover {
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 0);
     -fx-cursor: hand;
+}
+
+/* ── HUD BAS ── */
+.barre-bas {
+    -fx-background-color: #1a1a2e;
+    -fx-border-color: #333366;
+    -fx-border-width: 2 0 0 0;
+}
+
+.hud-valeur {
+    -fx-font-family: "Press Start 2P";
+    -fx-font-size: 10px;
+    -fx-text-fill: #1a1a1a;
+    -fx-background-color: transparent;
+}
+
+.hud-btn-overlay {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-cursor: hand;
+}
+
+.hud-btn-overlay:hover {
+    -fx-background-color: rgba(255,255,255,0.15);
+    -fx-effect: dropshadow(three-pass-box, rgba(255,255,255,0.4), 8, 0, 0, 0);
+}
+
+.hud-btn-overlay:pressed {
+    -fx-background-color: rgba(0,0,0,0.2);
+    -fx-translate-y: 2;
 }

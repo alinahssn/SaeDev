@@ -7,6 +7,7 @@
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
 <BorderPane prefHeight="600.0" prefWidth="900.0" stylesheets="@map.css" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="universite_paris8.iut.aulhassan.maphopital.Controleur">
 
@@ -87,12 +88,51 @@
    </right>
 
    <bottom>
-      <HBox alignment="CENTER" spacing="10" styleClass="barre-bas">
-         <Label fx:id="labelBudget" alignment="CENTER" prefHeight="56.0" prefWidth="228.0" styleClass="btn-bas" text="BUDGET" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" />
-         <Label fx:id="labelPV" alignment="CENTER" prefHeight="57.0" prefWidth="221.0" styleClass="btn-bas" text="PV Patient" />
-         <Label alignment="CENTER" prefHeight="58.0" prefWidth="146.0" styleClass="btn-bas" text="Vague" />
-         <Button fx:id="btnBonus" onAction="#ajouteBonus" prefHeight="54.0" prefWidth="147.0" styleClass="btn-bas" text="BONUS" />
-         <Button fx:id="btnVague" onAction="#lancerVague" prefHeight="51.0" prefWidth="148.0" styleClass="btn-bas" text="Lancer vague" />      </HBox>
+      <HBox alignment="CENTER" spacing="8" styleClass="barre-bas">
+         <padding><Insets top="6" bottom="6" left="6" right="6"/></padding>
+
+         <StackPane>
+            <ImageView fitWidth="200.0" fitHeight="54.0" preserveRatio="false" pickOnBounds="false" mouseTransparent="true">
+               <image><Image url="@image/hud_budget.png" /></image>
+            </ImageView>
+            <Label fx:id="labelBudget" styleClass="hud-valeur" text="200 €" StackPane.alignment="BOTTOM_RIGHT">
+               <StackPane.margin><Insets bottom="6" right="12"/></StackPane.margin>
+            </Label>
+         </StackPane>
+
+         <StackPane>
+            <ImageView fitWidth="200.0" fitHeight="54.0" preserveRatio="false" pickOnBounds="false" mouseTransparent="true">
+               <image><Image url="@image/hud_patient.png" /></image>
+            </ImageView>
+            <Label fx:id="labelPV" styleClass="hud-valeur" text="100 PV" StackPane.alignment="BOTTOM_RIGHT">
+               <StackPane.margin><Insets bottom="6" right="12"/></StackPane.margin>
+            </Label>
+         </StackPane>
+
+         <StackPane>
+            <ImageView fitWidth="200.0" fitHeight="54.0" preserveRatio="false" pickOnBounds="false" mouseTransparent="true">
+               <image><Image url="@image/hud_vague.png" /></image>
+            </ImageView>
+            <Label fx:id="labelVague" styleClass="hud-valeur" text="01 / 07" StackPane.alignment="BOTTOM_LEFT">
+               <StackPane.margin><Insets bottom="6" left="58"/></StackPane.margin>
+            </Label>
+         </StackPane>
+
+         <StackPane>
+            <ImageView fitWidth="200.0" fitHeight="54.0" preserveRatio="false" pickOnBounds="true" mouseTransparent="true">
+               <image><Image url="@image/hud_morphine.png" /></image>
+            </ImageView>
+            <Button fx:id="btnBonus" onAction="#ajouteBonus" styleClass="hud-btn-overlay" text="" prefWidth="200.0" prefHeight="54.0" />
+         </StackPane>
+
+         <StackPane>
+            <ImageView fitWidth="200.0" fitHeight="54.0" preserveRatio="false" pickOnBounds="true" mouseTransparent="true">
+               <image><Image url="@image/hud_lancer_vague.png" /></image>
+            </ImageView>
+            <Button fx:id="btnVague" onAction="#lancerVague" styleClass="hud-btn-overlay" text="" prefWidth="200.0" prefHeight="54.0" />
+         </StackPane>
+
+      </HBox>
    </bottom>
 
 </BorderPane>

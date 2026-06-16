@@ -65,6 +65,10 @@ public class GestClic {
             int col   = (int) event.getX() / 32;
             int ligne = (int) event.getY() / 32;
 
+            int nbLignes = environnement.getTerrain().getMap().length;
+            int nbCols   = environnement.getTerrain().getMap()[0].length;
+            if (ligne < 0 || ligne >= nbLignes || col < 0 || col >= nbCols) return;
+
             int valeurCase = environnement.getTerrain().getMap()[ligne][col];
             boolean caseValide = (idTourSelect == 5) ? valeurCase == 0 : valeurCase == 1;
 
@@ -84,7 +88,6 @@ public class GestClic {
                         System.out.println("Tour sélectionnée pour revente !");
                     });
 
-
                     System.out.println("Tour posée en [" + ligne + "][" + col + "]");
                 } else {
                     System.out.println("Achat impossible : Pas assez d'argent");
@@ -101,6 +104,10 @@ public class GestClic {
 
             int col   = (int) event.getX() / 32;
             int ligne = (int) event.getY() / 32;
+
+            int nbLignes = environnement.getTerrain().getMap().length;
+            int nbCols   = environnement.getTerrain().getMap()[0].length;
+            if (ligne < 0 || ligne >= nbLignes || col < 0 || col >= nbCols) return;
 
             int valeurCase = environnement.getTerrain().getMap()[ligne][col];
             boolean caseValide = (idTourSelect == 5) ? valeurCase == 0 : valeurCase == 1;

@@ -10,6 +10,7 @@ import javafx.util.Duration;
 import universite_paris8.iut.aulhassan.maphopital.modele.*;
 import universite_paris8.iut.aulhassan.maphopital.modele.BFS.Sommet;
 import universite_paris8.iut.aulhassan.maphopital.modele.Ennemi.Ennemi;
+import universite_paris8.iut.aulhassan.maphopital.modele.Ennemi.MouchoirEnrhumé;
 import universite_paris8.iut.aulhassan.maphopital.visuel.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -31,10 +32,11 @@ public class Controleur implements Initializable {
     @FXML private Button btnChir;
     @FXML private Button btnRevente;
     @FXML private TilePane tilehopital;
-    @FXML private Button btnBonus;
     @FXML private Label labelPV;
     @FXML private Label labelBudget;
     @FXML private Pane panneauJeu;
+    @FXML private Label labelVague;
+    @FXML private Button btnBonus;
 
     private Vague vague;
     private GestProjectile gestProjectile;
@@ -61,7 +63,7 @@ public class Controleur implements Initializable {
         this.vueMouchoirs = new VueMouchoirs(environnement, panneauJeu);
         this.vueNouveauxEnnemis = new VueNouveauxEnnemis(environnement, panneauJeu);
 
-        new VueBouton(environnement, labelPV, labelBudget, btnInterne, btnGel, btnBranca, btnAne, btnMasque, btnChir, btnRevente, btnBonus);
+        new VueBouton(environnement, vague, labelPV, labelBudget, labelVague, btnInterne, btnGel, btnBranca, btnAne, btnMasque, btnChir, btnRevente,btnBonus);
         initAnimation();
         gameloop.play();
     }
