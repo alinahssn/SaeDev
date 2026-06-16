@@ -26,67 +26,63 @@
    </center>
 
    <right>
-      <VBox fx:id="panneauTour" alignment="TOP_CENTER" prefWidth="250" spacing="15" styleClass="panneau-tours" BorderPane.alignment="CENTER">
-            <Label styleClass="label-tour" text="TOURS" textAlignment="CENTER" />
-            <Button fx:id="btnInterne" alignment="CENTER" contentDisplay="TOP" prefHeight="85.0" prefWidth="228.0" text="Interne de Garde">
-               <graphic>
-                  <ImageView fitHeight="55.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@image/Interne.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
-         <Button fx:id="btnGel" alignment="CENTER" contentDisplay="TOP" prefHeight="85.0" prefWidth="228.0" text="Infirmier">
+      <VBox fx:id="panneauTour" alignment="TOP_CENTER" prefWidth="250" spacing="15"
+            maxHeight="864.0" styleClass="panneau-tours" BorderPane.alignment="TOP_RIGHT">
+
+         <Label styleClass="label-tour" text="TOURS" textAlignment="CENTER" />
+
+         <Button fx:id="btnInterne" alignment="CENTER" contentDisplay="TOP" prefHeight="120.0" prefWidth="228.0" text="Interne de Garde">
             <graphic>
                <ImageView fitHeight="55.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true">
-                  <image>
-                     <Image url="@image/gel.png" />
-                  </image>
+                  <image><Image url="@image/Interne.png" /></image>
                </ImageView>
             </graphic>
          </Button>
-         <Button fx:id="btnBranca" alignment="CENTER" contentDisplay="TOP" prefHeight="85.0" prefWidth="228.0" text="Brancardier">
+         <Button fx:id="btnGel" alignment="CENTER" contentDisplay="TOP" prefHeight="120.0" prefWidth="228.0" text="Infirmier">
             <graphic>
                <ImageView fitHeight="55.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true">
-                  <image>
-                     <Image url="@image/branca.png" />
-                  </image>
+                  <image><Image url="@image/gel.png" /></image>
                </ImageView>
             </graphic>
          </Button>
-         <Button fx:id="btnAne" alignment="CENTER" contentDisplay="TOP" prefHeight="85.0" prefWidth="228.0" text="Anesthésiste">
+         <Button fx:id="btnBranca" alignment="CENTER" contentDisplay="TOP" prefHeight="120.0" prefWidth="228.0" text="Brancardier">
             <graphic>
                <ImageView fitHeight="55.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true">
-                  <image>
-                     <Image url="@image/Ane.png" />
-                  </image>
+                  <image><Image url="@image/branca.png" /></image>
                </ImageView>
             </graphic>
          </Button>
-         <Button fx:id="btnMasque" alignment="CENTER" contentDisplay="TOP" prefHeight="85.0" prefWidth="228.0" text="Masquier">
+         <Button fx:id="btnAne" alignment="CENTER" contentDisplay="TOP" prefHeight="120.0" prefWidth="228.0" text="Anesthésiste">
             <graphic>
                <ImageView fitHeight="55.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true">
-                  <image>
-                     <Image url="@image/masque.png" />
-                  </image>
+                  <image><Image url="@image/Ane.png" /></image>
                </ImageView>
             </graphic>
          </Button>
-         <Button fx:id="btnChir" alignment="CENTER" contentDisplay="TOP" prefHeight="85.0" prefWidth="228.0" text="Chirurgien">
+         <Button fx:id="btnMasque" alignment="CENTER" contentDisplay="TOP" prefHeight="120.0" prefWidth="228.0" text="Masquier">
             <graphic>
                <ImageView fitHeight="55.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true">
-                  <image>
-                     <Image url="@image/Chir.png" />
-                  </image>
+                  <image><Image url="@image/masque.png" /></image>
+               </ImageView>
+            </graphic>
+         </Button>
+         <Button fx:id="btnChir" alignment="CENTER" contentDisplay="TOP" prefHeight="120.0" prefWidth="228.0" text="Chirurgien">
+            <graphic>
+               <ImageView fitHeight="55.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true">
+                  <image><Image url="@image/Chir.png" /></image>
                </ImageView>
             </graphic>
          </Button>
 
-         <Button fx:id="btnRevente" alignment="CENTER" contentDisplay="TOP" prefHeight="57.0" prefWidth="232.0" text="Revente" />
+         <Region VBox.vgrow="ALWAYS" />
 
-
-
+         <Button fx:id="btnRevente" alignment="CENTER" contentDisplay="TOP" prefHeight="135.0" prefWidth="230.0" text="Revente">
+            <graphic>
+               <ImageView fitHeight="45.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                  <image><Image url="@image/panier.png" /></image>
+               </ImageView>
+            </graphic>
+         </Button>
       </VBox>
    </right>
 
