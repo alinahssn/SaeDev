@@ -61,8 +61,7 @@ public class Controleur implements Initializable {
         this.vueMouchoirs = new VueMouchoirs(environnement, panneauJeu);
         this.vueEnnemis = new VueEnnemis(environnement, panneauJeu);
 
-        new VueBouton(environnement, labelPV, labelBudget);
-
+        new VueBouton(environnement, labelPV, labelBudget, btnInterne, btnGel, btnBranca, btnAne, btnMasque, btnChir, btnRevente);
         initAnimation();
         gameloop.play();
     }

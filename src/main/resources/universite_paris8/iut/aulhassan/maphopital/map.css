@@ -45,3 +45,16 @@
     -fx-padding: 12 20 12 20;
     -fx-border-width: 0;
 }
+
+.panneau-tours .button {
+    -fx-background-image: url("image/boutonTour.png");
+    -fx-background-position: center;
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: 100% 100%;
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+.panneau-tours .button:hover {
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 0);
+    -fx-cursor: hand;
+}
