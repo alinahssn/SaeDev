@@ -10,7 +10,7 @@ public class Rabique extends Ennemi {
 
         super(PV_DEPART, ATTAQUE, VITESSE, RECOMPENSE);
     }
-
+//
     @Override
     public void deplacer() {
 

@@ -7,6 +7,7 @@ import javafx.scene.image.ImageView;
 import universite_paris8.iut.aulhassan.maphopital.modele.BFS.BFS;
 import universite_paris8.iut.aulhassan.maphopital.modele.BFS.Graphes;
 import universite_paris8.iut.aulhassan.maphopital.modele.BFS.Sommet;
+import universite_paris8.iut.aulhassan.maphopital.modele.Ennemi.Covidé;
 import universite_paris8.iut.aulhassan.maphopital.modele.Ennemi.Ennemi;
 import universite_paris8.iut.aulhassan.maphopital.modele.Tour.Masquier;
 import universite_paris8.iut.aulhassan.maphopital.modele.Ennemi.MouchoirEnrhumé;
@@ -30,6 +31,9 @@ public class EnvironnementJeu {
     private List<Projectile> projectilesActifs;
     private List<MouchoirEnrhumé> mouchoirsActifs;
     private List<MouchoirEnrhumé> nouveauxMouchoirs = new ArrayList<>();
+    private List<MouchoirEnrhumé> mouchoirsSupprimes = new ArrayList<>();
+    private List<Ennemi> nouveauxEnnemis = new ArrayList<>();
+
     private Graphes graphe;
     private BFS bfs;
     private Sommet cible;
@@ -106,6 +110,25 @@ public class EnvironnementJeu {
                 nouveauxMouchoirs.add(mouchoir);
             }
         }
+        if(e instanceof Covidé covidé) {
+            for (MouchoirEnrhumé mouchoir : mouchoirsActifs) {
+            Enrhumé nouvelEnrhume = covidé.utiliserPouvoir(mouchoir);
+                if (nouvelEnrhume != null) {
+                    Sommet spawn = new Sommet(
+                            nouvelEnrhume.getSpawnX() / 32,
+                            nouvelEnrhume.getSpawnY() / 32
+                    );
+
+                    ArrayList<Sommet> chemin = bfs.cheminVersSource(spawn);
+                    java.util.Collections.reverse(chemin);
+                    nouvelEnrhume.setChemin(chemin);
+                    ennemisActifs.add(nouvelEnrhume);
+                    nouveauxEnnemis.add(nouvelEnrhume);
+                    mouchoirsSupprimes.add(mouchoir);
+                }
+            }
+            mouchoirsActifs.removeAll(mouchoirsSupprimes);
+        }
     }
 
     public List<MouchoirEnrhumé> getNouveauxMouchoirs() {
@@ -114,6 +137,18 @@ public class EnvironnementJeu {
 
     public void viderNouveauxMouchoirs() {
         nouveauxMouchoirs.clear();
+    }
+    public List<MouchoirEnrhumé> getMouchoirsSupprimes() {
+        return mouchoirsSupprimes;
+    }
+    public void viderMouchoirsSupprimes() {
+        mouchoirsSupprimes.clear();
+    }
+    public List<Ennemi> getNouveauxEnnemis() {
+        return nouveauxEnnemis;
+    }
+    public void viderNouveauxEnnemis() {
+        nouveauxEnnemis.clear();
     }
     private void gererMasquiersDetruits() {
         retirerMasquiersDetruits();

@@ -38,6 +38,8 @@ public class Controleur implements Initializable {
 
     private Vague vague;
     private GestProjectile gestProjectile;
+    private VueMouchoirs vueMouchoirs;
+    private VueEnnemis vueEnnemis;
     private VueTour vueTour;
     private VueTerrain vueTerrain;
     private EnvironnementJeu environnement;
@@ -56,6 +58,8 @@ public class Controleur implements Initializable {
 
         this.gestProjectile = new GestProjectile(panneauJeu, environnement);
         this.vague = new Vague(environnement);
+        this.vueMouchoirs = new VueMouchoirs(environnement, panneauJeu);
+        this.vueEnnemis = new VueEnnemis(environnement, panneauJeu);
 
         new VueBouton(environnement, labelPV, labelBudget);
 
@@ -71,11 +75,6 @@ public class Controleur implements Initializable {
         KeyFrame keyFrame = new KeyFrame(Duration.seconds(0.017), ev -> {
 
             environnement.unTour(temps);
-            for (MouchoirEnrhumé mouchoir : environnement.getNouveauxMouchoirs()) {
-                new VueMouchoir(mouchoir, panneauJeu);
-            }
-
-            environnement.viderNouveauxMouchoirs();
 
             Ennemi nouvelEnnemi = vague.tickSpawn();
             if (nouvelEnnemi != null) {
@@ -88,6 +87,8 @@ public class Controleur implements Initializable {
             }
 
             vueTour.supprimerMasquiersDetruits();
+            vueMouchoirs.mettreAJour();
+            vueEnnemis.mettreAJour();
             gestProjectile.tiquerProjectiles();
 
             vueTour.mettreAJourPositionsTours();

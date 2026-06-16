@@ -61,6 +61,8 @@ public class Vague {
         ennemi.setX(spawn.getX() * 32);
         ennemi.setY(spawn.getY() * 32);
 
+        ennemi.setSpawn(spawn.getX() * 32,spawn.getY() * 32);
+
         return ennemi;
     }
 

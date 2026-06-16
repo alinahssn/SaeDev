@@ -17,7 +17,7 @@ public class Enrhumé extends Ennemi {
         if (estArriveSurNouvelleCase()) {
             caseParcourues++;
 
-            if (caseParcourues % 5 == 0) {
+            if (caseParcourues % 10 == 0) {
                 return new MouchoirEnrhumé(getX(), getY());
             }
         }

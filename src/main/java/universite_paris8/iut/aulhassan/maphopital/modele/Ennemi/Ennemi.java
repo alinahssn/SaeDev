@@ -26,6 +26,8 @@ public class Ennemi {
     private int framesBloque = 0;
     private int cooldownAttaqueMasquier = 0;
     private boolean nouvelleCase = false;
+    private int spawnX;
+    private int spawnY;
 
     public Ennemi(int pv, int attaque, int vitesse, int recompense) {
         this.pvMax = pv;
@@ -66,6 +68,13 @@ public class Ennemi {
     public int getAttaque() { return attaque; }
     public int getVitesse() { return vitesse; }
     public int getRecompense() { return recompense; }
+    public int getSpawnX() { return spawnX;}
+    public int getSpawnY() { return spawnY;}
+    
+    public void setSpawn(int spawnX, int spawnY) {
+        this.spawnX = spawnX;
+        this.spawnY = spawnY;
+    }
 
     public void setRecompense(int recompense) {
         this.recompense = recompense;
