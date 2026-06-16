@@ -140,14 +140,11 @@ public class Ennemi {
         }
         nouvelleCase = false;
 
-        int dx = ciblePixelX - getX();
-        int dy = ciblePixelY - getY();
+        if (getX() < ciblePixelX) setX(Math.min(getX() + vitesse, ciblePixelX));
+        else if (getX() > ciblePixelX) setX(Math.max(getX() - vitesse, ciblePixelX));
 
-        if (dx > 0) setX(Math.min(getX() + vitesse, ciblePixelX));
-        else if (dx < 0) setX(Math.max(getX() - vitesse, ciblePixelX));
-
-        if (dy > 0) setY(Math.min(getY() + vitesse, ciblePixelY));
-        else if (dy < 0) setY(Math.max(getY() - vitesse, ciblePixelY));
+        if (getY() < ciblePixelY) setY(Math.min(getY() + vitesse, ciblePixelY));
+        else if (getY() > ciblePixelY) setY(Math.max(getY() - vitesse, ciblePixelY));
 
         if (getX() == ciblePixelX && getY() == ciblePixelY && indexChemin < chemin.size()) {
             nouvelleCase = true;
