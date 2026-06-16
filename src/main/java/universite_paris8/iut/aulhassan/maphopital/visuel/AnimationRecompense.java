@@ -38,4 +38,48 @@ public class AnimationRecompense {
         anim.setOnFinished(e -> panneau.getChildren().remove(texte));
         anim.play();
     }
+
+    public static void jouerAchat(Pane panneau, int montant, double x, double y) {
+        Text texte = new Text("-" + montant + "€");
+        texte.setFont(Font.font("Arial", FontWeight.BOLD, 14));
+        texte.setFill(Color.RED);
+        texte.setStroke(Color.DARKRED);
+        texte.setStrokeWidth(0.5);
+        texte.setLayoutX(x);
+        texte.setLayoutY(y);
+
+        panneau.getChildren().add(texte);
+
+        Timeline anim = new Timeline(
+                new KeyFrame(Duration.ZERO, new KeyValue(texte.layoutYProperty(), y), new KeyValue(texte.opacityProperty(), 1.0)),
+                new KeyFrame(Duration.millis(900), new KeyValue(texte.layoutYProperty(), y - 40), new KeyValue(texte.opacityProperty(), 0.0))
+        );
+        anim.setOnFinished(e -> panneau.getChildren().remove(texte));
+        anim.play();
+    }
+
+    public static void jouerRevente(Pane panneau, int montant, double x, double y) {
+        Text texte = new Text("+" + montant + "€");
+        texte.setFont(Font.font("Arial", FontWeight.BOLD, 14));
+        texte.setFill(Color.LIMEGREEN); // Vert pour la revente (ou Color.GOLD si tu préfères)
+        texte.setStroke(Color.FORESTGREEN);
+        texte.setStrokeWidth(0.5);
+        texte.setLayoutX(x);
+        texte.setLayoutY(y);
+
+        panneau.getChildren().add(texte);
+
+        Timeline anim = new Timeline(
+                new KeyFrame(Duration.ZERO, new KeyValue(texte.layoutYProperty(), y), new KeyValue(texte.opacityProperty(), 1.0)),
+                new KeyFrame(Duration.millis(900), new KeyValue(texte.layoutYProperty(), y - 40), new KeyValue(texte.opacityProperty(), 0.0))
+        );
+        anim.setOnFinished(e -> panneau.getChildren().remove(texte));
+        anim.play();
+    }
+
+
+
+
+
+
 }

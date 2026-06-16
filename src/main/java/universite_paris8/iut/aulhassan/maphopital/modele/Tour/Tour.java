@@ -77,7 +77,8 @@ public class Tour {
 
     }
 
-    public void setMultiplicateurCooldown(double multiplicateur) {
+    // Fonction pour le Grippé (ralentissemnt des projectils)
+    public void setMultiplicateurCooldownProjectil(double multiplicateur) {
         this.multiplicateurCooldown = multiplicateur;
     }
 
@@ -92,5 +93,9 @@ public class Tour {
             }
         }
         return null;
+    }
+
+    public int getPrixRevente() {
+        return (int) (this.cout * 0.7);
     }
 }

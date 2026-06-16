@@ -4,6 +4,8 @@ import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 import javafx.scene.image.ImageView;
 import universite_paris8.iut.aulhassan.maphopital.modele.*;
+import universite_paris8.iut.aulhassan.maphopital.modele.Ennemi.Ennemi;
+import universite_paris8.iut.aulhassan.maphopital.modele.Ennemi.Grippé;
 import universite_paris8.iut.aulhassan.maphopital.modele.Tour.Projectile;
 import universite_paris8.iut.aulhassan.maphopital.modele.Tour.Tour;
 
@@ -27,6 +29,22 @@ public class GestProjectile {
 
     public void tiquerProjectiles() {
         for (Tour tour : environnement.getToursActives()) {
+
+            // Si un Grippé vivant est dans sa portée de ralentissement, la tour tire 2x moins vite
+            double multiplicateur = 1.0;
+            for (Ennemi e : environnement.getEnnemisActifs()) {
+                if (e instanceof Grippé && e.estVivant()) {
+                    int dx = tour.getX() - e.getX();
+                    int dy = tour.getY() - e.getY();
+                    double distance = Math.sqrt(dx * dx + dy * dy);
+                    if (distance <= Grippé.PORTEE_RALENTISSEMENT * 32) {
+                        multiplicateur = 2.0;
+                        break;
+                    }
+                }
+            }
+            tour.setMultiplicateurCooldownProjectil(multiplicateur);
+
             Projectile proj = tour.agir(environnement.getEnnemisActifs());
 
             if (proj != null) {
@@ -43,7 +61,6 @@ public class GestProjectile {
                 vuesProjectiles.put(proj, vueProj);
             }
         }
-
 
         for (Projectile proj : projectilesActifs) {
             proj.deplacer();
