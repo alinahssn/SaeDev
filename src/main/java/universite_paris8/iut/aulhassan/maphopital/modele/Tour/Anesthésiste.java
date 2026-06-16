@@ -17,14 +17,12 @@ public class Anesthésiste extends Tour {
     public Projectile agir(List<Ennemi> ennemisActifs) {
         int porteePixels = getPortee() * 32;
         actif = false;
-
         for (Ennemi e : ennemisActifs) {
             if (!e.estVivant()) continue;
 
             int dx = getX() - e.getX();
             int dy = getY() - e.getY();
             double distance = Math.sqrt(dx * dx + dy * dy);
-
             if (distance <= porteePixels) {
                 e.ralentir(FACTEUR_RALENTISSEMENT);
                 actif = true;

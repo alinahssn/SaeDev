@@ -4,12 +4,12 @@ import javafx.scene.layout.Pane;
 import universite_paris8.iut.aulhassan.maphopital.modele.EnvironnementJeu;
 import universite_paris8.iut.aulhassan.maphopital.modele.Ennemi.Ennemi;
 
-public class VueEnnemis {
+public class VueNouveauxEnnemis {
 
     private EnvironnementJeu environnement;
     private Pane panneauJeu;
 
-    public VueEnnemis(EnvironnementJeu environnement, Pane panneauJeu) {
+    public VueNouveauxEnnemis(EnvironnementJeu environnement, Pane panneauJeu) {
         this.environnement = environnement;
         this.panneauJeu = panneauJeu;
     }

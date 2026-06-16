@@ -10,7 +10,6 @@ import javafx.util.Duration;
 import universite_paris8.iut.aulhassan.maphopital.modele.*;
 import universite_paris8.iut.aulhassan.maphopital.modele.BFS.Sommet;
 import universite_paris8.iut.aulhassan.maphopital.modele.Ennemi.Ennemi;
-import universite_paris8.iut.aulhassan.maphopital.modele.Ennemi.MouchoirEnrhumé;
 import universite_paris8.iut.aulhassan.maphopital.visuel.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -39,7 +38,7 @@ public class Controleur implements Initializable {
     private Vague vague;
     private GestProjectile gestProjectile;
     private VueMouchoirs vueMouchoirs;
-    private VueEnnemis vueEnnemis;
+    private VueNouveauxEnnemis vueNouveauxEnnemis;
     private VueTour vueTour;
     private VueTerrain vueTerrain;
     private EnvironnementJeu environnement;
@@ -59,7 +58,7 @@ public class Controleur implements Initializable {
         this.gestProjectile = new GestProjectile(panneauJeu, environnement);
         this.vague = new Vague(environnement);
         this.vueMouchoirs = new VueMouchoirs(environnement, panneauJeu);
-        this.vueEnnemis = new VueEnnemis(environnement, panneauJeu);
+        this.vueNouveauxEnnemis = new VueNouveauxEnnemis(environnement, panneauJeu);
 
         new VueBouton(environnement, labelPV, labelBudget, btnInterne, btnGel, btnBranca, btnAne, btnMasque, btnChir, btnRevente);
         initAnimation();
@@ -87,7 +86,7 @@ public class Controleur implements Initializable {
 
             vueTour.supprimerMasquiersDetruits();
             vueMouchoirs.mettreAJour();
-            vueEnnemis.mettreAJour();
+            vueNouveauxEnnemis.mettreAJour();
             gestProjectile.tiquerProjectiles();
 
             vueTour.mettreAJourPositionsTours();

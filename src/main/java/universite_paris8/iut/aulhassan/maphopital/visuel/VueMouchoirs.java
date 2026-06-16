@@ -4,7 +4,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import universite_paris8.iut.aulhassan.maphopital.modele.Ennemi.MouchoirEnrhumé;
 import universite_paris8.iut.aulhassan.maphopital.modele.EnvironnementJeu;
-import universite_paris8.iut.aulhassan.maphopital.visuel.ChargeurImage;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -25,8 +24,7 @@ public class VueMouchoirs {
 
         for (MouchoirEnrhumé mouchoir : environnement.getNouveauxMouchoirs()) {
 
-            ImageView imageView =
-                    new ImageView(ChargeurImage.charger("mouchoir2.png"));
+            ImageView imageView =  new ImageView(ChargeurImage.charger("mouchoir2.png"));
 
             imageView.setFitWidth(28);
             imageView.setFitHeight(28);
