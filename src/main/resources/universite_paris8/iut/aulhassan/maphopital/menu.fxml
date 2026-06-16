@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.*?>
+
+
+<StackPane xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="universite_paris8.iut.aulhassan.maphopital.ControleurMenu"
+           prefWidth="900" prefHeight="600"
+           stylesheets="@map.css">
+
+
+    <!-- ÉCRAN PRINCIPAL -->
+    <VBox fx:id="ecranPrincipal" alignment="CENTER" spacing="30"
+          style="-fx-background-color: #1a1a2e;">
+
+
+        <Label text="CODE ROUGE" styleClass="titre-rouge"
+               style="-fx-font-size: 36px;"/>
+        <Label text=": INVASION À L'HÔPITAL" styleClass="titre-blanc"
+               style="-fx-font-size: 18px;"/>
+
+
+        <VBox spacing="15" alignment="CENTER">
+            <Button text="▶  JOUER" onAction="#jouer"
+                    prefWidth="250" prefHeight="55" styleClass="btn-accueil"/>
+            <Button text="TOURS &amp; ENNEMIS" onAction="#ouvrirInfos"
+                    prefWidth="250" prefHeight="55" styleClass="btn-accueil"/>
+            <Button text="   COMMENT JOUER" onAction="#ouvrirRegles"
+                    prefWidth="250" prefHeight="55" styleClass="btn-normal"/>
+        </VBox>
+    </VBox>
+
+
+    <!-- POPUP TOURS & ENNEMIS -->
+    <StackPane fx:id="ecranInfos" visible="false"
+               style="-fx-background-color: rgba(0,0,0,0.92);">
+        <VBox alignment="TOP_CENTER" spacing="15"
+              style="-fx-padding: 20;">
+
+
+            <Label text="TOURS &amp; ENNEMIS" styleClass="titre-rouge"
+                   style="-fx-font-size: 22px;"/>
+
+
+            <ScrollPane fitToWidth="true" prefHeight="460"
+                        style="-fx-background: transparent; -fx-background-color: transparent;">
+                <VBox spacing="20" style="-fx-padding: 10;">
+
+
+                    <!-- TOURS -->
+                    <Label text="— TOURS —" styleClass="titre-blanc"
+                           style="-fx-font-size: 14px;"/>
+
+
+                    <HBox spacing="15" alignment="CENTER_LEFT">
+                        <ImageView fitWidth="48" fitHeight="48" preserveRatio="true">
+                            <image><Image url="@image/Interne.png"/></image>
+                        </ImageView>
+                        <VBox spacing="3">
+                            <Label text="Interne de Garde" styleClass="titre-blanc" style="-fx-font-size: 11px;"/>
+                            <Label text="Dégât: 10 | Portée: 3 | Coût: 50€" style="-fx-text-fill: #aaaaaa; -fx-font-size: 9px;"/>
+                            <Label text="Tire des pilules sur les ennemis." style="-fx-text-fill: #cccccc; -fx-font-size: 9px;"/>
+                        </VBox>
+                    </HBox>
+
+
+                    <HBox spacing="15" alignment="CENTER_LEFT">
+                        <ImageView fitWidth="48" fitHeight="48" preserveRatio="true">
+                            <image><Image url="@image/gel.png"/></image>
+                        </ImageView>
+                        <VBox spacing="3">
+                            <Label text="Infirmier" styleClass="titre-blanc" style="-fx-font-size: 11px;"/>
+                            <Label text="Dégât: 5 | Portée: 2 | Coût: 75€" style="-fx-text-fill: #aaaaaa; -fx-font-size: 9px;"/>
+                            <Label text="Pose une flaque de gel qui empoisone les ennemis qui passent dessus." style="-fx-text-fill: #cccccc; -fx-font-size: 9px;"/>
+                        </VBox>
+                    </HBox>
+
+
+                    <HBox spacing="15" alignment="CENTER_LEFT">
+                        <ImageView fitWidth="48" fitHeight="48" preserveRatio="true">
+                            <image><Image url="@image/branca.png"/></image>
+                        </ImageView>
+                        <VBox spacing="3">
+                            <Label text="Brancardier" styleClass="titre-blanc" style="-fx-font-size: 11px;"/>
+                            <Label text="Dégât: 15 | Portée: 4 | Coût: 100€" style="-fx-text-fill: #aaaaaa; -fx-font-size: 9px;"/>
+                            <Label text="Mettre ca fonction." style="-fx-text-fill: #cccccc; -fx-font-size: 9px;"/>
+                        </VBox>
+                    </HBox>
+
+
+                    <HBox spacing="15" alignment="CENTER_LEFT">
+                        <ImageView fitWidth="48" fitHeight="48" preserveRatio="true">
+                            <image><Image url="@image/Ane.png"/></image>
+                        </ImageView>
+                        <VBox spacing="3">
+                            <Label text="Anesthésiste" styleClass="titre-blanc" style="-fx-font-size: 11px;"/>
+                            <Label text="Dégât: 20 | Portée: 3 | Coût: 125€" style="-fx-text-fill: #aaaaaa; -fx-font-size: 9px;"/>
+                            <Label text="Mettre ca fonction." style="-fx-text-fill: #cccccc; -fx-font-size: 9px;"/>
+                        </VBox>
+                    </HBox>
+
+
+                    <HBox spacing="15" alignment="CENTER_LEFT">
+                        <ImageView fitWidth="48" fitHeight="48" preserveRatio="true">
+                            <image><Image url="@image/masque.png"/></image>
+                        </ImageView>
+                        <VBox spacing="3">
+                            <Label text="Masquier" styleClass="titre-blanc" style="-fx-font-size: 11px;"/>
+                            <Label text="Dégât: 8 | Portée: 5 | Coût: 90€" style="-fx-text-fill: #aaaaaa; -fx-font-size: 9px;"/>
+                            <Label text="Il se place sur le chemin, les ennemis doivent le detruire pour avancer." style="-fx-text-fill: #cccccc; -fx-font-size: 9px;"/>
+                        </VBox>
+                    </HBox>
+
+
+                    <HBox spacing="15" alignment="CENTER_LEFT">
+                        <ImageView fitWidth="48" fitHeight="48" preserveRatio="true">
+                            <image><Image url="@image/Chir.png"/></image>
+                        </ImageView>
+                        <VBox spacing="3">
+                            <Label text="Chirurgien" styleClass="titre-blanc" style="-fx-font-size: 11px;"/>
+                            <Label text="Dégât: 30 | Portée: 3 | Coût: 150€" style="-fx-text-fill: #aaaaaa; -fx-font-size: 9px;"/>
+                            <Label text="Mettre ca fonction." style="-fx-text-fill: #cccccc; -fx-font-size: 9px;"/>
+                        </VBox>
+                    </HBox>
+
+
+                    <!-- ENNEMIS -->
+                    <Label text="— ENNEMIS —" styleClass="titre-blanc"
+                           style="-fx-font-size: 14px; -fx-padding: 10 0 0 0;"/>
+
+
+                    <HBox spacing="15" alignment="CENTER_LEFT">
+                        <ImageView fitWidth="48" fitHeight="48" preserveRatio="true">
+                            <image><Image url="@image/gastrique.png"/></image>
+                        </ImageView>
+                        <VBox spacing="3">
+                            <Label text="Gastrique" styleClass="titre-blanc" style="-fx-font-size: 11px;"/>
+                            <Label text="PV: 60 | Attaque: 5 | Vitesse: 4 | Récompense: 15€" style="-fx-text-fill: #aaaaaa; -fx-font-size: 9px;"/>
+                            <Label text="Ennemi de base, facile à éliminer." style="-fx-text-fill: #cccccc; -fx-font-size: 9px;"/>
+                        </VBox>
+                    </HBox>
+
+
+                    <HBox spacing="15" alignment="CENTER_LEFT">
+                        <ImageView fitWidth="48" fitHeight="48" preserveRatio="true">
+                            <image><Image url="@image/enrhumé.png"/></image>
+                        </ImageView>
+                        <VBox spacing="3">
+                            <Label text="Enrhumé" styleClass="titre-blanc" style="-fx-font-size: 11px;"/>
+                            <Label text="PV: 80 | Attaque: 8 | Vitesse: 4 | Récompense: 20€" style="-fx-text-fill: #aaaaaa; -fx-font-size: 9px;"/>
+                            <Label text="Laisse un mouchoir derriere lui." style="-fx-text-fill: #cccccc; -fx-font-size: 9px;"/>
+                        </VBox>
+                    </HBox>
+
+
+                    <HBox spacing="15" alignment="CENTER_LEFT">
+                        <ImageView fitWidth="48" fitHeight="48" preserveRatio="true">
+                            <image><Image url="@image/covidé.png"/></image>
+                        </ImageView>
+                        <VBox spacing="3">
+                            <Label text="Covidé" styleClass="titre-blanc" style="-fx-font-size: 11px;"/>
+                            <Label text="PV: 120 | Attaque: 10 | Vitesse: 3 | Récompense: 25€" style="-fx-text-fill: #aaaaaa; -fx-font-size: 9px;"/>
+                            <Label text="S'il marche sur un mouchoir alors un Enrhumé se créé." style="-fx-text-fill: #cccccc; -fx-font-size: 9px;"/>
+                        </VBox>
+                    </HBox>
+
+
+                    <HBox spacing="15" alignment="CENTER_LEFT">
+                        <ImageView fitWidth="48" fitHeight="48" preserveRatio="true">
+                            <image><Image url="@image/grippé.png"/></image>
+                        </ImageView>
+                        <VBox spacing="3">
+                            <Label text="Grippé" styleClass="titre-blanc" style="-fx-font-size: 11px;"/>
+                            <Label text="PV: 100 | Attaque: 10 | Vitesse: 8 | Récompense: 30€" style="-fx-text-fill: #aaaaaa; -fx-font-size: 9px;"/>
+                            <Label text="Ralentit les tours à portée — elles tirent 2x moins vite !" style="-fx-text-fill: #cccccc; -fx-font-size: 9px;"/>
+                        </VBox>
+                    </HBox>
+
+
+                    <HBox spacing="15" alignment="CENTER_LEFT">
+                        <ImageView fitWidth="48" fitHeight="48" preserveRatio="true">
+                            <image><Image url="@image/rabique.png"/></image>
+                        </ImageView>
+                        <VBox spacing="3">
+                            <Label text="Rabique" styleClass="titre-blanc" style="-fx-font-size: 11px;"/>
+                            <Label text="PV: 90 | Attaque: 20 | Vitesse: 12 | Récompense: 35€" style="-fx-text-fill: #aaaaaa; -fx-font-size: 9px;"/>
+                            <Label text="Très rapide et agressif." style="-fx-text-fill: #cccccc; -fx-font-size: 9px;"/>
+                        </VBox>
+                    </HBox>
+
+
+                    <HBox spacing="15" alignment="CENTER_LEFT">
+                        <ImageView fitWidth="48" fitHeight="48" preserveRatio="true">
+                            <image><Image url="@image/ébola.png"/></image>
+                        </ImageView>
+                        <VBox spacing="3">
+                            <Label text="Ebola" styleClass="titre-blanc" style="-fx-font-size: 11px;"/>
+                            <Label text="PV: 150 | Attaque: 5→20 | Vitesse: 4→32 | Récompense: 60€" style="-fx-text-fill: #aaaaaa; -fx-font-size: 9px;"/>
+                            <Label text="Accélère et devient plus fort à chaque phase de dégâts !" style="-fx-text-fill: #cccccc; -fx-font-size: 9px;"/>
+                        </VBox>
+                    </HBox>
+
+
+                    <HBox spacing="15" alignment="CENTER_LEFT">
+                        <ImageView fitWidth="48" fitHeight="48" preserveRatio="true">
+                            <image><Image url="@image/sujet_alpha.png"/></image>
+                        </ImageView>
+                        <VBox spacing="3">
+                            <Label text="SUJET ALPHA" styleClass="titre-rouge" style="-fx-font-size: 11px;"/>
+                            <Label text="PV: ??? | Attaque: ??? | Vitesse: ??? | Récompense: ???" style="-fx-text-fill: #aaaaaa; -fx-font-size: 9px;"/>
+                            <Label text="BOSS FINAL — Bonne chance." style="-fx-text-fill: #ff3333; -fx-font-size: 9px;"/>
+                        </VBox>
+                    </HBox>
+
+
+                </VBox>
+            </ScrollPane>
+
+
+            <Button text="← RETOUR" onAction="#fermerPopup"
+                    prefWidth="200" prefHeight="45" styleClass="btn-accueil"/>
+        </VBox>
+    </StackPane>
+
+
+    <!-- POPUP COMMENT JOUER -->
+    <StackPane fx:id="ecranRegles" visible="false"
+               style="-fx-background-color: rgba(0,0,0,0.92);">
+        <VBox alignment="TOP_CENTER" spacing="15"
+              style="-fx-padding: 20;">
+
+
+            <Label text="COMMENT JOUER" styleClass="titre-rouge"
+                   style="-fx-font-size: 22px;"/>
+
+
+            <ScrollPane fitToWidth="true" prefHeight="460"
+                        style="-fx-background: transparent; -fx-background-color: transparent;">
+                <VBox spacing="18" style="-fx-padding: 10;">
+
+
+                    <VBox spacing="5">
+                        <Label text="OBJECTIF" styleClass="titre-blanc" style="-fx-font-size: 12px;"/>
+                        <Label text="Empêcher les ennemis d'atteindre le patient au centre de la map. Si ses PV tombent à 0, c'est perdu !" style="-fx-text-fill: #cccccc; -fx-font-size: 10px; -fx-wrap-text: true;"/>
+                    </VBox>
+
+
+                    <VBox spacing="5">
+                        <Label text="POSER UNE TOUR" styleClass="titre-blanc" style="-fx-font-size: 12px;"/>
+                        <Label text="1. Clique sur une tour dans le panneau à droite.&#10;2. Si tu as assez de budget, la tour est sélectionnée.&#10;3. Clique sur une case VERTE de la map pour la poser.&#10;   (Rouge = case invalide, Verte = case libre)" style="-fx-text-fill: #cccccc; -fx-font-size: 10px; -fx-wrap-text: true;"/>
+                    </VBox>
+
+
+                    <VBox spacing="5">
+                        <Label text="BUDGET" styleClass="titre-blanc" style="-fx-font-size: 12px;"/>
+                        <Label text="Tu commences avec 200€. Chaque ennemi tué te rapporte de l'argent. Utilise-le pour poser de nouvelles tours !" style="-fx-text-fill: #cccccc; -fx-font-size: 10px; -fx-wrap-text: true;"/>
+                    </VBox>
+
+
+                    <VBox spacing="5">
+                        <Label text="VAGUES" styleClass="titre-blanc" style="-fx-font-size: 12px;"/>
+                        <Label text="Clique sur LANCER VAGUE pour faire apparaître les ennemis. Il y a 7 vagues en tout — chacune plus difficile. Les cases rouges sur la map indiquent les points d'entrée actifs." style="-fx-text-fill: #cccccc; -fx-font-size: 10px; -fx-wrap-text: true;"/>
+                    </VBox>
+
+
+                    <VBox spacing="5">
+                        <Label text="PV PATIENT" styleClass="titre-blanc" style="-fx-font-size: 12px;"/>
+                        <Label text="Le patient perd des PV quand un ennemi l'atteint." style="-fx-text-fill: #cccccc; -fx-font-size: 10px; -fx-wrap-text: true;"/>
+                    </VBox>
+
+
+                    <VBox spacing="5">
+                        <Label text="BONUS" styleClass="titre-blanc" style="-fx-font-size: 12px;"/>
+                        <Label text="Morphine rajoute +5 pv au patient... ." style="-fx-text-fill: #cccccc; -fx-font-size: 10px; -fx-wrap-text: true;"/>
+                    </VBox>
+
+
+
+
+                </VBox>
+            </ScrollPane>
+
+
+            <Button text="← RETOUR" onAction="#fermerPopup"
+                    prefWidth="200" prefHeight="45" styleClass="btn-accueil"/>
+        </VBox>
+    </StackPane>
+
+
+</StackPane>
+
+
