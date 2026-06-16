@@ -11,7 +11,7 @@ public class VueBouton {
 
     public VueBouton(EnvironnementJeu environnement, Label labelPV, Label labelBudget,
                      Button btnInterne, Button btnGel, Button btnBranca,
-                     Button btnAne, Button btnMasque, Button btnChir, Button btnRevente) {
+                     Button btnAne, Button btnMasque, Button btnChir, Button btnRevente, Button btnBonus) {
 
         // 1. Ton code de base (on n'y touche pas)
         labelBudget.setText("Budget : " + environnement.getBudget());
@@ -40,6 +40,7 @@ public class VueBouton {
         creerTooltip(btnMasque, "Prix : 50€\nPV : 100");
         creerTooltip(btnChir, "Prix : 150€\nDégâts : 50");
         creerTooltip(btnRevente, "Revendre : Recupère 70% du prix");
+        creerTooltip(btnBonus, "Prix : 50€\nSoigne le patient de 5 PV");
     }
 
     private void creerTooltip(Button b, String texte) {

@@ -31,6 +31,7 @@ public class Controleur implements Initializable {
     @FXML private Button btnChir;
     @FXML private Button btnRevente;
     @FXML private TilePane tilehopital;
+    @FXML private Button btnBonus;
     @FXML private Label labelPV;
     @FXML private Label labelBudget;
     @FXML private Pane panneauJeu;
@@ -60,7 +61,7 @@ public class Controleur implements Initializable {
         this.vueMouchoirs = new VueMouchoirs(environnement, panneauJeu);
         this.vueNouveauxEnnemis = new VueNouveauxEnnemis(environnement, panneauJeu);
 
-        new VueBouton(environnement, labelPV, labelBudget, btnInterne, btnGel, btnBranca, btnAne, btnMasque, btnChir, btnRevente);
+        new VueBouton(environnement, labelPV, labelBudget, btnInterne, btnGel, btnBranca, btnAne, btnMasque, btnChir, btnRevente, btnBonus);
         initAnimation();
         gameloop.play();
     }
@@ -109,8 +110,16 @@ public class Controleur implements Initializable {
 
     @FXML
     private void ajouteBonus() {
+        int coutBonus = 50;
         if (environnement.getPatient().estVivant()) {
-            environnement.getPatient().soigner(5);
+                if (environnement.dépense(coutBonus)) {
+                    environnement.getPatient().soigner(5);
+                    System.out.println("Bonus acheté ! -" + coutBonus + "€ (Patient soigné)");
+
+                } else {
+
+                    System.out.println("Pas assez de budget pour acheter le bonus ! Il faut " + coutBonus + "€.");
+                }
         }
     }
 

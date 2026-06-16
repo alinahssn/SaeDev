@@ -36,7 +36,7 @@
 
 .btn-normal {
     -fx-font-family: "Press Start 2P";
-    -fx-font-size: 11px;
+    -fx-font-size: 12px;
     -fx-text-fill: white;
     -fx-background-image: url("image/btn-comment_jouer.png");
     -fx-background-size: 100% 100%;
@@ -47,6 +47,8 @@
 }
 
 .panneau-tours .button {
+    -fx-font-family: "Press Start 2P";
+    -fx-font-size: 9px;
     -fx-background-image: url("image/boutonTour.png");
     -fx-background-position: center;
     -fx-background-repeat: no-repeat;
