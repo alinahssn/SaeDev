@@ -100,7 +100,7 @@ public class Controleur implements Initializable {
     @FXML
     private void lancerVague() {
         if (!environnement.getEnnemisActifs().isEmpty()) {
-            System.out.println("Impossible : il reste des ennemis sur la carte !");
+            System.out.println("Impossible : il  reste des ennemis sur la carte !");
             return;
         }
         vague.lancerVague();
