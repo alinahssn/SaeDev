@@ -5,6 +5,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
 import universite_paris8.iut.aulhassan.maphopital.modele.EnvironnementJeu;
 import universite_paris8.iut.aulhassan.maphopital.modele.Tour.*;
 
@@ -74,12 +75,15 @@ public class GestClic {
                 if (nouvelleTour != null && environnement.poserTour(nouvelleTour, col, ligne)) {
                     vueTour.afficherTour(nouvelleTour, col, ligne, tourPosee);
 
+                    AnimationRecompense.jouerAchat(panneauJeu, nouvelleTour.getCout(), col * 32, ligne * 32);
+
                     Tour tourAVendre = nouvelleTour;
                     tourPosee.setOnMouseClicked(clickSurTour -> {
                         this.tourSelectionnee = tourAVendre;
                         this.imageTourSelectionnee = (ImageView) clickSurTour.getSource();
                         System.out.println("Tour sélectionnée pour revente !");
                     });
+
 
                     System.out.println("Tour posée en [" + ligne + "][" + col + "]");
                 } else {
@@ -112,6 +116,9 @@ public class GestClic {
 
         btnRevente.setOnAction(event -> {
             if (tourSelectionnee != null && imageTourSelectionnee != null) {
+
+                AnimationRecompense.jouerRevente(panneauJeu, tourSelectionnee.getPrixRevente(), tourSelectionnee.getX(), tourSelectionnee.getY());
+
                 vueTour.supprimerTour(tourSelectionnee);
                 environnement.revendreTour(tourSelectionnee);
                 this.tourSelectionnee = null;

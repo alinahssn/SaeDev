@@ -94,4 +94,8 @@ public class Tour {
         }
         return null;
     }
+
+    public int getPrixRevente() {
+        return (int) (this.cout * 0.7);
+    }
 }
