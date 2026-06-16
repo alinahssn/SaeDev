@@ -36,7 +36,7 @@
 
 .btn-normal {
     -fx-font-family: "Press Start 2P";
-    -fx-font-size: 12px;
+    -fx-font-size: 11px;
     -fx-text-fill: white;
     -fx-background-image: url("image/btn-comment_jouer.png");
     -fx-background-size: 100% 100%;

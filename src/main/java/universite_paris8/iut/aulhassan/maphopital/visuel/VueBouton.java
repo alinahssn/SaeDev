@@ -20,7 +20,7 @@ public class VueBouton {
             if (nouveauPv.intValue() <= 0) {
                 labelPV.setText("0 / MORT");
             } else {
-                labelPV.setText(nouveauPv + " / " + environnement.getPatient().getPvMax());
+                labelPV.setText(nouveauPv + " /  " + environnement.getPatient().getPvMax());
             }
         });
 
