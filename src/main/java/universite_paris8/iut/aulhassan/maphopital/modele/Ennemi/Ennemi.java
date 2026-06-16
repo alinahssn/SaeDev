@@ -16,6 +16,8 @@ public class Ennemi {
     private int pvMax;
     private int attaque;
     private int vitesse;
+    private int vitesseBase;
+    private boolean estRalenti = false;
     private int recompense;
     private boolean estMort;
     private Terrain terrain;
@@ -34,6 +36,7 @@ public class Ennemi {
         this.pv = new SimpleIntegerProperty(pv);
         this.attaque = attaque;
         this.vitesse = vitesse;
+        this.vitesseBase = vitesse;
         this.recompense = recompense;
     }
 
@@ -57,20 +60,39 @@ public class Ennemi {
         masquier.subirDegats(attaque);
         cooldownAttaqueMasquier = 30;
     }
-    public void setAttaque(int attaque){
+
+    public void setAttaque(int attaque) {
         this.attaque = attaque;
     }
-    public void setVitesse(int vitesse){
+
+    public void setVitesse(int vitesse) {
         this.vitesse = vitesse;
     }
+
+    public void ralentir(double facteur) {
+        if (!estRalenti) {
+            this.vitesse = Math.max(1, (int)(vitesseBase * facteur));
+            this.estRalenti = true;
+        }
+    }
+
+    public void restaurerVitesse() {
+        if (estRalenti) {
+            this.vitesse = vitesseBase;
+            this.estRalenti = false;
+        }
+    }
+
+    public boolean estRalenti() { return estRalenti; }
+
     public int getPv() { return pv.get(); }
     public int getPvMax() { return pvMax; }
     public int getAttaque() { return attaque; }
     public int getVitesse() { return vitesse; }
     public int getRecompense() { return recompense; }
-    public int getSpawnX() { return spawnX;}
-    public int getSpawnY() { return spawnY;}
-    
+    public int getSpawnX() { return spawnX; }
+    public int getSpawnY() { return spawnY; }
+
     public void setSpawn(int spawnX, int spawnY) {
         this.spawnX = spawnX;
         this.spawnY = spawnY;
@@ -129,7 +151,6 @@ public class Ennemi {
 
         if (getX() == ciblePixelX && getY() == ciblePixelY && indexChemin < chemin.size()) {
             nouvelleCase = true;
-
             Sommet prochaine = chemin.get(indexChemin);
             ciblePixelX = prochaine.getX() * 32;
             ciblePixelY = prochaine.getY() * 32;

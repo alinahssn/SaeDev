@@ -1,10 +1,10 @@
 package universite_paris8.iut.aulhassan.maphopital.visuel;
 
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import universite_paris8.iut.aulhassan.maphopital.modele.Ennemi.Ennemi;
 import universite_paris8.iut.aulhassan.maphopital.modele.EnvironnementJeu;
+import universite_paris8.iut.aulhassan.maphopital.modele.Tour.Anesthésiste;
 import universite_paris8.iut.aulhassan.maphopital.modele.Tour.Brancardier;
 import universite_paris8.iut.aulhassan.maphopital.modele.Tour.Chirurgien;
 import universite_paris8.iut.aulhassan.maphopital.modele.Tour.Masquier;
@@ -20,6 +20,7 @@ public class VueTour {
     private EnvironnementJeu environnement;
     private Map<Tour, BarreVie> barresVie = new HashMap<>();
     private Map<Chirurgien, ImageView> vueScalpels = new HashMap<>();
+    private Map<Anesthésiste, ImageView> vuesNuages = new HashMap<>();
 
     public VueTour(Pane panneau, EnvironnementJeu environnement) {
         this.panneau = panneau;
@@ -41,17 +42,30 @@ public class VueTour {
             panneau.getChildren().add(barre.getBarre());
             barresVie.put(tour, barre);
         }
+
         if (tour instanceof Chirurgien chirurgien) {
             ImageView scalpel = new ImageView(ChargeurImage.charger("scalpel.png"));
-
             scalpel.setFitWidth(30);
             scalpel.setFitHeight(30);
             scalpel.setLayoutX((col * 32) + 25);
             scalpel.setLayoutY(ligne * 32);
             scalpel.setVisible(false);
-
             panneau.getChildren().add(scalpel);
             vueScalpels.put(chirurgien, scalpel);
+        }
+
+        if (tour instanceof Anesthésiste anesthésiste) {
+            int porteePixels = anesthésiste.getPortee() * 32 * 2;
+            ImageView nuage = new ImageView(ChargeurImage.charger("nuage.png"));
+            nuage.setFitWidth(porteePixels);
+            nuage.setFitHeight(porteePixels);
+            nuage.setLayoutX(col * 32 + 16 - porteePixels / 2.0);
+            nuage.setLayoutY(ligne * 32 + 16 - porteePixels / 2.0);
+            nuage.setOpacity(0.55);
+            nuage.setMouseTransparent(true);
+            nuage.setVisible(false);
+            panneau.getChildren().add(nuage);
+            vuesNuages.put(anesthésiste, nuage);
         }
     }
 
@@ -69,13 +83,11 @@ public class VueTour {
             if (tour instanceof Chirurgien chirurgien) {
                 ImageView scalpel = vueScalpels.get(chirurgien);
                 if (scalpel != null) {
-                    scalpel.setVisible(chirurgien.isaAttaque());
-                    scalpel.setFitWidth(50);
-                    scalpel.setFitHeight(50);
-
                     Ennemi cible = chirurgien.getCibleActuelle();
                     if (chirurgien.isaAttaque() && cible != null && cible.estVivant()) {
                         scalpel.setVisible(true);
+                        scalpel.setFitWidth(50);
+                        scalpel.setFitHeight(50);
                         scalpel.setLayoutX(cible.getX());
                         scalpel.setLayoutY(cible.getY());
                     } else {
@@ -83,7 +95,15 @@ public class VueTour {
                     }
                 }
             }
-        }    }
+
+            if (tour instanceof Anesthésiste anesthésiste) {
+                ImageView nuage = vuesNuages.get(anesthésiste);
+                if (nuage != null) {
+                    nuage.setVisible(anesthésiste.estActif());
+                }
+            }
+        }
+    }
 
     public void supprimerTour(Tour tour) {
         ImageView img = environnement.getVueTour(tour);
@@ -93,6 +113,11 @@ public class VueTour {
         if (tour instanceof Chirurgien chirurgien) {
             ImageView scalpel = vueScalpels.remove(chirurgien);
             if (scalpel != null) panneau.getChildren().remove(scalpel);
+        }
+
+        if (tour instanceof Anesthésiste anesthésiste) {
+            ImageView nuage = vuesNuages.remove(anesthésiste);
+            if (nuage != null) panneau.getChildren().remove(nuage);
         }
 
         BarreVie barre = barresVie.remove(tour);
