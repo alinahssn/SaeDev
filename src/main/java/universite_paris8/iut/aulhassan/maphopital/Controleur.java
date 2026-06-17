@@ -79,10 +79,6 @@ public class Controleur implements Initializable {
 
             Ennemi nouvelEnnemi = vague.tickSpawn();
             if (nouvelEnnemi != null) {
-                Sommet spawnEnnemi = new Sommet(nouvelEnnemi.getX() / 32, nouvelEnnemi.getY() / 32);
-                ArrayList<Sommet> chemin = environnement.getBfs().cheminVersSource(spawnEnnemi);
-                java.util.Collections.reverse(chemin);
-                nouvelEnnemi.setChemin(chemin);
                 environnement.getEnnemisActifs().add(nouvelEnnemi);
                 new VueEnnemi(nouvelEnnemi, panneauJeu, environnement);
             }

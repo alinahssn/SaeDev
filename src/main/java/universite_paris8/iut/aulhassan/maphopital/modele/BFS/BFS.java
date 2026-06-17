@@ -25,7 +25,7 @@ public class BFS {
         while (!fifo.isEmpty()) {
             Sommet actuel = fifo.poll();
             parcours.add(actuel);
-            for (Sommet voisin : g.adjacents(actuel)) {
+            for (Sommet voisin : g.adjacents(actuel)) { 
                 if (!predecesseurs.containsKey(voisin)) {
                     predecesseurs.put(voisin, actuel);
                     fifo.add(voisin);
@@ -44,7 +44,7 @@ public class BFS {
             chemin.add(actuel);
             actuel = predecesseurs.get(actuel);
         }
-        Collections.reverse(chemin);
+      //  Collections.reverse(chemin);
         return chemin;
     }
 

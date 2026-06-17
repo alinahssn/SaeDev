@@ -4,6 +4,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import universite_paris8.iut.aulhassan.maphopital.modele.Ennemi.*;
 import universite_paris8.iut.aulhassan.maphopital.modele.BFS.Sommet;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Vague {
@@ -58,6 +59,12 @@ public class Vague {
         ennemi.setX(spawn.getX() * 32);
         ennemi.setY(spawn.getY() * 32);
         ennemi.setSpawn(spawn.getX() * 32, spawn.getY() * 32);
+
+        Sommet spawnEnnemi = new Sommet(ennemi.getX() / 32, ennemi.getY() / 32);
+        ArrayList<Sommet> chemin = environnement.getBfs().cheminVersSource(spawnEnnemi);
+        System.out.println(chemin);
+        //java.util.Collections.reverse(chemin);
+        ennemi.setChemin(chemin);
 
         return ennemi;
     }
