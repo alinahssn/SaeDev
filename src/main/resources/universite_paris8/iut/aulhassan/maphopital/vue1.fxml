@@ -9,7 +9,13 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane prefHeight="600.0" prefWidth="900.0" stylesheets="@map.css" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="universite_paris8.iut.aulhassan.maphopital.Controleur">
+<StackPane xmlns="http://javafx.com/javafx/8.0.40"
+           xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="universite_paris8.iut.aulhassan.maphopital.Controleur"
+           prefHeight="600.0" prefWidth="900.0"
+           stylesheets="@map.css">
+
+   <BorderPane prefHeight="600.0" prefWidth="900.0">
 
    <top>
       <HBox alignment="CENTER" styleClass="top-bar">
@@ -136,3 +142,10 @@
    </bottom>
 
 </BorderPane>
+   <StackPane fx:id="ecranGameOver" visible="false" styleClass="fond-game-over">
+      <VBox alignment="CENTER" spacing="20">
+         <Label text="GAME OVER" styleClass="game-over-title"/>
+         <Button text="Retour au menu principal" onAction="#retourMenu" styleClass="btn-accueil"/>
+      </VBox>
+   </StackPane>
+</StackPane>

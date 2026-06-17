@@ -3,9 +3,13 @@ package universite_paris8.iut.aulhassan.maphopital;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.TilePane;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 import universite_paris8.iut.aulhassan.maphopital.modele.*;
 import universite_paris8.iut.aulhassan.maphopital.modele.BFS.Sommet;
@@ -14,6 +18,8 @@ import universite_paris8.iut.aulhassan.maphopital.modele.Ennemi.MouchoirEnrhumé
 import universite_paris8.iut.aulhassan.maphopital.visuel.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -37,6 +43,7 @@ public class Controleur implements Initializable {
     @FXML private Pane panneauJeu;
     @FXML private Label labelVague;
     @FXML private Button btnBonus;
+    @FXML private StackPane ecranGameOver;
 
     private Vague vague;
     private GestProjectile gestProjectile;
@@ -83,6 +90,11 @@ public class Controleur implements Initializable {
                 new VueEnnemi(nouvelEnnemi, panneauJeu, environnement);
             }
 
+            if (!environnement.getPatient().estVivant()) {
+                ecranGameOver.setVisible(true);
+                gameloop.stop();
+            }
+
             vueTour.supprimerMasquiersDetruits();
             vueMouchoirs.mettreAJour();
             vueNouveauxEnnemis.mettreAJour();
@@ -119,6 +131,13 @@ public class Controleur implements Initializable {
                     System.out.println("Pas assez de budget pour acheter le bonus ! Il faut " + coutBonus + "€.");
                 }
         }
+    }
+    @FXML
+    private void retourMenu() throws IOException {
+        Stage stage = (Stage) panneauJeu.getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("menu.fxml"));
+        Scene scene = new Scene(loader.load());
+        stage.setScene(scene);
     }
 
 

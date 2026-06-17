@@ -82,3 +82,11 @@
     -fx-background-color: rgba(0,0,0,0.2);
     -fx-translate-y: 2;
 }
+.fond-game-over {
+    -fx-background-color: rgba(0,0,0,0.65);
+}
+.game-over-title {
+    -fx-font-family: "Press Start 2P";
+    -fx-font-size: 60px;
+    -fx-text-fill: #ff2222;
+}
