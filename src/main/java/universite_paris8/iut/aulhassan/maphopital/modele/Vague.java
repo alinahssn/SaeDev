@@ -62,7 +62,6 @@ public class Vague {
 
         Sommet spawnEnnemi = new Sommet(ennemi.getX() / 32, ennemi.getY() / 32);
         ArrayList<Sommet> chemin = environnement.getBfs().cheminVersSource(spawnEnnemi);
-        System.out.println(chemin);
         //java.util.Collections.reverse(chemin);
         ennemi.setChemin(chemin);
 
