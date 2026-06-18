@@ -143,9 +143,9 @@ public class EnvironnementJeu {
                     );
 
                     ArrayList<Sommet> chemin = bfs.cheminVersSource(spawn);
-                    java.util.Collections.reverse(chemin);
+                   // java.util.Collections.reverse(chemin);
                     nouvelEnrhume.setChemin(chemin);
-                    ennemisActifs.add(nouvelEnrhume);
+                   // ennemisActifs.add(nouvelEnrhume);
                     nouveauxEnnemis.add(nouvelEnrhume);
                     mouchoirsSupprimes.add(mouchoir);
                 }

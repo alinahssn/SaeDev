@@ -16,6 +16,7 @@ public class VueNouveauxEnnemis {
 
     public void mettreAJour() {
         for (Ennemi ennemi : environnement.getNouveauxEnnemis()) {
+            environnement.getEnnemisActifs().add(ennemi);
             new VueEnnemi(ennemi, panneauJeu, environnement);
         }
 
