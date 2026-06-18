@@ -146,4 +146,8 @@ public class Vague {
     public SimpleIntegerProperty numeroVagueProperty() {
         return numeroVague;
     }
+
+    public boolean toutesLesVaguesFinies() {
+        return this.numeroVague.get() == 7 && this.ennemisASpawner == 0;
+    }
 }

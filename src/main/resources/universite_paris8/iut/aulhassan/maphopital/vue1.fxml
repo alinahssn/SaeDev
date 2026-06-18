@@ -146,10 +146,18 @@
    </bottom>
 
 </BorderPane>
-   <StackPane fx:id="ecranGameOver" visible="false" styleClass="fond-game-over">
+   <StackPane fx:id="ecranGameOver" visible="false" styleClass="fond-game">
       <VBox alignment="CENTER" spacing="20">
          <Label text="GAME OVER" styleClass="game-over-title"/>
          <Button text="Retour au menu principal" onAction="#retourMenu" styleClass="btn-accueil"/>
       </VBox>
    </StackPane>
+
+   <StackPane fx:id="ecranVictoire" visible="false" styleClass="fond-game">
+      <VBox alignment="CENTER" spacing="20">
+         <Label text="VICTOIRE !" styleClass="game-gagne-title"/>
+         <Button text="Retour au menu principal" onAction="#retourMenu" styleClass="btn-accueil"/>
+      </VBox>
+   </StackPane>
+
 </StackPane>

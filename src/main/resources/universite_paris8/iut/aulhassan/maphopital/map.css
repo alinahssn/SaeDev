@@ -101,24 +101,30 @@
     -fx-background-color: rgba(0,0,0,0.2);
     -fx-translate-y: 2;
 }
-.fond-game-over {
+
+.fond-game {
     -fx-background-color: rgba(0,0,0,0.65);
 }
+
 .game-over-title {
     -fx-font-family: "Press Start 2P";
     -fx-font-size: 60px;
     -fx-text-fill: #ff2222;
 }
 
+.game-gagne-title{
+    -fx-font-family: "Press Start 2P";
+    -fx-font-size: 60px;
+    -fx-text-fill: #008000;
+}
+
 .titre-rouge {
     -fx-text-fill: #ff3333;
     -fx-font-weight: bold;
 }
-
 .titre-blanc {
     -fx-text-fill: #ffffff;
 }
-
 .sous-titre-noir {
     -fx-text-fill: #000000;
 }

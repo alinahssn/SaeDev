@@ -44,6 +44,7 @@ public class Controleur implements Initializable {
     @FXML private Label labelVague;
     @FXML private Button btnBonus;
     @FXML private StackPane ecranGameOver;
+    @FXML private StackPane ecranVictoire;
 
     private EnvironnementJeu environnement;
 
@@ -96,7 +97,11 @@ public class Controleur implements Initializable {
             if (!environnement.getPatient().estVivant()) {
                 ecranGameOver.setVisible(true);
                 gameloop.stop();
+            } else if (vague.toutesLesVaguesFinies() && environnement.getEnnemisActifs().isEmpty()) {
+                ecranVictoire.setVisible(true);
+                gameloop.stop();
             }
+
 
             vueTour.supprimerMasquiersDetruits();
             vueMouchoirs.mettreAJour();
@@ -145,6 +150,8 @@ public class Controleur implements Initializable {
         Scene scene = new Scene(loader.load());
         stage.setScene(scene);
     }
+
+
 
 
 }
