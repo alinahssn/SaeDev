@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
+<?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.image.*?>
@@ -271,7 +271,7 @@
 
                     <VBox spacing="5">
                         <Label text="BONUS" styleClass="titre-blanc" style="-fx-font-size: 12px;"/>
-                        <Label text="Morphine rajoute +5 pv au patient... ." style="-fx-text-fill: #cccccc; -fx-font-size: 10px; -fx-wrap-text: true;"/>
+                        <Label text="Si le patient perd des PV, ne t'inquiète pas : tu peux lui injecter de la morphine pour 50 € afin de lui restaurer 5 PV." style="-fx-text-fill: #cccccc; -fx-font-size: 10px; -fx-wrap-text: true;"/>
                     </VBox>
 
 
