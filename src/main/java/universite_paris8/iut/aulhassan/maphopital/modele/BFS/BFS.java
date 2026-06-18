@@ -34,12 +34,12 @@ public class BFS {
         }
     }
 
-    public ArrayList<Sommet> cheminVersSource(Sommet cible) {
-        if (!predecesseurs.containsKey(cible)) {
+    public ArrayList<Sommet> cheminVersCible(Sommet source) {
+        if (!predecesseurs.containsKey(source)) {
             return new ArrayList<>();
         }
         ArrayList<Sommet> chemin = new ArrayList<>();
-        Sommet actuel = cible;
+        Sommet actuel = source;
         while (actuel != null) {
             chemin.add(actuel);
             actuel = predecesseurs.get(actuel);

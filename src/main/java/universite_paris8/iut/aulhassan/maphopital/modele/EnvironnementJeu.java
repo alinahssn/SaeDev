@@ -142,7 +142,7 @@ public class EnvironnementJeu {
                             nouvelEnrhume.getSpawnY() / 32
                     );
 
-                    ArrayList<Sommet> chemin = bfs.cheminVersSource(spawn);
+                    ArrayList<Sommet> chemin = bfs.cheminVersCible(spawn);
                    // java.util.Collections.reverse(chemin);
                     nouvelEnrhume.setChemin(chemin);
                    // ennemisActifs.add(nouvelEnrhume);
