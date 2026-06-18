@@ -10,13 +10,17 @@ public class Projectile {
     private double vitesse = 15.0;
     protected boolean actif = true;
     private boolean fixe;
+    private String nomImage;
+    private int taille;
 
-    public Projectile(double startX, double startY, Ennemi cible, int degats,boolean fixe) {
+    public Projectile(double startX, double startY, Ennemi cible, int degats,boolean fixe, String nomImage, int taille) {
         this.x = startX;
         this.y = startY;
         this.cible = cible;
         this.degats = degats;
         this.fixe = fixe;
+        this.nomImage = nomImage;
+        this.taille = taille;
     }
 
     public void deplacer() {
@@ -46,4 +50,6 @@ public class Projectile {
     public boolean estFixe() { return fixe; }
     public Ennemi getCible() { return this.cible; }
     public void setActif(boolean actif) { this.actif = actif; }
+    public String getNomImage() { return this.nomImage; }
+    public int getTaille() { return this.taille; }
 }

@@ -19,8 +19,8 @@
 
    <top>
       <HBox alignment="CENTER" styleClass="top-bar">
-         <Label styleClass="titre-rouge" text="CODE ROUGE" />
-         <Label styleClass="titre-blanc" text=" : INVASION À L'HÔPITAL" />
+         <Label styleClass="sous-titre-noir" text="CODE ROUGE" />
+         <Label styleClass="sous-titre-noir" text=" : INVASION À L'HÔPITAL" />
       </HBox>
    </top>
 
@@ -95,6 +95,10 @@
 
    <bottom>
       <HBox alignment="CENTER" spacing="8" styleClass="barre-bas">
+
+          <Button onAction="#retourMenu" styleClass="btn-menu-retour" prefWidth="180" prefHeight="60">
+          </Button>
+
          <padding><Insets top="6" bottom="6" left="6" right="6"/></padding>
 
          <StackPane>

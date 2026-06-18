@@ -3,7 +3,6 @@ package universite_paris8.iut.aulhassan.maphopital.modele;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.image.ImageView;
 import universite_paris8.iut.aulhassan.maphopital.modele.BFS.BFS;
 import universite_paris8.iut.aulhassan.maphopital.modele.BFS.Graphes;
 import universite_paris8.iut.aulhassan.maphopital.modele.BFS.Sommet;
@@ -34,7 +33,6 @@ public class EnvironnementJeu {
     private BFS bfs;
     private Sommet cible;
     private List<Sommet> spawns;
-    private Map<Tour, ImageView> vuesTours = new HashMap<>();
 
 
     public EnvironnementJeu() {
@@ -59,6 +57,20 @@ public class EnvironnementJeu {
     public void unTour(int temps) {
 
         this.mettreAJourMalusTours();
+
+        for (Tour tour : toursActives) {
+            Projectile proj = tour.agir(ennemisActifs);
+            if (proj != null) {
+                projectilesActifs.add(proj);
+            }
+        }
+        for (int i = projectilesActifs.size() - 1; i >= 0; i--) {
+            Projectile proj = projectilesActifs.get(i);
+            proj.deplacer();
+            if (!proj.estActif()) {
+                projectilesActifs.remove(i);
+            }
+        }
 
         if (temps % 12 == 0) {
             for (Ennemi e : ennemisActifs) {
@@ -106,7 +118,6 @@ public class EnvironnementJeu {
         int ligne = tour.getY() / 32;
         ajouterBudget((int) (tour.getCout() * 0.7));
         toursActives.remove(tour);
-        supprimerVueTour(tour);
         if (tour instanceof Masquier) {
             terrain.getMap()[ligne][col] = 0;
         } else {
@@ -197,18 +208,13 @@ public class EnvironnementJeu {
     }
 
 
-    public void ajouterVueTour(Tour t, ImageView img) { vuesTours.put(t, img); }
-    public ImageView getVueTour(Tour t) { return vuesTours.get(t); }
-    public void supprimerVueTour(Tour t) { vuesTours.remove(t); }
-
-
 
     public Terrain getTerrain() { return terrain; }
     public Patient getPatient() { return patient; }
 
     public List<Tour> getToursActives() { return toursActives; }
     public ObservableList<Ennemi> getEnnemisActifs() { return ennemisActifs; }
-    public List<Projectile> getProjectilesActifs() { return projectilesActifs; }
+    public ObservableList<Projectile> getProjectilesActifs() { return projectilesActifs; }
 
     public List<MouchoirEnrhumé> getMouchoirsActifs() { return mouchoirsActifs;}
 

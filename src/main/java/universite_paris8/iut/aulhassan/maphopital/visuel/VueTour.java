@@ -18,6 +18,9 @@ public class VueTour {
 
     private Pane panneau;
     private EnvironnementJeu environnement;
+
+    private Map<Tour, ImageView> vuesTours = new HashMap<>();
+
     private Map<Tour, BarreVie> barresVie = new HashMap<>();
     private Map<Chirurgien, ImageView> vueScalpels = new HashMap<>();
     private Map<Anesthésiste, ImageView> vuesNuages = new HashMap<>();
@@ -33,7 +36,7 @@ public class VueTour {
         image.setLayoutX(col * 32);
         image.setLayoutY(ligne * 32);
         panneau.getChildren().add(image);
-        environnement.ajouterVueTour(tour, image);
+        vuesTours.put(tour, image);
 
         if (tour instanceof Masquier masquier) {
             BarreVie barre = new BarreVie(masquier.pvProperty(), masquier.getPvMax());
@@ -73,7 +76,7 @@ public class VueTour {
         for (Tour tour : environnement.getToursActives()) {
 
             if (tour instanceof Brancardier brancardier) {
-                ImageView imageBrancard = environnement.getVueTour(brancardier);
+                ImageView imageBrancard = vuesTours.get(brancardier);
                 if (imageBrancard != null) {
                     imageBrancard.setLayoutX(brancardier.getBrancardX());
                     imageBrancard.setLayoutY(brancardier.getBrancardY());
@@ -106,9 +109,8 @@ public class VueTour {
     }
 
     public void supprimerTour(Tour tour) {
-        ImageView img = environnement.getVueTour(tour);
+        ImageView img = vuesTours.remove(tour);
         if (img != null) panneau.getChildren().remove(img);
-        environnement.supprimerVueTour(tour);
 
         if (tour instanceof Chirurgien chirurgien) {
             ImageView scalpel = vueScalpels.remove(chirurgien);

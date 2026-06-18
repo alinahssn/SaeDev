@@ -87,7 +87,7 @@ public class Tour {
 
         for(Ennemi e :  ennemisActifs) {
             if(peutTirer(e)) {
-                Projectile proj = new Projectile(getX() + 16, getY() + 16, e, getDegat(), getProjectileFixe());
+                Projectile proj = new Projectile(getX() + 16, getY() + 16, e, getDegat(), getProjectileFixe(),getNomImageProjectile(), getTailleProjectile());
                 this.cooldownActuel = (int) Math.round(this.cooldownMax * this.multiplicateurCooldown);
                 return proj;
             }

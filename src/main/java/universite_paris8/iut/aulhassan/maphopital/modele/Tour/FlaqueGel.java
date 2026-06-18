@@ -9,7 +9,7 @@ public class FlaqueGel extends Projectile {
     private int tempsRestant = 200; // 4 sec
 
     public FlaqueGel(double startX, double startY, int degats) {
-        super(startX, startY, null, degats, true);
+        super(startX, startY, null, degats, true, "flaque.png", 72);
     }
 
     public boolean estEncoreActive() {
@@ -24,11 +24,12 @@ public class FlaqueGel extends Projectile {
 
         this.tempsRestant--;
 
-        for (Ennemi e : ennemisActifs) {
+        for (int i = ennemisActifs.size() - 1; i >= 0; i--) {
+            Ennemi e = ennemisActifs.get(i);
             if (e != null && e.estVivant()) {
                 double dx = this.getX() - e.getX();
                 double dy = this.getY() - e.getY();
-                double distance = Math.sqrt(dx * dx + dy * dy);//distance centre de la flaque et virus
+                double distance = Math.sqrt(dx * dx + dy * dy); // distance centre de la flaque et virus
 
                 if (distance < 20) {
                     e.subirDegats(1);

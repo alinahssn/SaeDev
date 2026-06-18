@@ -61,7 +61,7 @@
                         </ImageView>
                         <VBox spacing="3">
                             <Label text="Interne de Garde" styleClass="titre-blanc" style="-fx-font-size: 11px;"/>
-                            <Label text="Dégât: 10 | Portée: 3 | Coût: 50€" style="-fx-text-fill: #aaaaaa; -fx-font-size: 9px;"/>
+                            <Label text="Dégât: 20 | Portée: 3 | Coût: 50€" style="-fx-text-fill: #aaaaaa; -fx-font-size: 9px;"/>
                             <Label text="Tire des pilules sur les ennemis." style="-fx-text-fill: #cccccc; -fx-font-size: 9px;"/>
                         </VBox>
                     </HBox>
@@ -85,9 +85,8 @@
                         </ImageView>
                         <VBox spacing="3">
                             <Label text="Brancardier" styleClass="titre-blanc" style="-fx-font-size: 11px;"/>
-                            <Label text="Dégât: 15 | Portée: 4 | Coût: 100€" style="-fx-text-fill: #aaaaaa; -fx-font-size: 9px;"/>
-                            <Label text="Mettre ca fonction." style="-fx-text-fill: #cccccc; -fx-font-size: 9px;"/>
-                        </VBox>
+                            <Label text="Dégât: 20 | Portée: 3-4 | Coût: 150€" style="-fx-text-fill: #aaaaaa; -fx-font-size: 9px;"/>
+                            <Label text="Roule sur les ennemis pour les éloigner du patient." style="-fx-text-fill: #cccccc; -fx-font-size: 9px;"/>                        </VBox>
                     </HBox>
 
 
@@ -97,9 +96,8 @@
                         </ImageView>
                         <VBox spacing="3">
                             <Label text="Anesthésiste" styleClass="titre-blanc" style="-fx-font-size: 11px;"/>
-                            <Label text="Dégât: 20 | Portée: 3 | Coût: 125€" style="-fx-text-fill: #aaaaaa; -fx-font-size: 9px;"/>
-                            <Label text="Mettre ca fonction." style="-fx-text-fill: #cccccc; -fx-font-size: 9px;"/>
-                        </VBox>
+                            <Label text="Dégât: 0 | Portée: 2 | Coût: 175€" style="-fx-text-fill: #aaaaaa; -fx-font-size: 9px;"/>
+                            <Label text="Diffuse un gaz (nuage) à portée qui ralentit la cadence des virus temporairement." style="-fx-text-fill: #cccccc; -fx-font-size: 9px;"/>                        </VBox>
                     </HBox>
 
 
@@ -109,7 +107,7 @@
                         </ImageView>
                         <VBox spacing="3">
                             <Label text="Masquier" styleClass="titre-blanc" style="-fx-font-size: 11px;"/>
-                            <Label text="Dégât: 8 | Portée: 5 | Coût: 90€" style="-fx-text-fill: #aaaaaa; -fx-font-size: 9px;"/>
+                            <Label text="Dégât: 0 | Portée: 0 | Coût: 50€" style="-fx-text-fill: #aaaaaa; -fx-font-size: 9px;"/>
                             <Label text="Il se place sur le chemin, les ennemis doivent le detruire pour avancer." style="-fx-text-fill: #cccccc; -fx-font-size: 9px;"/>
                         </VBox>
                     </HBox>
@@ -121,9 +119,8 @@
                         </ImageView>
                         <VBox spacing="3">
                             <Label text="Chirurgien" styleClass="titre-blanc" style="-fx-font-size: 11px;"/>
-                            <Label text="Dégât: 30 | Portée: 3 | Coût: 150€" style="-fx-text-fill: #aaaaaa; -fx-font-size: 9px;"/>
-                            <Label text="Mettre ca fonction." style="-fx-text-fill: #cccccc; -fx-font-size: 9px;"/>
-                        </VBox>
+                            <Label text="Dégât: 50 | Portée: 1 | Coût: 150€" style="-fx-text-fill: #aaaaaa; -fx-font-size: 9px;"/>
+                            <Label text="Attaque au corps-à-corps avec son scalpel en infligeant d'énormes dégâts monocibles." style="-fx-text-fill: #cccccc; -fx-font-size: 9px;"/>                        </VBox>
                     </HBox>
 
 
