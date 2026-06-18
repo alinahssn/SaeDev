@@ -2,6 +2,7 @@ package universite_paris8.iut.aulhassan.maphopital.modele.Tour;
 
 import universite_paris8.iut.aulhassan.maphopital.modele.Ennemi.Ennemi;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Chirurgien extends Tour {
@@ -27,7 +28,9 @@ public class Chirurgien extends Tour {
             }
         }
 
-        for (Ennemi e : ennemisActifs) {
+        List<Ennemi> copieEnnemis = new ArrayList<>(ennemisActifs);
+
+        for (Ennemi e : copieEnnemis) {
             if (peutTirer(e)) {
                 if (this.cooldownActuel <= 0) {
                     e.subirDegats(this.getDegat());
