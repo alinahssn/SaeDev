@@ -66,8 +66,8 @@ public class Tour {
     }
 
     public boolean peutTirer(Ennemi cible) {
-        if (cible == null || !cible.estVivant()) return false;
-        if (cooldownActuel > 0) return false;
+        if (cible == null || !cible.estVivant()) return false;//pas de cible ou deja morte non
+        if (cooldownActuel > 0) return false;//encore en train de recharger non
 
         int dx = this.x.get() - cible.getX();
         int dy = this.y.get() - cible.getY();
@@ -75,7 +75,7 @@ public class Tour {
 
         return distance <= (this.portee * 32);
 
-    }
+    }//calcul distance pixel entre tour et virus -> si inférieur ou = à la portée -> tour convertie en pixel portee*32 et renvoie true -> peutTirer
 
     // Fonction pour le Grippé (ralentissemnt des projectils)
     public void setMultiplicateurCooldownProjectil(double multiplicateur) {

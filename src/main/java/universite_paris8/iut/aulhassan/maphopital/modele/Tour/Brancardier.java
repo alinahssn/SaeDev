@@ -8,7 +8,7 @@ public class Brancardier extends Tour {
     private double brancardX;
     private double brancardY;
     private boolean enMouvement = false;
-    private double dirX = 0;
+    private double dirX = 0;// direction ou il va
     private double dirY = 0;
 
     public Brancardier() {
@@ -21,17 +21,18 @@ public class Brancardier extends Tour {
 
         if (!enMouvement) {
             this.brancardX = this.getX();
-            this.brancardY = this.getY();
+            this.brancardY = this.getY();//bouge pas = reste sur la case de la tour
 
             for (Ennemi e : ennemisActifs) {
                 if (peutTirer(e)) {
                     enMouvement = true;
+
                     double dx = e.getX() - this.getX();
                     double dy = e.getY() - this.getY();
-                    double dist = Math.sqrt(dx * dx + dy * dy);
+                    double dist = Math.sqrt(dx * dx + dy * dy);// distance entre tour et virus
 
                     if (dist > 0) {
-                        this.dirX = dx / dist;
+                        this.dirX = dx / dist;//creation du vecteur unitaire
                         this.dirY = dy / dist;
                     } else {
                         this.dirX = 0;
@@ -43,19 +44,23 @@ public class Brancardier extends Tour {
         }
 
         if (enMouvement) {
-            this.brancardX += this.dirX * 0.3;
+            this.brancardX += this.dirX * 0.3; //chaque frame avance de ça
             this.brancardY += this.dirY * 0.3;
 
             for (Ennemi e : ennemisActifs) {
-                double distEnnemi = Math.sqrt(Math.pow(this.brancardX - e.getX(), 2) + Math.pow(this.brancardY - e.getY(), 2));
-                if (distEnnemi < 24 && this.cooldownActuel <= 0 && e.estVivant()) {
+                double dx = this.brancardX - e.getX();
+                double dy = this.brancardY - e.getY();
+
+                if (Math.sqrt(dx * dx + dy * dy) < 24 && this.cooldownActuel <= 0 && e.estVivant()) {
                     e.subirDegats(this.getDegat());
                     this.cooldownActuel = 40;
                 }
             }
 
-            double distBase = Math.sqrt(Math.pow(this.brancardX - this.getX(), 2) + Math.pow(this.brancardY - this.getY(), 2));
-            if (distBase >= 64) {
+            double dxBase = this.brancardX - this.getX();
+            double dyBase = this.brancardY - this.getY();
+
+            if (Math.sqrt(dxBase * dxBase + dyBase * dyBase) >= 64) {
                 this.enMouvement = false;
             }
         }
@@ -63,6 +68,11 @@ public class Brancardier extends Tour {
         return null;
     }
 
-    public double getBrancardX() { return this.brancardX; }
-    public double getBrancardY() { return this.brancardY; }
+    public double getBrancardX() {
+        return this.brancardX;
+    }
+
+    public double getBrancardY() {
+        return this.brancardY;
+    }
 }

@@ -51,7 +51,7 @@ public class Vague {
         compteurSpawn = 0;
         ennemisASpawner--;
 
-        int indexDansVague = getTailleVague(numeroVague.get()) - ennemisASpawner - 1;
+        int indexDansVague = getTailleVague(numeroVague.get()) - ennemisASpawner - 1;//position virus dans la vague
 
         Ennemi ennemi = creerEnnemi(numeroVague.get(), indexDansVague);
 
@@ -131,7 +131,7 @@ public class Vague {
     private Sommet choisirSpawn(int vague, int index) {
         int[] spawnsActifs = getSpawnsActifs(vague);
         List<Sommet> spawns = environnement.getSpawns();
-        int indiceSpawn = spawnsActifs[index % spawnsActifs.length];
+        int indiceSpawn = spawnsActifs[index % spawnsActifs.length];//repartition equitable virus dans diff entrées active
         return spawns.get(indiceSpawn);
     }
 

@@ -75,7 +75,7 @@ public class VueTerrain {
             Sommet s = spawns.get(i);
             boolean actif = false;
             for (int idx : spawnsActifs) if (idx == i) { actif = true; break; }
-            cases[s.getY()][s.getX()].setImage(actif ? imSolSpawn : imSolChambre);
+            cases[s.getY()][s.getX()].setImage(actif ? imSolSpawn : imSolChambre);//redessine pas la map à chaque fois
         }
     }
 }

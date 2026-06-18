@@ -44,6 +44,7 @@ public class VueBouton {
         creerTooltip(btnMasque,  "Prix : 50€\nPV : 100 — Bloque les ennemis");
         creerTooltip(btnChir,    "Prix : 150€\nDégâts : 50");
         creerTooltip(btnRevente, "Revendre : récupère 70% du prix");
+        creerTooltip(btnBonus, "Prix : 50€\nSoigne le patient de 5 PV");
     }
 
     private void creerTooltip(Button b, String texte) {

@@ -22,18 +22,21 @@ public class Projectile {
     public void deplacer() {
         if (!actif) return;
         if (cible == null) return;
-        if (!cible.estVivant()) { actif = false; return; }
+        if (!cible.estVivant()) {
+            actif = false;
+            return;
+        }
 
         double dx = cible.getX() - x;
         double dy = cible.getY() - y;
-        double dist = Math.sqrt(dx * dx + dy * dy);
+        double dist = Math.sqrt(dx * dx + dy * dy);//distance avec le virus
 
-        if (dist <= vitesse) {
+        if (dist <= vitesse) { //projectile va l'atteindre
             cible.subirDegats(degats);
             actif = false;
         } else {
             x += vitesse * dx / dist;
-            y += vitesse * dy / dist;
+            y += vitesse * dy / dist;//creation du vecteur unitaire
         }
     }
 

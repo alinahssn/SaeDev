@@ -20,7 +20,7 @@ public class GestProjectile {
     private EnvironnementJeu environnement;
 
     private List<Projectile> projectilesActifs = new ArrayList<>();
-    private Map<Projectile, Node> vuesProjectiles = new HashMap<>();
+    private Map<Projectile, Node> vuesProjectiles = new HashMap<>();//classe mère de ImageView (si symbole...)
 
     public GestProjectile(Pane panneauJeu, EnvironnementJeu environnement) {
         this.panneauJeu = panneauJeu;
@@ -29,21 +29,6 @@ public class GestProjectile {
 
     public void tiquerProjectiles() {
         for (Tour tour : environnement.getToursActives()) {
-
-            // Si un Grippé vivant est dans sa portée de ralentissement, la tour tire 2x moins vite
-            double multiplicateur = 1.0;
-            for (Ennemi e : environnement.getEnnemisActifs()) {
-                if (e instanceof Grippé && e.estVivant()) {
-                    int dx = tour.getX() - e.getX();
-                    int dy = tour.getY() - e.getY();
-                    double distance = Math.sqrt(dx * dx + dy * dy);
-                    if (distance <= Grippé.PORTEE_RALENTISSEMENT * 32) {
-                        multiplicateur = 2.0;
-                        break;
-                    }
-                }
-            }
-            tour.setMultiplicateurCooldownProjectil(multiplicateur);
 
             Projectile proj = tour.agir(environnement.getEnnemisActifs());
 
@@ -68,7 +53,7 @@ public class GestProjectile {
             if (vue != null) {
                 if (!proj.estFixe()) {
                     vue.setLayoutX(proj.getX());
-                    vue.setLayoutY(proj.getY());
+                    vue.setLayoutY(proj.getY());//mise à jour coordo
                 }
             }
         }

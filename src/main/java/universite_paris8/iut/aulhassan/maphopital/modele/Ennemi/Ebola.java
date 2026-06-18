@@ -14,6 +14,7 @@ public class Ebola extends Ennemi {
     public int getPhase() {
         return phase;
     }
+
     @Override
     public void subirDegats(int degat){
         super.subirDegats(degat);

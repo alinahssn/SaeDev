@@ -13,6 +13,7 @@ public class Ennemi {
     private SimpleIntegerProperty y = new SimpleIntegerProperty(0);
 
     private SimpleIntegerProperty pv;
+
     private int pvMax;
     private int attaque;
     private int vitesse;
@@ -21,10 +22,12 @@ public class Ennemi {
     private int recompense;
     private boolean estMort;
     private Terrain terrain;
+
     private ArrayList<Sommet> chemin;
     private int indexChemin = 0;
     private int ciblePixelX = 0;
     private int ciblePixelY = 0;
+
     private int framesBloque = 0;
     private int cooldownAttaqueMasquier = 0;
     private boolean nouvelleCase = false;
@@ -40,9 +43,9 @@ public class Ennemi {
         this.recompense = recompense;
     }
 
-    public Ennemi() {
-        this(80, 5, 1, 15);
-    }
+    public Ennemi() { this(80, 5, 1, 15);}
+
+
 
     public void bloquer(int frames) {
         this.framesBloque = Math.max(this.framesBloque, frames);

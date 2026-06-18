@@ -48,6 +48,12 @@
     -fx-background-color: transparent;
     -fx-border-color: transparent;
 }
+
+.tooltip {
+    -fx-font-family: "Press Start 2P";
+    -fx-font-size: 8px;
+}
+
 .panneau-tours .button:hover {
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 0);
     -fx-cursor: hand;

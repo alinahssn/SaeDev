@@ -16,18 +16,6 @@ public class Chirurgien extends Tour {
     }
 
     @Override
-    public boolean peutTirer(Ennemi cible) {
-        if (cible == null || !cible.estVivant()) return false;
-
-        int dx = this.getX() - cible.getX();
-        int dy = this.getY() - cible.getY();
-        double distance = Math.sqrt(dx * dx + dy * dy);
-
-        return distance <= (this.getPortee() * 32);
-    }
-
-
-    @Override
     public Projectile agir(List<Ennemi> ennemisActifs) {
         tickCooldown();
 
@@ -48,7 +36,6 @@ public class Chirurgien extends Tour {
                     this.tempsAffichage = 12;
                     this.cibleActuelle = e;
                 }
-                break;
             }
         }
         return null;

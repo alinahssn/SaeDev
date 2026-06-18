@@ -17,7 +17,7 @@ public class Masquier extends Tour {
 
     public void subirDegats(int degats) {
         pv.set(Math.max(0, pv.get() - degats));
-    }
+    }//Math.maxpas de valeur negative
 
     public boolean estDetruit() {
         return pv.get() <= 0;

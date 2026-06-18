@@ -45,13 +45,15 @@ public class Controleur implements Initializable {
     @FXML private Button btnBonus;
     @FXML private StackPane ecranGameOver;
 
+    private EnvironnementJeu environnement;
+
     private Vague vague;
     private GestProjectile gestProjectile;
     private VueMouchoirs vueMouchoirs;
     private VueNouveauxEnnemis vueNouveauxEnnemis;
     private VueTour vueTour;
     private VueTerrain vueTerrain;
-    private EnvironnementJeu environnement;
+
 
 
     @Override
@@ -71,6 +73,7 @@ public class Controleur implements Initializable {
         this.vueNouveauxEnnemis = new VueNouveauxEnnemis(environnement, panneauJeu);
 
         new VueBouton(environnement, vague, labelPV, labelBudget, labelVague, btnInterne, btnGel, btnBranca, btnAne, btnMasque, btnChir, btnRevente,btnBonus);
+
         initAnimation();
         gameloop.play();
     }

@@ -10,7 +10,7 @@ public class Anesthésiste extends Tour {
     private boolean actif = false;
 
     public Anesthésiste() {
-        super(75, 0, 1, 2, "gel.png", 64, true);
+        super(75, 0, 1, 2, null, 64, true);
     }
 
     @Override
