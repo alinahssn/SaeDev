@@ -151,10 +151,12 @@ public class Ennemi {
 
         if (getX() == ciblePixelX && getY() == ciblePixelY && indexChemin < chemin.size()) {
             nouvelleCase = true;
-            Sommet prochaine = chemin.get(indexChemin+1);
-            ciblePixelX = prochaine.getX() * 32;
-            ciblePixelY = prochaine.getY() * 32;
             indexChemin++;
+            if (indexChemin < chemin.size()) {
+                Sommet prochaine = chemin.get(indexChemin);
+                ciblePixelX = prochaine.getX() * 32;
+                ciblePixelY = prochaine.getY() * 32;
+            }
         }
     }
 
