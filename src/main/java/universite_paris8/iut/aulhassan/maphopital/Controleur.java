@@ -124,17 +124,20 @@ public class Controleur implements Initializable {
     @FXML
     private void ajouteBonus() {
         int coutBonus = 50;
-        if (environnement.getPatient().estVivant()) {
+        if (environnement.getPatient().estVivant()){
+            if (environnement.getPatient().getPv() < environnement.getPatient().getPvMax() ) {
                 if (environnement.dépense(coutBonus)) {
                     environnement.getPatient().soigner(5);
                     System.out.println("Bonus acheté ! -" + coutBonus + "€ (Patient soigné)");
-
                 } else {
-
                     System.out.println("Pas assez de budget pour acheter le bonus ! Il faut " + coutBonus + "€.");
                 }
-        }
+            }
+            else {
+                System.out.println("Tu peux pas avoir un bonus t'as déjà tous les PV !");
+            }
     }
+}
     @FXML
     private void retourMenu() throws IOException {
         Stage stage = (Stage) panneauJeu.getScene().getWindow();

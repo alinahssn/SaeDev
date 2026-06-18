@@ -28,7 +28,8 @@ public class GestProjectile {
 
                 if (c.wasAdded()) {
                     for (Projectile proj : c.getAddedSubList()) {
-                        ImageView vueProj = new ImageView(ChargeurImage.charger(proj.getNomImage()));                        vueProj.setFitWidth(16);
+                        ImageView vueProj = new ImageView(ChargeurImage.charger(proj.getNomImage()));
+                        vueProj.setFitWidth(16);
                         vueProj.setFitWidth(proj.getTaille());
                         vueProj.setFitHeight(proj.getTaille());
                         vueProj.setLayoutX(proj.getX());
