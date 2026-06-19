@@ -4,6 +4,7 @@ module universite_paris8.iut.aulhassan.maphopital {
 
     requires org.controlsfx.controls;
     requires java.desktop;
+    requires org.testng;
 
     opens universite_paris8.iut.aulhassan.maphopital to javafx.fxml;
     exports universite_paris8.iut.aulhassan.maphopital;
