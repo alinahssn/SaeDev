@@ -33,8 +33,7 @@ public class Projectile {
 
         double dx = cible.getX() - x;
         double dy = cible.getY() - y;
-        double dist = Math.sqrt(dx * dx + dy * dy);//distance avec le virus
-
+        double dist = Position.calculerDistance(this.x, this.y, cible.getX(), cible.getY());
         if (dist <= vitesse) { //projectile va l'atteindre
             cible.subirDegats(degats);
             actif = false;

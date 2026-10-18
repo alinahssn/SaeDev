@@ -29,8 +29,7 @@ public class FlaqueGel extends Projectile {
             if (e != null && e.estVivant()) {
                 double dx = this.getX() - e.getX();
                 double dy = this.getY() - e.getY();
-                double distance = Math.sqrt(dx * dx + dy * dy); // distance centre de la flaque et virus
-
+                double distance = Position.calculerDistance(this.getX(), this.getY(), e.getX(), e.getY());
                 if (distance < 20) {
                     e.subirDegats(1);
                 }

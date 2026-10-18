@@ -14,9 +14,7 @@ public class Tour {
     private int vitesse;
     private int portee;
 
-    private String nomImageProj;
-    private int tailleProj;
-    private boolean projFixe;
+    private ConfigProjectile configProjectile;
 
 
     // cooldownMax : nombre de frames à attendre entre chaque tir
@@ -32,20 +30,18 @@ public class Tour {
     // mis à jour chaque frame selon les ennemis Grippé à portée
     private double multiplicateurCooldown = 1.0;
 
-    public Tour(int cout, int degat, int vitesse, int portee, String nomImageProj, int tailleProj, boolean projFixe) {
+    public Tour(int cout, int degat, int vitesse, int portee, ConfigProjectile configProjectile) {
         this.cout = cout;
         this.degat = degat;
         this.vitesse = vitesse;
         this.portee = portee;
-
-        this.nomImageProj = nomImageProj;
-        this.tailleProj = tailleProj;
-        this.projFixe = projFixe;
+        this.configProjectile = configProjectile;
     }
 
-    public String getNomImageProjectile() { return nomImageProj; }
-    public int getTailleProjectile()      { return tailleProj; }
-    public boolean getProjectileFixe()     { return projFixe; }
+    public ConfigProjectile getConfigProjectile() {return configProjectile; }
+    public String getNomImageProjectile() { return configProjectile.getNomImage(); }
+    public int getTailleProjectile()      { return configProjectile.getTaille(); }
+    public boolean getProjectileFixe()     { return configProjectile.isFixe(); }
 
     public int getCout()    { return cout; }
     public int getDegat()   { return degat; }
@@ -71,8 +67,7 @@ public class Tour {
 
         int dx = this.x.get() - cible.getX();
         int dy = this.y.get() - cible.getY();
-        double distance = Math.sqrt(dx * dx + dy * dy);
-
+        double distance = Position.calculerDistance(this.getX(), this.getY(), cible.getX(), cible.getY());
         return distance <= (this.portee * 32);
 
     }//calcul distance pixel entre tour et virus -> si inférieur ou = à la portée -> tour convertie en pixel portee*32 et renvoie true -> peutTirer

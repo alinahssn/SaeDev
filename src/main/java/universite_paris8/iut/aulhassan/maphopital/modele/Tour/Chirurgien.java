@@ -13,7 +13,8 @@ public class Chirurgien extends Tour {
 
 
     public Chirurgien() {
-        super(150, 50, 1, 1, "scalpel.png", 72, false);
+        super(150, 50, 1, 1, new ConfigProjectile("scalpel.png", 72, false));
+
     }
 
     @Override

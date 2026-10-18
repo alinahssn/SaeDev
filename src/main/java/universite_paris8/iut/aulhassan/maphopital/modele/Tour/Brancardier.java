@@ -12,7 +12,8 @@ public class Brancardier extends Tour {
     private double dirY = 0;
 
     public Brancardier() {
-        super(150, 20, 1, 2, "branca.png", 32, true);
+        super(150, 20, 1, 2, new ConfigProjectile("branca.png", 32, true));
+
     }
 
     @Override
@@ -29,7 +30,7 @@ public class Brancardier extends Tour {
 
                     double dx = e.getX() - this.getX();
                     double dy = e.getY() - this.getY();
-                    double dist = Math.sqrt(dx * dx + dy * dy);// distance entre tour et virus
+                    double dist = Position.calculerDistance(this.getX(), this.getY(), e.getX(), e.getY());// distance entre tour et virus
 
                     if (dist > 0) {
                         this.dirX = dx / dist;//creation du vecteur unitaire
@@ -48,19 +49,16 @@ public class Brancardier extends Tour {
             this.brancardY += this.dirY * 0.3;
 
             for (Ennemi e : ennemisActifs) {
-                double dx = this.brancardX - e.getX();
-                double dy = this.brancardY - e.getY();
+                double distBrancard = Position.calculerDistance(this.brancardX, this.brancardY, e.getX(), e.getY());
 
-                if (Math.sqrt(dx * dx + dy * dy) < 24 && this.cooldownActuel <= 0 && e.estVivant()) {
+                if (distBrancard < 24 && this.cooldownActuel <= 0 && e.estVivant()) {
                     e.subirDegats(this.getDegat());
                     this.cooldownActuel = 40;
                 }
             }
 
-            double dxBase = this.brancardX - this.getX();
-            double dyBase = this.brancardY - this.getY();
-
-            if (Math.sqrt(dxBase * dxBase + dyBase * dyBase) >= 64) {
+            double distBase = Position.calculerDistance(this.brancardX, this.brancardY, this.getX(), this.getY());
+            if (distBase >= 64) {
                 this.enMouvement = false;
             }
         }

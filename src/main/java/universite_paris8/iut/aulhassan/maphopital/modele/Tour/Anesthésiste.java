@@ -10,7 +10,8 @@ public class Anesthésiste extends Tour {
     private boolean actif = false;
 
     public Anesthésiste() {
-        super(75, 0, 1, 2, "nuage.png", 64, true);
+        super(75, 0, 1, 2, new ConfigProjectile("nuage.png", 64, true));
+
     }
 
     @Override
@@ -22,7 +23,7 @@ public class Anesthésiste extends Tour {
 
             int dx = getX() - e.getX();
             int dy = getY() - e.getY();
-            double distance = Math.sqrt(dx * dx + dy * dy);
+            double distance = Position.calculerDistance(this.getX(), this.getY(), e.getX(), e.getY());
             if (distance <= porteePixels) {
                 e.ralentir(FACTEUR_RALENTISSEMENT);
                 actif = true;

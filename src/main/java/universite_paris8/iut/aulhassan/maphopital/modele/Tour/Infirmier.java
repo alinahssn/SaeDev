@@ -9,7 +9,8 @@ public class Infirmier extends Tour {
     private FlaqueGel flaqueActuelle = null;
 
     public Infirmier() {
-        super(75, 5, 1, 2, "flaque.png", 72, true);
+        super(75, 5, 1, 2, new ConfigProjectile("flaque.png", 72, true));
+
     }
 
 
