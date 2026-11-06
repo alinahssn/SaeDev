@@ -15,20 +15,8 @@ public class Tour {
     private int portee;
 
     private ConfigProjectile configProjectile;
+    private Cooldown cooldown;
 
-
-    // cooldownMax : nombre de frames à attendre entre chaque tir
-    // la game loop tourne à ~60 frames/sec, donc 60 = 1 tir par seconde
-    private int cooldownMax = 60;
-    public int getCooldownMax() { return cooldownMax; }
-
-    // cooldownActuel : compteur qui décompte de cooldownMax jusqu'à 0
-    // quand il vaut 0, la tour est prête à tirer
-    protected int cooldownActuel = 0;
-
-    // multiplicateur appliqué au cooldown (1.0 = normal, 2.0 = deux fois plus lent)
-    // mis à jour chaque frame selon les ennemis Grippé à portée
-    private double multiplicateurCooldown = 1.0;
 
     public Tour(int cout, int degat, int vitesse, int portee, ConfigProjectile configProjectile) {
         this.cout = cout;
@@ -36,6 +24,7 @@ public class Tour {
         this.vitesse = vitesse;
         this.portee = portee;
         this.configProjectile = configProjectile;
+        this.cooldown = new Cooldown(60);
     }
 
     public ConfigProjectile getConfigProjectile() {return configProjectile; }
@@ -58,12 +47,12 @@ public class Tour {
     // appelé à chaque frame dans la game loop
     // décrémente le compteur de 1 jusqu'à ce qu'il atteigne 0
     public void tickCooldown() {
-        if (cooldownActuel > 0) cooldownActuel--;
+        cooldown.tick();
     }
 
     public boolean peutTirer(Ennemi cible) {
         if (cible == null || !cible.estVivant()) return false;//pas de cible ou deja morte non
-        if (cooldownActuel > 0) return false;//encore en train de recharger non
+        if (!cooldown.estPret()) return false;//encore en train de recharger non
 
         int dx = this.x.get() - cible.getX();
         int dy = this.y.get() - cible.getY();
@@ -74,7 +63,7 @@ public class Tour {
 
     // Fonction pour le Grippé (ralentissemnt des projectils)
     public void setMultiplicateurCooldownProjectil(double multiplicateur) {
-        this.multiplicateurCooldown = multiplicateur;
+        cooldown.setMultiplicateur(multiplicateur);
     }
 
     public Projectile agir(List<Ennemi> ennemisActifs) {
@@ -83,7 +72,7 @@ public class Tour {
         for(Ennemi e :  ennemisActifs) {
             if(peutTirer(e)) {
                 Projectile proj = new Projectile(getX() + 16, getY() + 16, e, getDegat(), getProjectileFixe(),getNomImageProjectile(), getTailleProjectile());
-                this.cooldownActuel = (int) Math.round(this.cooldownMax * this.multiplicateurCooldown);
+                cooldown.declencher();
                 return proj;
             }
         }
@@ -92,5 +81,13 @@ public class Tour {
 
     public int getPrixRevente() {
         return (int) (this.cout * 0.7);
+    }
+
+    public boolean estCooldownPret() {
+        return cooldown.estPret();
+    }
+
+    public void setCooldownActuel(int valeur) {
+        cooldown.setCooldownActuel(valeur);
     }
 }

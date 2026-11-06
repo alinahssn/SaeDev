@@ -30,12 +30,11 @@ public class Infirmier extends Tour {
             if (e != null && peutTirer(e)) {
                 flaqueActuelle = new FlaqueGel(e.getX() - 16, e.getY() - 16, getDegat());
 
-                this.cooldownActuel = 60;
+               setCooldownActuel(60);
                 return flaqueActuelle;
             }
         }
         return null;
     }
 }
-
 

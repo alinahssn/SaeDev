@@ -24,7 +24,9 @@ public class EnvironnementJeu {
 
     private List<Tour> toursActives;
     private ObservableList<Ennemi> ennemisActifs = FXCollections.observableArrayList();
-    private ObservableList<Projectile> projectilesActifs = FXCollections.observableArrayList();    private List<MouchoirEnrhumé> mouchoirsActifs;
+    private ObservableList<Projectile> projectilesActifs = FXCollections.observableArrayList();
+
+    private List<MouchoirEnrhumé> mouchoirsActifs;
     private List<MouchoirEnrhumé> nouveauxMouchoirs = new ArrayList<>();
     private List<MouchoirEnrhumé> mouchoirsSupprimes = new ArrayList<>();
     private List<Ennemi> nouveauxEnnemis = new ArrayList<>();

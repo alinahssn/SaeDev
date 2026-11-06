@@ -21,6 +21,8 @@ public class VueTour {
 
     private Map<Tour, ImageView> vuesTours = new HashMap<>();
 
+    private Map<Chirurgien, Integer> timersScalpel = new HashMap<>();
+
     private Map<Tour, BarreVie> barresVie = new HashMap<>();
     private Map<Chirurgien, ImageView> vueScalpels = new HashMap<>();
     private Map<Anesthésiste, ImageView> vuesNuages = new HashMap<>();
@@ -55,6 +57,7 @@ public class VueTour {
             scalpel.setVisible(false);
             panneau.getChildren().add(scalpel);
             vueScalpels.put(chirurgien, scalpel);
+            timersScalpel.put(chirurgien, 0);
         }
 
         if (tour instanceof Anesthésiste anesthésiste) {
@@ -86,15 +89,29 @@ public class VueTour {
             if (tour instanceof Chirurgien chirurgien) {
                 ImageView scalpel = vueScalpels.get(chirurgien);
                 if (scalpel != null) {
-                    Ennemi cible = chirurgien.getCibleActuelle();
-                    if (chirurgien.isaAttaque() && cible != null && cible.estVivant()) {
+
+                    int tempsRestant = 0;
+                    Integer val = timersScalpel.get(chirurgien);
+                    if (val != null) {
+                        tempsRestant = val;
+                    }
+
+                    if (chirurgien.aFrappeCetteFrame() && chirurgien.getDerniereCible() != null) {
+                        tempsRestant = 12;
+                    }
+
+                    if (tempsRestant > 0 && chirurgien.getDerniereCible() != null && chirurgien.getDerniereCible().estVivant()) {
+                        Ennemi cible = chirurgien.getDerniereCible();
                         scalpel.setVisible(true);
                         scalpel.setFitWidth(50);
                         scalpel.setFitHeight(50);
                         scalpel.setLayoutX(cible.getX());
                         scalpel.setLayoutY(cible.getY());
+
+                        timersScalpel.put(chirurgien, tempsRestant - 1);
                     } else {
                         scalpel.setVisible(false);
+                        timersScalpel.put(chirurgien, 0);
                     }
                 }
             }

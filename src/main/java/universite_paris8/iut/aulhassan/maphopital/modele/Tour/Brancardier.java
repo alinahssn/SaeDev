@@ -51,9 +51,9 @@ public class Brancardier extends Tour {
             for (Ennemi e : ennemisActifs) {
                 double distBrancard = Position.calculerDistance(this.brancardX, this.brancardY, e.getX(), e.getY());
 
-                if (distBrancard < 24 && this.cooldownActuel <= 0 && e.estVivant()) {
+                if (distBrancard < 24 && estCooldownPret() && e.estVivant()) {
                     e.subirDegats(this.getDegat());
-                    this.cooldownActuel = 40;
+                    setCooldownActuel(40);
                 }
             }
 

@@ -37,12 +37,12 @@ public class FlaqueGel extends Projectile {
         }
     }
 
-   @Override
+    @Override
     public void deplacer() {
-       if (tempsRestant > 0) {
-           tempsRestant--;
-       } else {
-           this.setActif(false);
-       }
-   }
+        if (tempsRestant > 0) {
+            tempsRestant--;
+        } else {
+            this.setActif(false);
+        }
+    }
 }

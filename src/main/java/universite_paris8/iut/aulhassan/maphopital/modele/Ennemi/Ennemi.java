@@ -20,6 +20,7 @@ public class Ennemi {
     private int vitesseBase;
     private boolean estRalenti = false;
     private int recompense;
+
     private boolean estMort;
     private Terrain terrain;
 
@@ -44,7 +45,6 @@ public class Ennemi {
     }
 
     public Ennemi() { this(80, 5, 1, 15);}
-
 
 
     public void bloquer(int frames) {

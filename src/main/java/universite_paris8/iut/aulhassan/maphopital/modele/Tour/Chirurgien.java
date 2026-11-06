@@ -7,10 +7,8 @@ import java.util.List;
 
 public class Chirurgien extends Tour {
 
-    private boolean aAttaque = false;
-    private int tempsAffichage = 0;
-    private Ennemi cibleActuelle = null;
-
+    private Ennemi derniereCible;
+    private boolean aFrappeCetteFrame = false;
 
     public Chirurgien() {
         super(150, 50, 1, 1, new ConfigProjectile("scalpel.png", 72, false));
@@ -20,36 +18,30 @@ public class Chirurgien extends Tour {
     @Override
     public Projectile agir(List<Ennemi> ennemisActifs) {
         tickCooldown();
-
-        if (this.tempsAffichage > 0) {
-            this.tempsAffichage--;
-            if (this.tempsAffichage == 0) {
-                this.aAttaque = false;
-                this.cibleActuelle = null;
-            }
-        }
+        aFrappeCetteFrame = false;
 
         List<Ennemi> copieEnnemis = new ArrayList<>(ennemisActifs);
 
         for (Ennemi e : copieEnnemis) {
             if (peutTirer(e)) {
-                if (this.cooldownActuel <= 0) {
+                if (estCooldownPret()) {
                     e.subirDegats(this.getDegat());
-                    this.cooldownActuel = 50;
-                    this.aAttaque = true;
-                    this.tempsAffichage = 12;
-                    this.cibleActuelle = e;
+                    setCooldownActuel(50);
+                    this.derniereCible = e;
+                    this.aFrappeCetteFrame = true;
                 }
             }
         }
         return null;
     }
 
-    public boolean isaAttaque() {
-        return this.aAttaque;
+    public boolean aFrappeCetteFrame() {
+        return aFrappeCetteFrame;
     }
-    public Ennemi getCibleActuelle() { return cibleActuelle; }
 
+    public Ennemi getDerniereCible() {
+        return derniereCible;
+    }
 }
 
 
