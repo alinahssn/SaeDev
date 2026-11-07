@@ -15,7 +15,7 @@ public class Infirmier extends Tour {
 
 
     @Override
-    public Projectile agir(List<Ennemi> ennemisActifs) {
+    public Projectile executerAction(List<Ennemi> ennemisActifs) {
         if (flaqueActuelle != null && flaqueActuelle.estEncoreActive()) {
             flaqueActuelle.appliquerDegatsZone(ennemisActifs);
             return null;

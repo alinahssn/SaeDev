@@ -28,7 +28,17 @@ public class Masquier extends Tour implements Obstacle {
     public SimpleIntegerProperty pvProperty() { return pv; }
 
     @Override
-   public Projectile agir(List<Ennemi> ennemisActifs) {
+   public Projectile executerAction(List<Ennemi> ennemisActifs) {
+        for (Ennemi e : ennemisActifs) {
+            if (e.estVivant()) {
+                double dx = getX() - e.getX();
+                double dy = getY() - e.getY();
+                if (Math.sqrt(dx * dx + dy * dy) <= RAYON_DETECTION) {
+                    e.bloquer(2);
+                    e.attaquerMasquier(this);
+                }
+            }
+        }
         return null;
     }
 

@@ -17,8 +17,8 @@ public class Brancardier extends Tour {
     }
 
     @Override
-    public Projectile agir(List<Ennemi> ennemisActifs) {
-        tickCooldown();
+    public Projectile executerAction(List<Ennemi> ennemisActifs) {
+        //tickCooldown();
 
         if (!enMouvement) {
             this.brancardX = this.getX();

@@ -16,7 +16,7 @@ public class Chirurgien extends Tour {
     }
 
     @Override
-    public Projectile agir(List<Ennemi> ennemisActifs) {
+    public Projectile executerAction(List<Ennemi> ennemisActifs) {
         tickCooldown();
         aFrappeCetteFrame = false;
 

@@ -5,7 +5,7 @@ import universite_paris8.iut.aulhassan.maphopital.modele.Ennemi.Ennemi;
 
 import java.util.List;
 
-public class Tour {
+public abstract class Tour {
     private SimpleIntegerProperty x = new SimpleIntegerProperty(0);
     private SimpleIntegerProperty y = new SimpleIntegerProperty(0);
 
@@ -66,18 +66,13 @@ public class Tour {
         cooldown.setMultiplicateur(multiplicateur);
     }
 
-    public Projectile agir(List<Ennemi> ennemisActifs) {
-        tickCooldown();
-
-        for(Ennemi e :  ennemisActifs) {
-            if(peutTirer(e)) {
-                Projectile proj = new Projectile(getX() + 16, getY() + 16, e, getDegat(), getProjectileFixe(),getNomImageProjectile(), getTailleProjectile());
-                cooldown.declencher();
-                return proj;
-            }
-        }
-        return null;
+    public final Projectile agir(List<Ennemi> ennemisActifs) {
+        tickCooldown();//attention à pas le refaire
+        return executerAction(ennemisActifs);
     }
+
+    protected abstract Projectile executerAction(List<Ennemi> ennemisActifs);
+
 
     public int getPrixRevente() {
         return (int) (this.cout * 0.7);

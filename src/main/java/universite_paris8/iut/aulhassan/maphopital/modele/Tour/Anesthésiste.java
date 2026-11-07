@@ -15,7 +15,7 @@ public class Anesthésiste extends Tour {
     }
 
     @Override
-    public Projectile agir(List<Ennemi> ennemisActifs) {
+    public Projectile executerAction(List<Ennemi> ennemisActifs) {
         int porteePixels = getPortee() * 32;
         actif = false;
         for (Ennemi e : ennemisActifs) {
