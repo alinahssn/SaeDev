@@ -6,6 +6,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
+import java.util.HashMap;
+import java.util.Map;
 import universite_paris8.iut.aulhassan.maphopital.modele.EnvironnementJeu;
 import universite_paris8.iut.aulhassan.maphopital.modele.Tour.*;
 
@@ -23,6 +25,7 @@ public class GestClic {
     private VueTour vueTour;
 
     private int idTourSelect = -1;
+    private final Map<Integer, FabriqueTour> fabriques = new HashMap<>();
     private Rectangle caseHighlight = null;
     private Tour tourSelectionnee = null;
     private ImageView imageTourSelectionnee = null;
@@ -38,6 +41,12 @@ public class GestClic {
         this.panneauJeu = panneauJeu;
         this.environnement = environnement;
         this.vueTour = vueTour;
+        fabriques.put(1, new FabriqueTour.FabInterneDeGarde());
+        fabriques.put(2, new FabriqueTour.FabInfirmier());
+        fabriques.put(3, new FabriqueTour.FabBrancardier());
+        fabriques.put(4, new FabriqueTour.FabAnesthesiste());
+        fabriques.put(5, new FabriqueTour.FabMasquier());
+        fabriques.put(6, new FabriqueTour.FabChirurgien());
     }
 
     private void enregistrerClicBouton(Button bouton, int idTour, String nomTour) {
@@ -138,15 +147,11 @@ public class GestClic {
     }
 
     private Tour creerTour(int id) {
-        return switch (id) {
-            case 1 -> new InterneDeGarde();
-            case 2 -> new Infirmier();
-            case 3 -> new Brancardier();
-            case 4 -> new Anesthésiste();
-            case 5 -> new Masquier();
-            case 6 -> new Chirurgien();
-            default -> null;
-        };
+        FabriqueTour fabrique = fabriques.get(id);
+        if (fabrique == null) {
+            return null;
+        }
+        return fabrique.creerTour();
     }
 
     private ImageView creerImageTour(int id) {
