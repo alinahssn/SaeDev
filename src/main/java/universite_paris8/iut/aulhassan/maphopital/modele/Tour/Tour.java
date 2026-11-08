@@ -16,6 +16,7 @@ public abstract class Tour {
 
     private ConfigProjectile configProjectile;
     private Cooldown cooldown;
+    private StrategieCiblage strategieCiblage = new CiblagePremierEnPortee();
 
 
     public Tour(int cout, int degat, int vitesse, int portee, ConfigProjectile configProjectile) {
@@ -66,12 +67,23 @@ public abstract class Tour {
         cooldown.setMultiplicateur(multiplicateur);
     }
 
+    // PATTERN TEMPLATE METHOD : le squelette est ici (final), les sous-classes
+    // ne redéfinissent que executerAction(). Le cooldown est décrémenté UNE seule fois,
+    // ici : les sous-classes ne doivent plus appeler tickCooldown().
     public final Projectile agir(List<Ennemi> ennemisActifs) {
-        tickCooldown();//attention à pas le refaire
+        tickCooldown();
         return executerAction(ennemisActifs);
     }
 
     protected abstract Projectile executerAction(List<Ennemi> ennemisActifs);
+
+    public void setStrategieCiblage(StrategieCiblage strategieCiblage) {
+        this.strategieCiblage = strategieCiblage;
+    }
+
+    protected Ennemi choisirCible(List<Ennemi> ennemisActifs) {
+        return strategieCiblage.choisir(this, ennemisActifs);
+    }
 
 
     public int getPrixRevente() {

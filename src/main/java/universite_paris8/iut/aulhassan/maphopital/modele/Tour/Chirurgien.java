@@ -2,7 +2,6 @@ package universite_paris8.iut.aulhassan.maphopital.modele.Tour;
 
 import universite_paris8.iut.aulhassan.maphopital.modele.Ennemi.Ennemi;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Chirurgien extends Tour {
@@ -15,22 +14,20 @@ public class Chirurgien extends Tour {
 
     }
 
+    // Avant, le cooldown était décrémenté 2 fois par frame (agir + executerAction) :
+    // l'ancien 50 équivaut donc à 25 maintenant que le bug est corrigé.
+    private static final int COOLDOWN_FRAMES = 25;
+
     @Override
     public Projectile executerAction(List<Ennemi> ennemisActifs) {
-        tickCooldown();
         aFrappeCetteFrame = false;
 
-        List<Ennemi> copieEnnemis = new ArrayList<>(ennemisActifs);
-
-        for (Ennemi e : copieEnnemis) {
-            if (peutTirer(e)) {
-                if (estCooldownPret()) {
-                    e.subirDegats(this.getDegat());
-                    setCooldownActuel(50);
-                    this.derniereCible = e;
-                    this.aFrappeCetteFrame = true;
-                }
-            }
+        Ennemi cible = choisirCible(ennemisActifs);
+        if (cible != null) {
+            cible.subirDegats(this.getDegat());
+            setCooldownActuel(COOLDOWN_FRAMES);
+            this.derniereCible = cible;
+            this.aFrappeCetteFrame = true;
         }
         return null;
     }
@@ -43,8 +40,3 @@ public class Chirurgien extends Tour {
         return derniereCible;
     }
 }
-
-
-
-
-

@@ -8,15 +8,13 @@ public class InterneDeGarde extends Tour {
     public InterneDeGarde() {
         super(50, 20, 3, 3, new ConfigProjectile("pillule.png",16, false));
     }
+
     @Override
     protected Projectile executerAction(List<Ennemi> ennemisActifs) {
-        for (Ennemi e : ennemisActifs) {
-            if (peutTirer(e)) {
-                Projectile proj = new Projectile(getX() + 16, getY() + 16, e, getDegat(), getProjectileFixe(), getNomImageProjectile(), getTailleProjectile());
-               setCooldownActuel(60);
-                return proj;
-            }
-        }
-        return null;
+        Ennemi cible = choisirCible(ennemisActifs);
+        if (cible == null) return null;
+
+        setCooldownActuel(60);
+        return new Projectile(getX() + 16, getY() + 16, cible, getDegat(), getProjectileFixe(), getNomImageProjectile(), getTailleProjectile());
     }
 }

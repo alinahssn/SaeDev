@@ -24,17 +24,12 @@ public class Infirmier extends Tour {
             flaqueActuelle = null;
         }
 
-        tickCooldown();
-
-        for (Ennemi e : ennemisActifs) {
-            if (e != null && peutTirer(e)) {
-                flaqueActuelle = new FlaqueGel(e.getX() - 16, e.getY() - 16, getDegat());
-
-               setCooldownActuel(60);
-                return flaqueActuelle;
-            }
+        Ennemi cible = choisirCible(ennemisActifs);
+        if (cible != null) {
+            flaqueActuelle = new FlaqueGel(cible.getX() - 16, cible.getY() - 16, getDegat());
+            setCooldownActuel(60);
+            return flaqueActuelle;
         }
         return null;
     }
 }
-
