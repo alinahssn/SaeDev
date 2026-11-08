@@ -22,24 +22,22 @@ public class Brancardier extends Tour {
 
         if (!enMouvement) {
             this.brancardX = this.getX();
-            this.brancardY = this.getY();//bouge pas = reste sur la case de la tour
+            this.brancardY = this.getY();
 
-            for (Ennemi e : ennemisActifs) {
-                if (peutTirer(e)) {
-                    enMouvement = true;
+            Ennemi e = choisirCible(ennemisActifs);
+            if (e != null) {
+                enMouvement = true;
 
-                    double dx = e.getX() - this.getX();
-                    double dy = e.getY() - this.getY();
-                    double dist = Position.calculerDistance(this.getX(), this.getY(), e.getX(), e.getY());// distance entre tour et virus
+                double dx = e.getX() - this.getX();
+                double dy = e.getY() - this.getY();
+                double dist = Position.calculerDistance(this.getX(), this.getY(), e.getX(), e.getY());// distance entre tour et virus
 
-                    if (dist > 0) {
-                        this.dirX = dx / dist;//creation du vecteur unitaire
-                        this.dirY = dy / dist;
-                    } else {
-                        this.dirX = 0;
-                        this.dirY = 0;
-                    }
-                    break;
+                if (dist > 0) {
+                    this.dirX = dx / dist;
+                    this.dirY = dy / dist;
+                } else {
+                    this.dirX = 0;
+                    this.dirY = 0;
                 }
             }
         }
