@@ -23,22 +23,17 @@ public class Vague {
     public void lancerVague() {
         if (ennemisASpawner > 0) return;
 
-        numeroVague.set(numeroVague.get() + 1);
-
-        switch (numeroVague.get()) {
-            case 1: ennemisASpawner = 5;  break;
-            case 2: ennemisASpawner = 5;  break;
-            case 3: ennemisASpawner = 6;  break;
-            case 4: ennemisASpawner = 6;  break;
-            case 5: ennemisASpawner = 8;  break;
-            case 6: ennemisASpawner = 8;  break;
-            case 7: ennemisASpawner = 1;  break;
-            default:
-                System.out.println("Plus de vagues !");
-                numeroVague.set(numeroVague.get() - 1);
+        if (numeroVague.get() >= 7) {
+            System.out.println("Plus de vagues !");
+            return;
         }
 
+        numeroVague.set(numeroVague.get() + 1);
+
+        ennemisASpawner = getTailleVague(numeroVague.get());
+
         compteurSpawn = 0;
+
         System.out.println("Vague " + numeroVague.get() + " lancée !");
     }
 
