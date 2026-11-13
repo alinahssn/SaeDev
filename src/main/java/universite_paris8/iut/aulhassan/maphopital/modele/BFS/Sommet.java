@@ -26,18 +26,14 @@ public class Sommet {
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;
-        } else if (obj == null) {
-            return false;
-        } else if (this.getClass() != obj.getClass()) {
-            return false;
-        } else {
-            Sommet s = (Sommet)obj;
-            if (this.x != s.x) {
-                return false;
-            } else {
-                return this.y == s.y;
-            }
         }
+
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+
+        Sommet s = (Sommet) obj;
+        return this.x == s.x && this.y == s.y;
     }
 
     public String toString() {
