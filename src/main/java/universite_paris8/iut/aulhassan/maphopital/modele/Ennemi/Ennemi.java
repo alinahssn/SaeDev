@@ -107,7 +107,10 @@ public class Ennemi {
 
     public void subirDegats(int degats) {
         pv.set(Math.max(0, pv.get() - degats));
-        if (pv.get() <= 0) mourir();
+
+        if (!estVivant()) {
+            mourir();
+        }
     }
 
     private void mourir() { this.estMort = true; }
