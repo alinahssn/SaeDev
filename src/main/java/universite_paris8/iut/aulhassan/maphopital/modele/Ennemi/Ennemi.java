@@ -31,7 +31,7 @@ public class Ennemi {
 
     private int framesBloque = 0;
     private int cooldownAttaqueMasquier = 0;
-    private boolean nouvelleCase = false;
+    private boolean vientAtteindreNouvelleCase = false;
     private int spawnX;
     private int spawnY;
 
@@ -154,13 +154,13 @@ public class Ennemi {
             framesBloque--;
             return;
         }
-        nouvelleCase = false;
+        vientAtteindreNouvelleCase = false;
 
         setX(avancerVers(getX(), ciblePixelX, getVitesse()));
         setY(avancerVers(getY(), ciblePixelY, getVitesse()));
 
         if (getX() == ciblePixelX && getY() == ciblePixelY && indexChemin < chemin.size()) {
-            nouvelleCase = true;
+            vientAtteindreNouvelleCase = true;
             indexChemin++;
 
             if (indexChemin < chemin.size()) {
@@ -175,7 +175,7 @@ public class Ennemi {
     public SimpleIntegerProperty pvProperty() { return pv; }
 
     public boolean estArriveSurNouvelleCase() {
-        return nouvelleCase;
+        return vientAtteindreNouvelleCase;
     }
 }
 
