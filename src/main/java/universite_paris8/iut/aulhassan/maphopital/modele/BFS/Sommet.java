@@ -16,10 +16,10 @@ public class Sommet {
         return y;
     }
     public int hashCode() {
-        int prime = 31;
+        final int prime = 31;
         int result = 1;
-        result = 31 * result + this.x;
-        result = 31 * result + this.y;
+        result = prime * result + this.x;
+        result = prime * result + this.y;
         return result;
     }
 //
