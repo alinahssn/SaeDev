@@ -81,24 +81,17 @@ public class Graphes {
     }
 //
     public Sommet getSommet(int x, int y) {
-        Iterator var4 = this.listeAdj.keySet().iterator();
+        Sommet sommet = new Sommet(x, y);
 
-        Sommet sommet;
-        do {
-            if (!var4.hasNext()) {
-                return null;
-            }
+        if (listeAdj.containsKey(sommet)) {
+            return sommet;
+        }
 
-            sommet = (Sommet)var4.next();
-        } while(sommet.getX() != x || sommet.getY() != y);
-
-        return sommet;
+        return null;
     }
+
     public Set<Sommet> getSommets() {
         return this.listeAdj.keySet();
     }
-
-
-
-
+    
 }
