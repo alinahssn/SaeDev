@@ -8,7 +8,7 @@ public class Covidé extends Ennemi {
     private static final int RECOMPENSE = 30;
 
     public Covidé() {
-        super(PV_DEPART, ATTAQUE, VITESSE, RECOMPENSE);
+        super("Covidé",PV_DEPART, ATTAQUE, VITESSE, RECOMPENSE);
     }
 
     public boolean estSurMouchoir(MouchoirEnrhumé mouchoir){
@@ -23,10 +23,5 @@ public class Covidé extends Ennemi {
             return enrhumé;
         }
         return null;
-    }
-
-    @Override
-    public String toString(){
-        return "Covidé : PV=" + getPv() + "/" + getPvMax() + " | VIVANT=" + estVivant();
     }
 }

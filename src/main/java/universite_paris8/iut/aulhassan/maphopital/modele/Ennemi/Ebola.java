@@ -9,7 +9,7 @@ public class Ebola extends Ennemi {
 
     private int phase = 1;
     public Ebola() {
-        super(PV_DEPART, 5,8, RECOMPENSE);
+        super("Ebola",PV_DEPART, 5,8, RECOMPENSE);
     }
     public int getPhase() {
         return phase;

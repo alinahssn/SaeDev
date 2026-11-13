@@ -12,11 +12,7 @@ public class Gastrique extends Ennemi {
     private static final int RECOMPENSE = 15;
 
     public Gastrique() {
-        super(PV_DEPART,ATTAQUE,VITESSE,RECOMPENSE);
-    }
-
-    public String toString(){
-        return "Gastrique : PV = "+getPv()+" | ATTAQUE = " + getAttaque()+" | VITESSE = " + getVitesse()+" | RECOMPENSE = " + getRecompense()+" | VIVANT = " + estVivant();
+        super("Gastrique",PV_DEPART,ATTAQUE,VITESSE,RECOMPENSE);
     }
 
 }

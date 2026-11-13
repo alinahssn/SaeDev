@@ -10,12 +10,7 @@ public class Rabique extends Ennemi {
 
     public Rabique() {
 
-        super(PV_DEPART, ATTAQUE, VITESSE, RECOMPENSE);
+        super("Rabique",PV_DEPART, ATTAQUE, VITESSE, RECOMPENSE);
         setStrategieDeplacement(new DeplacementDirect());
-    }
-
-    @Override
-    public String toString(){
-        return "Rabique : PV=" + getPv() + "/" + getPvMax() + " | VIVANT=" + estVivant();
     }
 }

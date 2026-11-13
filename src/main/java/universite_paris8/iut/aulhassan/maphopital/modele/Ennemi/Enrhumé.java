@@ -10,7 +10,7 @@ public class Enrhumé extends Ennemi {
 
     public Enrhumé() {
 
-        super(PV_DEPART, ATTAQUE, VITESSE, RECOMPENSE);
+        super("Enrhumé",PV_DEPART, ATTAQUE, VITESSE, RECOMPENSE);
     }
 
     public MouchoirEnrhumé utiliserPouvoir() {
@@ -23,10 +23,5 @@ public class Enrhumé extends Ennemi {
         }
 
         return null;
-    }
-
-    @Override
-    public String toString(){
-        return "Enrhumé : PV=" + getPv() + "/" + getPvMax() + " | VIVANT=" + estVivant();
     }
 }

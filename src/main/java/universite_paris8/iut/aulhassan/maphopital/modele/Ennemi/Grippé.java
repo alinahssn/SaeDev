@@ -11,11 +11,7 @@ public class Grippé extends Ennemi {
     public static final int PORTEE_RALENTISSEMENT = 3;
 
     public Grippé() {
-        super(PV_DEPART, ATTAQUE, VITESSE, RECOMPENSE);
+        super("Grippé",PV_DEPART, ATTAQUE, VITESSE, RECOMPENSE);
     }
 
-    @Override
-    public String toString() {
-        return "Grippé : PV=" + getPv() + "/" + getPvMax() + " | VIVANT=" + estVivant();
-    }
 }

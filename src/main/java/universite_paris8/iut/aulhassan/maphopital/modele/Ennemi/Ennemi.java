@@ -15,6 +15,7 @@ public class Ennemi {
 
     private SimpleIntegerProperty pv;
 
+    private String nom;
     private int pvMax;
     private int attaque;
     private int vitesse;
@@ -32,7 +33,8 @@ public class Ennemi {
     private int spawnX;
     private int spawnY;
 
-    public Ennemi(int pv, int attaque, int vitesse, int recompense) {
+    public Ennemi(String nom,int pv, int attaque, int vitesse, int recompense) {
+        this.nom = nom;
         this.pvMax = pv;
         this.pv = new SimpleIntegerProperty(pv);
         this.attaque = attaque;
@@ -44,7 +46,7 @@ public class Ennemi {
         this.strategieDeplacement = deplacementBFS;
     }
 
-    public Ennemi() { this(80, 5, 1, 15);}
+    public Ennemi() { this("Ennemi",80, 5, 1, 15);}
 
 
     public void bloquer(int frames) {
@@ -94,6 +96,7 @@ public class Ennemi {
 
     public boolean estRalenti() { return estRalenti; }
 
+    public String getNom() { return nom;}
     public int getPv() { return pv.get(); }
     public int getPvMax() { return pvMax; }
     public int getAttaque() { return attaque; }
@@ -151,6 +154,10 @@ public class Ennemi {
 
     public boolean estArriveSurNouvelleCase() {
         return deplacementBFS.estArriveSurNouvelleCase();
+    }
+    @Override
+    public String toString() {
+        return getNom() + " : PV=" + getPv() + "/" + getPvMax() + " | VIVANT=" + estVivant();
     }
 
 }
