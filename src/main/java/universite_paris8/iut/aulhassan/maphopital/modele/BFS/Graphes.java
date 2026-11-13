@@ -21,6 +21,16 @@ public class Graphes {
         construit();
     }
 
+    private void ajouterVoisin(Sommet sommet, int x, int y) {
+        if (dansGraphes(x, y)) {
+            Sommet voisin = getSommet(x, y); // recherche le sommet correspondant
+
+            if (voisin != null) {
+                listeAdj.get(sommet).add(voisin);
+            }
+        }
+    }
+
     private void construit() {
         int[][] map = terrain.getMap();
         int h = terrain.getHauteur();
@@ -38,26 +48,14 @@ public class Graphes {
             for(int i = 0; i < l; ++i) {
                 Sommet s = this.getSommet(i, j);
                 if (s == null) continue;
-                //droite
-                if(dansGraphes(i-1,j) && getSommet(i-1,j) != null) {
-                    ((Set)this.listeAdj.get(s)).add(this.getSommet(i - 1, j));
-                }
-                //droite
-                if (dansGraphes(i + 1, j) && getSommet(i+1,j) != null) {
-                    ((Set)this.listeAdj.get(s)).add(this.getSommet(i + 1, j));
-                }
-                //bas
-                if (dansGraphes(i, j + 1) && getSommet(i,j+1) != null) {
-                    ((Set)this.listeAdj.get(s)).add(this.getSommet(i, j + 1));
-                }
-                //haut
-                if (dansGraphes(i, j - 1) && getSommet(i,j-1) != null) {
-                    ((Set)this.listeAdj.get(s)).add(this.getSommet(i, j - 1));
-                }
+
+                ajouterVoisin(s, i - 1, j); // gauche
+                ajouterVoisin(s, i + 1, j); // droite
+                ajouterVoisin(s, i, j + 1); // bas
+                ajouterVoisin(s, i, j - 1); // haut
+
             }
         }
-
-
     }
 
     public boolean dansGraphes(int x, int y){
@@ -93,5 +91,5 @@ public class Graphes {
     public Set<Sommet> getSommets() {
         return this.listeAdj.keySet();
     }
-    
+
 }
