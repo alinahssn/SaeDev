@@ -55,6 +55,12 @@ public class Ennemi {
         return framesBloque > 0;
     }
 
+    public void decrementerBlocage() {
+        if (framesBloque > 0) {
+            framesBloque--;
+        }
+    }
+
     public void attaquerMasquier(Masquier masquier) {
         if (cooldownAttaqueMasquier > 0) {
             cooldownAttaqueMasquier--;
