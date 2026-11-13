@@ -27,14 +27,8 @@ public class Ennemi {
     private StrategieDeplacement strategieDeplacement;
     private DeplacementBFS deplacementBFS;
 
-    private ArrayList<Sommet> chemin;
-    private int indexChemin = 0;
-    private int ciblePixelX = 0;
-    private int ciblePixelY = 0;
-
     private int framesBloque = 0;
     private int cooldownAttaqueMasquier = 0;
-    private boolean vientAtteindreNouvelleCase = false;
     private int spawnX;
     private int spawnY;
 
@@ -152,56 +146,6 @@ public class Ennemi {
     public void deplacer() {
         strategieDeplacement.deplacer(this);
     }
-
-    /* public void setChemin(ArrayList<Sommet> chemin) {
-        this.chemin = chemin;
-        if (chemin != null && chemin.size() > 1) {
-            indexChemin = 1;
-            Sommet premier = chemin.get(1);
-            ciblePixelX = premier.getX() * 32;
-            ciblePixelY = premier.getY() * 32;
-        }
-    }
-
-
-
-
-   public ArrayList<Sommet> getChemin() { return this.chemin; }
-
-    private int avancerVers(int position, int cible, int vitesse) {
-        if (position < cible) {
-            return Math.min(position + vitesse, cible);
-        }
-        if (position > cible) {
-            return Math.max(position - vitesse, cible);
-        }
-        return position;
-    }
-
-    public void deplacer() {
-        if (chemin == null) return;
-
-        if (framesBloque > 0) {
-            framesBloque--;
-            return;
-        }
-        vientAtteindreNouvelleCase = false;
-
-        setX(avancerVers(getX(), ciblePixelX, getVitesse()));
-        setY(avancerVers(getY(), ciblePixelY, getVitesse()));
-
-        if (getX() == ciblePixelX && getY() == ciblePixelY && indexChemin < chemin.size()) {
-            vientAtteindreNouvelleCase = true;
-            indexChemin++;
-
-            if (indexChemin < chemin.size()) {
-                Sommet prochain = chemin.get(indexChemin);
-                ciblePixelX = prochain.getX() * 32;
-                ciblePixelY = prochain.getY() * 32;
-
-            }
-        }
-    }*/
 
     public SimpleIntegerProperty pvProperty() { return pv; }
 
