@@ -2,7 +2,8 @@ package universite_paris8.iut.aulhassan.maphopital.modele.Ennemi;
 
 import javafx.beans.property.SimpleIntegerProperty;
 import universite_paris8.iut.aulhassan.maphopital.modele.BFS.Sommet;
-import universite_paris8.iut.aulhassan.maphopital.modele.Terrain;
+import universite_paris8.iut.aulhassan.maphopital.modele.BFS.deplacement.DeplacementBFS;
+import universite_paris8.iut.aulhassan.maphopital.modele.BFS.deplacement.StrategieDeplacement;
 import universite_paris8.iut.aulhassan.maphopital.modele.Tour.Masquier;
 
 import java.util.ArrayList;
@@ -23,6 +24,8 @@ public class Ennemi {
 
     private boolean estMort;
 
+    private StrategieDeplacement strategieDeplacement;
+    private DeplacementBFS deplacementBFS;
 
     private ArrayList<Sommet> chemin;
     private int indexChemin = 0;
@@ -42,6 +45,9 @@ public class Ennemi {
         this.vitesse = vitesse;
         this.vitesseBase = vitesse;
         this.recompense = recompense;
+
+        this.deplacementBFS = new DeplacementBFS();
+        this.strategieDeplacement = deplacementBFS;
     }
 
     public Ennemi() { this(80, 5, 1, 15);}
@@ -131,7 +137,23 @@ public class Ennemi {
     public void setY(int nouveauY) { this.y.set(nouveauY); }
     public SimpleIntegerProperty yProperty() { return this.y; }
 
+    public ArrayList<Sommet> getChemin() {
+        return deplacementBFS.getChemin();
+    }
+
     public void setChemin(ArrayList<Sommet> chemin) {
+        deplacementBFS.setChemin(chemin);
+    }
+
+    public void setStrategieDeplacement(StrategieDeplacement strategieDeplacement) {
+        this.strategieDeplacement = strategieDeplacement;
+    }
+
+    public void deplacer() {
+        strategieDeplacement.deplacer(this);
+    }
+
+    /* public void setChemin(ArrayList<Sommet> chemin) {
         this.chemin = chemin;
         if (chemin != null && chemin.size() > 1) {
             indexChemin = 1;
@@ -141,7 +163,10 @@ public class Ennemi {
         }
     }
 
-    public ArrayList<Sommet> getChemin() { return this.chemin; }
+
+
+
+   public ArrayList<Sommet> getChemin() { return this.chemin; }
 
     private int avancerVers(int position, int cible, int vitesse) {
         if (position < cible) {
@@ -176,12 +201,13 @@ public class Ennemi {
 
             }
         }
-    }
+    }*/
 
     public SimpleIntegerProperty pvProperty() { return pv; }
 
     public boolean estArriveSurNouvelleCase() {
-        return vientAtteindreNouvelleCase;
+        return deplacementBFS.estArriveSurNouvelleCase();
     }
+
 }
 
