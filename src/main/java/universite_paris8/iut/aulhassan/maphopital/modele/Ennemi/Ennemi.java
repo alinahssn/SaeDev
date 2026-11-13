@@ -22,7 +22,7 @@ public class Ennemi {
     private int recompense;
 
     private boolean estMort;
-    private Terrain terrain;
+
 
     private ArrayList<Sommet> chemin;
     private int indexChemin = 0;
@@ -134,6 +134,16 @@ public class Ennemi {
 
     public ArrayList<Sommet> getChemin() { return this.chemin; }
 
+    private int avancerVers(int position, int cible, int vitesse) {
+        if (position < cible) {
+            return Math.min(position + vitesse, cible);
+        }
+        if (position > cible) {
+            return Math.max(position - vitesse, cible);
+        }
+        return position;
+    }
+
     public void deplacer() {
         if (chemin == null) return;
 
@@ -143,19 +153,18 @@ public class Ennemi {
         }
         nouvelleCase = false;
 
-        if (getX() < ciblePixelX) setX(Math.min(getX() + vitesse, ciblePixelX));
-        else if (getX() > ciblePixelX) setX(Math.max(getX() - vitesse, ciblePixelX));
-
-        if (getY() < ciblePixelY) setY(Math.min(getY() + vitesse, ciblePixelY));
-        else if (getY() > ciblePixelY) setY(Math.max(getY() - vitesse, ciblePixelY));
+        setX(avancerVers(getX(), ciblePixelX, getVitesse()));
+        setY(avancerVers(getY(), ciblePixelY, getVitesse()));
 
         if (getX() == ciblePixelX && getY() == ciblePixelY && indexChemin < chemin.size()) {
             nouvelleCase = true;
             indexChemin++;
+
             if (indexChemin < chemin.size()) {
-                Sommet prochaine = chemin.get(indexChemin);
-                ciblePixelX = prochaine.getX() * 32;
-                ciblePixelY = prochaine.getY() * 32;
+                Sommet prochain = chemin.get(indexChemin);
+                ciblePixelX = prochain.getX() * 32;
+                ciblePixelY = prochain.getY() * 32;
+
             }
         }
     }
