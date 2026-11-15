@@ -138,7 +138,7 @@ public class EnvironnementJeu {
     public List<Tour> retirerMasquiersDetruits() {
         List<Tour> detruits = new ArrayList<>();
         for (Tour t : toursActives) {
-            if (t instanceof Masquier masquier && masquier.estDetruit()) {
+            if (t.estDetruit()) {
                 detruits.add(t);//supp si trouve un masquier à 0
             }
         }

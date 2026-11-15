@@ -77,6 +77,8 @@ public abstract class Tour {
 
     public abstract int getNumCaseApresRetrait();
 
+    public boolean estDetruit() { return false;}
+
     public void setStrategieCiblage(StrategieCiblage strategieCiblage) {
         this.strategieCiblage = strategieCiblage;
     }

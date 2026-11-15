@@ -21,6 +21,7 @@ public class Masquier extends Tour implements Obstacle {
         pv.set(Math.max(0, pv.get() - degats));
     }//Math.maxpas de valeur negative
 
+    @Override
     public boolean estDetruit() {
         return pv.get() <= 0;
     }
