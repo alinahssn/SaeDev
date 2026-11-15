@@ -35,5 +35,10 @@ public class Anesthésiste extends Tour {
         return null;
     }
 
+    @Override
+    public int getNumCaseApresRetrait() {
+        return 1;
+    }
+
     public boolean estActif() { return actif; }
 }

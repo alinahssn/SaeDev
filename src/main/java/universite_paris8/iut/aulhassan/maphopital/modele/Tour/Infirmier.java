@@ -32,4 +32,9 @@ public class Infirmier extends Tour {
         }
         return null;
     }
+
+    @Override
+    public int getNumCaseApresRetrait() {
+        return 1;
+    }
 }

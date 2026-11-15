@@ -32,6 +32,11 @@ public class Chirurgien extends Tour {
         return null;
     }
 
+    @Override
+    public int getNumCaseApresRetrait() {
+        return 1;
+    }
+
     public boolean aFrappeCetteFrame() {
         return aFrappeCetteFrame;
     }

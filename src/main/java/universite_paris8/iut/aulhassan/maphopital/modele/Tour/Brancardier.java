@@ -64,6 +64,11 @@ public class Brancardier extends Tour {
         return null;
     }
 
+    @Override
+    public int getNumCaseApresRetrait() {
+        return 1;
+    }
+
     public double getBrancardX() {
         return this.brancardX;
     }

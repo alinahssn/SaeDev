@@ -21,4 +21,9 @@ public class InterneDeGarde extends Tour {
         setCooldownActuel(60);
         return new ProjectileDegatsBonus(proj, BONUS_DEGATS);
     }
+
+    @Override
+    public int getNumCaseApresRetrait() {
+        return 1;
+    }
 }
