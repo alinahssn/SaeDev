@@ -156,6 +156,7 @@ public class EnvironnementJeu {
 
     public void ajouterBudget(int montant) { this.budget.set(this.budget.get() + montant); }
 
+
     public boolean morphineUtile() {
         return patient.estBlesse();
     }
