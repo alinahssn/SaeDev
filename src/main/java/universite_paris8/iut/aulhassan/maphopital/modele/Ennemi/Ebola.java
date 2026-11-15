@@ -20,7 +20,7 @@ public class Ebola extends Ennemi {
 
     }
 
-    public void mettreAJourPhase(){
+    private void mettreAJourPhase(){
         int pv = getPv();
         int nouvellePhase;
 
@@ -30,11 +30,8 @@ public class Ebola extends Ennemi {
         else if (pv >= SEUIL_3){
             nouvellePhase = 2;
         }
-        else if (pv > 0){
-            nouvellePhase = 3;
-        }
         else{
-            nouvellePhase = 4;
+            nouvellePhase = 3;
         }
 
         if(phase != nouvellePhase){
@@ -42,7 +39,6 @@ public class Ebola extends Ennemi {
             switch (phase){
                 case 2 -> {setAttaque(10); changerVitesseBase(16);}
                 case 3 -> {setAttaque(15); changerVitesseBase(32);}
-                case 4 -> {setAttaque(20); changerVitesseBase(64);}
             }
         }
     }
