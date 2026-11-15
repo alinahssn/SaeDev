@@ -12,16 +12,13 @@ import javafx.scene.layout.TilePane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import universite_paris8.iut.aulhassan.maphopital.modele.*;
-import universite_paris8.iut.aulhassan.maphopital.modele.BFS.Sommet;
 import universite_paris8.iut.aulhassan.maphopital.modele.Ennemi.Ennemi;
-import universite_paris8.iut.aulhassan.maphopital.modele.Ennemi.MouchoirEnrhumé;
 import universite_paris8.iut.aulhassan.maphopital.visuel.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class Controleur implements Initializable {

@@ -7,14 +7,14 @@ import universite_paris8.iut.aulhassan.maphopital.modele.BFS.BFS;
 import universite_paris8.iut.aulhassan.maphopital.modele.BFS.Graphes;
 import universite_paris8.iut.aulhassan.maphopital.modele.BFS.Sommet;
 import universite_paris8.iut.aulhassan.maphopital.modele.Ennemi.*;
+import universite_paris8.iut.aulhassan.maphopital.modele.Ennemi.Pouvoir.MouchoirEnrhumé;
+import universite_paris8.iut.aulhassan.maphopital.modele.Ennemi.Pouvoir.GestionMouchoirs;
 import universite_paris8.iut.aulhassan.maphopital.modele.Tour.Masquier;
 import universite_paris8.iut.aulhassan.maphopital.modele.Tour.Projectile;
 import universite_paris8.iut.aulhassan.maphopital.modele.Tour.Tour;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class EnvironnementJeu {
 
@@ -26,10 +26,7 @@ public class EnvironnementJeu {
     private ObservableList<Ennemi> ennemisActifs = FXCollections.observableArrayList();
     private ObservableList<Projectile> projectilesActifs = FXCollections.observableArrayList();
 
-    private List<MouchoirEnrhumé> mouchoirsActifs;
-    private List<MouchoirEnrhumé> nouveauxMouchoirs = new ArrayList<>();
-    private List<MouchoirEnrhumé> mouchoirsSupprimes = new ArrayList<>();
-    private List<Ennemi> nouveauxEnnemis = new ArrayList<>();
+    private GestionMouchoirs gestionMouchoirs;
 
     private Graphes graphe;
     private BFS bfs;
@@ -40,12 +37,12 @@ public class EnvironnementJeu {
     public EnvironnementJeu() {
         this.terrain = new Terrain();
         this.patient = new Patient();
-        this.mouchoirsActifs = new ArrayList<>();
 
         graphe = new Graphes(terrain);
         cible = graphe.getSommet(23, 12);
         bfs = new BFS(graphe, cible);
 
+        this.gestionMouchoirs = new GestionMouchoirs(bfs);
         spawns = new ArrayList<>();
         spawns.add(graphe.getSommet(16, 0));
         spawns.add(graphe.getSommet(47, 0));
@@ -128,57 +125,11 @@ public class EnvironnementJeu {
     }
 
     private void gererPouvoirsEnnemis(Ennemi e) {
-        if (e instanceof Enrhumé enrhumé) {
-            MouchoirEnrhumé mouchoir = enrhumé.utiliserPouvoir();
-            if (mouchoir != null) {
-                mouchoirsActifs.add(mouchoir);
-                nouveauxMouchoirs.add(mouchoir);
-            }
-        }
-        if(e instanceof Covidé covidé) {
-            for (MouchoirEnrhumé mouchoir : mouchoirsActifs) {
-            Enrhumé nouvelEnrhume = covidé.utiliserPouvoir(mouchoir);
-                if (nouvelEnrhume != null) {
-                    Sommet spawn = new Sommet(
-                            nouvelEnrhume.getSpawnX() / 32,
-                            nouvelEnrhume.getSpawnY() / 32
-                    );
-
-                    ArrayList<Sommet> chemin = bfs.cheminVersCible(spawn);
-                   // java.util.Collections.reverse(chemin);
-                    nouvelEnrhume.setChemin(chemin);
-                   // ennemisActifs.add(nouvelEnrhume);
-                    nouveauxEnnemis.add(nouvelEnrhume);
-                    mouchoirsSupprimes.add(mouchoir);
-                }
-            }
-            mouchoirsActifs.removeAll(mouchoirsSupprimes);
-        }
+        e.utiliserPouvoir(gestionMouchoirs);
     }
 
-
-    public void viderNouveauxMouchoirs() {
-        nouveauxMouchoirs.clear();
-    }
-    public void viderMouchoirsSupprimes() {
-        mouchoirsSupprimes.clear();
-    }
-
-
-    public List<MouchoirEnrhumé> getNouveauxMouchoirs() {
-        return nouveauxMouchoirs;
-    }
-    public List<MouchoirEnrhumé> getMouchoirsSupprimes() {
-        return mouchoirsSupprimes;
-    }
-
-    public List<Ennemi> getNouveauxEnnemis() {
-        return nouveauxEnnemis;
-    }
-    public void viderNouveauxEnnemis() {
-        nouveauxEnnemis.clear();
-    }
-
+    public GestionMouchoirs getGestionMouchoirs() { return gestionMouchoirs;}
+    
     private void gererMasquiersDetruits() {
         retirerMasquiersDetruits();
     }
@@ -217,8 +168,6 @@ public class EnvironnementJeu {
     public List<Tour> getToursActives() { return toursActives; }
     public ObservableList<Ennemi> getEnnemisActifs() { return ennemisActifs; }
     public ObservableList<Projectile> getProjectilesActifs() { return projectilesActifs; }
-
-    public List<MouchoirEnrhumé> getMouchoirsActifs() { return mouchoirsActifs;}
 
     public SimpleIntegerProperty budgetProperty() { return this.budget; }
     public int getBudget() { return this.budget.get(); }

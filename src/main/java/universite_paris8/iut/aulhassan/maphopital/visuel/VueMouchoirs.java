@@ -2,7 +2,8 @@ package universite_paris8.iut.aulhassan.maphopital.visuel;
 
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import universite_paris8.iut.aulhassan.maphopital.modele.Ennemi.MouchoirEnrhumé;
+import universite_paris8.iut.aulhassan.maphopital.modele.Ennemi.Pouvoir.GestionMouchoirs;
+import universite_paris8.iut.aulhassan.maphopital.modele.Ennemi.Pouvoir.MouchoirEnrhumé;
 import universite_paris8.iut.aulhassan.maphopital.modele.EnvironnementJeu;
 
 import java.util.HashMap;
@@ -12,17 +13,19 @@ public class VueMouchoirs {
 
     private EnvironnementJeu environnement;
     private Pane panneauJeu;
+    private GestionMouchoirs gestionMouchoirs;
+
 
     private Map<MouchoirEnrhumé, ImageView> vuesMouchoirs = new HashMap<>();
 
     public VueMouchoirs(EnvironnementJeu environnement, Pane panneauJeu) {
         this.environnement = environnement;
         this.panneauJeu = panneauJeu;
+        this.gestionMouchoirs = environnement.getGestionMouchoirs();
     }
 
     public void mettreAJour() {
-
-        for (MouchoirEnrhumé mouchoir : environnement.getNouveauxMouchoirs()) {
+        for (MouchoirEnrhumé mouchoir : gestionMouchoirs.getNouveaux()) {
 
             ImageView imageView =  new ImageView(ChargeurImage.charger("mouchoir2.png"));
 
@@ -37,9 +40,9 @@ public class VueMouchoirs {
             vuesMouchoirs.put(mouchoir, imageView);
         }
 
-        environnement.viderNouveauxMouchoirs();
+        gestionMouchoirs.viderNouveaux();
 
-        for (MouchoirEnrhumé mouchoir : environnement.getMouchoirsSupprimes()) {
+        for (MouchoirEnrhumé mouchoir : gestionMouchoirs.getSupprimes()) {
 
             ImageView imageView = vuesMouchoirs.get(mouchoir);
 
@@ -49,6 +52,6 @@ public class VueMouchoirs {
             }
         }
 
-        environnement.viderMouchoirsSupprimes();
+        gestionMouchoirs.viderSupprimes();
     }
 }

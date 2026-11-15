@@ -4,6 +4,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import universite_paris8.iut.aulhassan.maphopital.modele.BFS.Sommet;
 import universite_paris8.iut.aulhassan.maphopital.modele.BFS.deplacement.DeplacementBFS;
 import universite_paris8.iut.aulhassan.maphopital.modele.BFS.deplacement.StrategieDeplacement;
+import universite_paris8.iut.aulhassan.maphopital.modele.Ennemi.Pouvoir.ActionsMouchoir;
 import universite_paris8.iut.aulhassan.maphopital.modele.Tour.Masquier;
 
 import java.util.ArrayList;
@@ -149,6 +150,8 @@ public class Ennemi {
     public void deplacer() {
         strategieDeplacement.deplacer(this);
     }
+
+    public void utiliserPouvoir(ActionsMouchoir actions) { }
 
     public SimpleIntegerProperty pvProperty() { return pv; }
 

@@ -1,4 +1,4 @@
-package universite_paris8.iut.aulhassan.maphopital.modele.Ennemi;
+package universite_paris8.iut.aulhassan.maphopital.modele.Ennemi.Pouvoir;
 
 public class MouchoirEnrhumé {
 

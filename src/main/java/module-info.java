@@ -16,4 +16,6 @@ module universite_paris8.iut.aulhassan.maphopital {
     opens universite_paris8.iut.aulhassan.maphopital.modele.Tour to javafx.fxml;
     exports universite_paris8.iut.aulhassan.maphopital.modele.BFS;
     opens universite_paris8.iut.aulhassan.maphopital.modele.BFS to javafx.fxml;
+    exports universite_paris8.iut.aulhassan.maphopital.modele.Ennemi.Pouvoir;
+    opens universite_paris8.iut.aulhassan.maphopital.modele.Ennemi.Pouvoir to javafx.fxml;
 }

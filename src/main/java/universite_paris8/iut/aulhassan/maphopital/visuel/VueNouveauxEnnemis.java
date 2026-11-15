@@ -1,6 +1,7 @@
 package universite_paris8.iut.aulhassan.maphopital.visuel;
 
 import javafx.scene.layout.Pane;
+import universite_paris8.iut.aulhassan.maphopital.modele.Ennemi.Pouvoir.GestionMouchoirs;
 import universite_paris8.iut.aulhassan.maphopital.modele.EnvironnementJeu;
 import universite_paris8.iut.aulhassan.maphopital.modele.Ennemi.Ennemi;
 
@@ -15,11 +16,12 @@ public class VueNouveauxEnnemis {
     }
 
     public void mettreAJour() {
-        for (Ennemi ennemi : environnement.getNouveauxEnnemis()) {
+        GestionMouchoirs gestionMouchoirs = environnement.getGestionMouchoirs();
+        for (Ennemi ennemi : gestionMouchoirs.getNouveauxEnnemis()) {
             environnement.getEnnemisActifs().add(ennemi);
             new VueEnnemi(ennemi, panneauJeu, environnement);
         }
 
-        environnement.viderNouveauxEnnemis();
+        gestionMouchoirs.viderNouveauxEnnemis();
     }
 }

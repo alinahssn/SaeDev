@@ -1,5 +1,8 @@
 package universite_paris8.iut.aulhassan.maphopital.modele.Ennemi;
 
+import universite_paris8.iut.aulhassan.maphopital.modele.Ennemi.Pouvoir.ActionsMouchoir;
+import universite_paris8.iut.aulhassan.maphopital.modele.Ennemi.Pouvoir.MouchoirEnrhumé;
+
 public class Covidé extends Ennemi {
 
     private static final int PV_DEPART = 100;
@@ -14,14 +17,20 @@ public class Covidé extends Ennemi {
     public boolean estSurMouchoir(MouchoirEnrhumé mouchoir){
         return getX() == mouchoir.getX() && getY() == mouchoir.getY();
     }
-    public Enrhumé utiliserPouvoir(MouchoirEnrhumé mouchoir) {
-        if(estSurMouchoir(mouchoir)) {
-            Enrhumé enrhumé = new Enrhumé();
-            enrhumé.setX(getSpawnX());
-            enrhumé.setY(getSpawnY());
-            enrhumé.setSpawn(getSpawnX(), getSpawnY());
-            return enrhumé;
+    @Override
+    public void utiliserPouvoir(ActionsMouchoir actions) {
+        for (MouchoirEnrhumé mouchoir : actions.getMouchoirsActifs()) {
+            if (estSurMouchoir(mouchoir)) {
+                actions.transformerMouchoir(mouchoir, creerEnrhume());
+            }
         }
-        return null;
+    }
+
+    private Enrhumé creerEnrhume() {
+        Enrhumé enrhumé = new Enrhumé();
+        enrhumé.setX(getSpawnX());
+        enrhumé.setY(getSpawnY());
+        enrhumé.setSpawn(getSpawnX(), getSpawnY());
+        return enrhumé;
     }
 }
