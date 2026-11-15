@@ -18,6 +18,9 @@ import java.util.List;
 
 public class EnvironnementJeu {
 
+    public static final int COUT_MORPHINE = 50;
+    public static final int SOIN_MORPHINE = 5;
+
     private Terrain terrain;
     private Patient patient;
     private SimpleIntegerProperty budget = new SimpleIntegerProperty(200);
@@ -58,20 +61,9 @@ public class EnvironnementJeu {
         this.mettreAJourMalusTours();
         faireAgirTours();
         deplacerProjectiles();
-        gererEnnemisMorts();
 
         if (temps % 12 == 0) {
             faireAvancerEnnemis();
-        }
-    }
-
-    private void gererEnnemisMorts() {
-        for (int i = ennemisActifs.size() - 1; i >= 0; i--) {
-            Ennemi e = ennemisActifs.get(i);
-            if (!e.estVivant()) {
-                ajouterBudget(e.getRecompense());
-                ennemisActifs.remove(i);
-            }
         }
     }
 
@@ -120,19 +112,9 @@ public class EnvironnementJeu {
         }
     }
 
-    public boolean poserTour(Tour tour, int col, int ligne, int idTourSelect) {
-        if (patient == null || !patient.estVivant()) return false;
-
-        int[][] map = terrain.getMap();
-        if (ligne < 0 || ligne >= map.length || col < 0 || col >= map[0].length) return false;
-
-        int valeurCase = map[ligne][col];
-        boolean caseValide = (idTourSelect == 5) ? (valeurCase == 0) : (valeurCase == 1);
-        if (!caseValide) return false;
-
+    public boolean poserTour(Tour tour, int col, int ligne) {
         if (!dépense(tour.getCout())) return false;
-
-        map[ligne][col] = 12;
+        terrain.getMap()[ligne][col] = 12;
         tour.setX(col * 32);
         tour.setY(ligne * 32);
         toursActives.add(tour);
@@ -173,6 +155,17 @@ public class EnvironnementJeu {
     }
 
     public void ajouterBudget(int montant) { this.budget.set(this.budget.get() + montant); }
+
+    public boolean morphineUtile() {
+        return patient.estBlesse();
+    }
+
+    public boolean acheterMorphine() {
+        if (!morphineUtile()) return false;
+        if (!dépense(COUT_MORPHINE)) return false;
+        patient.soigner(SOIN_MORPHINE);
+        return true;
+    }
 
     public boolean dépense(int montant) {
         if (this.budget.get() >= montant) {
