@@ -78,25 +78,33 @@ public class GestClic {
             int nbCols   = environnement.getTerrain().getMap()[0].length;
             if (ligne < 0 || ligne >= nbLignes || col < 0 || col >= nbCols) return;
 
-            Tour nouvelleTour = creerTour(idTourSelect);
-            ImageView tourPosee = creerImageTour(idTourSelect);
+            int valeurCase = environnement.getTerrain().getMap()[ligne][col];
+            boolean caseValide = (idTourSelect == 5) ? valeurCase == 0 : valeurCase == 1;
 
-            if (nouvelleTour != null && environnement.poserTour(nouvelleTour, col, ligne, idTourSelect)) {
-                vueTour.afficherTour(nouvelleTour, col, ligne, tourPosee);
-                AnimationRecompense.jouerAchat(panneauJeu, nouvelleTour.getCout(), col * 32, ligne * 32);
+            if (caseValide) {
+                Tour nouvelleTour = creerTour(idTourSelect);
+                ImageView tourPosee = creerImageTour(idTourSelect);
 
-                Tour tourAVendre = nouvelleTour;
-                tourPosee.setOnMouseClicked(clickSurTour -> {
-                    this.tourSelectionnee = tourAVendre;
-                    this.imageTourSelectionnee = (ImageView) clickSurTour.getSource();
-                    System.out.println("Tour sélectionnée pour revente !");
-                });
+                if (nouvelleTour != null && environnement.poserTour(nouvelleTour, col, ligne)) {
+                    vueTour.afficherTour(nouvelleTour, col, ligne, tourPosee);
 
-                System.out.println("Tour posée en [" + ligne + "][" + col + "]");
+                    AnimationRecompense.jouerAchat(panneauJeu, nouvelleTour.getCout(), col * 32, ligne * 32);
+
+                    Tour tourAVendre = nouvelleTour;
+                    tourPosee.setOnMouseClicked(clickSurTour -> {
+                        this.tourSelectionnee = tourAVendre;
+                        this.imageTourSelectionnee = (ImageView) clickSurTour.getSource();
+                        System.out.println("Tour sélectionnée pour revente !");
+                    });
+
+                    System.out.println("Tour posée en [" + ligne + "][" + col + "]");
+                } else {
+                    System.out.println("Achat impossible : Pas assez d'argent");
+                }
+                idTourSelect = -1;
             } else {
-                System.out.println("Achat impossible : Case invalide ou pas assez d'argent !");
+                System.out.println("Case invalide !");
             }
-            idTourSelect = -1;
         });
 
         panneauJeu.setOnMouseMoved(event -> {
@@ -111,7 +119,7 @@ public class GestClic {
             if (ligne < 0 || ligne >= nbLignes || col < 0 || col >= nbCols) return;
 
             int valeurCase = environnement.getTerrain().getMap()[ligne][col];
-            boolean caseValide = (idTourSelect == 5) ? (valeurCase == 0) : (valeurCase == 1);
+            boolean caseValide = (idTourSelect == 5) ? valeurCase == 0 : valeurCase == 1;
 
             caseHighlight = new Rectangle(32, 32);
             caseHighlight.setLayoutX(col * 32);
@@ -124,7 +132,9 @@ public class GestClic {
 
         btnRevente.setOnAction(event -> {
             if (tourSelectionnee != null && imageTourSelectionnee != null) {
+
                 AnimationRecompense.jouerRevente(panneauJeu, tourSelectionnee.getPrixRevente(), tourSelectionnee.getX(), tourSelectionnee.getY());
+
                 vueTour.supprimerTour(tourSelectionnee);
                 environnement.revendreTour(tourSelectionnee);
                 this.tourSelectionnee = null;
