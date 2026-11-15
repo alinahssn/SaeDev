@@ -36,12 +36,10 @@ public class VueEnnemi {
 
         ennemi.pvProperty().addListener((obs, ancienPv, nouveauPv) -> {
             if (ancienPv.intValue() > 0 && nouveauPv.intValue() <= 0) {
-                environnement.ajouterBudget(ennemi.getRecompense());
                 AnimationRecompense.jouer(panneau, ennemi.getRecompense(), ennemi.getX(), ennemi.getY());
                 panneau.getChildren().remove(imageView);
                 panneau.getChildren().remove(barreVie.getFond());
                 panneau.getChildren().remove(barreVie.getBarre());
-                environnement.getEnnemisActifs().remove(ennemi);
             }
         });
 
