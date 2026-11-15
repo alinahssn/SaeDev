@@ -23,15 +23,9 @@ public class GestionMouchoirs implements ActionsMouchoir {
     }
 
     @Override
-    public boolean ajouterMouchoir(MouchoirEnrhumé mouchoir) {
-        for (MouchoirEnrhumé m : actifs) {
-            if (m.getX() == mouchoir.getX() && m.getY() == mouchoir.getY()) {
-                return false;   // il y a déjà un mouchoir ici : refusé
-            }
-        }
+    public void ajouterMouchoir(MouchoirEnrhumé mouchoir) {
         actifs.add(mouchoir);
         nouveaux.add(mouchoir);
-        return true;            // posé
     }
 
     @Override

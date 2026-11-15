@@ -21,11 +21,9 @@ public class Enrhumé extends Ennemi {
         if (estArriveSurNouvelleCase()) {
             caseParcourues++;
 
-            if (caseParcourues >= 10) {
-                boolean pose = actions.ajouterMouchoir(new MouchoirEnrhumé(getX(), getY()));
-                if (pose) {
-                    caseParcourues = 0;
-                }
+            if (caseParcourues % 10 == 0) {
+                actions.ajouterMouchoir(new MouchoirEnrhumé(getX(), getY()));
+
             }
         }
     }
