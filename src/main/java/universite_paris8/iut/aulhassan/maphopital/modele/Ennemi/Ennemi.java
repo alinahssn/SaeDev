@@ -5,7 +5,6 @@ import universite_paris8.iut.aulhassan.maphopital.modele.BFS.Sommet;
 import universite_paris8.iut.aulhassan.maphopital.modele.BFS.deplacement.DeplacementBFS;
 import universite_paris8.iut.aulhassan.maphopital.modele.BFS.deplacement.StrategieDeplacement;
 import universite_paris8.iut.aulhassan.maphopital.modele.Ennemi.Pouvoir.ActionsMouchoir;
-import universite_paris8.iut.aulhassan.maphopital.modele.Tour.Masquier;
 import universite_paris8.iut.aulhassan.maphopital.modele.Tour.Tour;
 
 import java.util.ArrayList;
@@ -25,13 +24,10 @@ public class Ennemi {
     private boolean estRalenti = false;
     private int recompense;
 
-    private boolean estMort;
-
     private StrategieDeplacement strategieDeplacement;
     private DeplacementBFS deplacementBFS;
 
     private int framesBloque = 0;
-    private int cooldownAttaqueMasquier = 0;
     private int spawnX;
     private int spawnY;
 
@@ -122,13 +118,7 @@ public class Ennemi {
 
     public void subirDegats(int degats) {
         pv.set(Math.max(0, pv.get() - degats));
-
-        if (!estVivant()) {
-            mourir();
-        }
     }
-
-    private void mourir() { this.estMort = true; }
 
     public boolean estVivant() { return this.pv.get() > 0; }
 
