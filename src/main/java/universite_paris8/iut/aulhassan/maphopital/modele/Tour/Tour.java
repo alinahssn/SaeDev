@@ -67,9 +67,7 @@ public abstract class Tour {
         cooldown.setMultiplicateur(multiplicateur);
     }
 
-    // PATTERN TEMPLATE METHOD : le squelette est ici (final), les sous-classes
-    // ne redéfinissent que executerAction(). Le cooldown est décrémenté UNE seule fois,
-    // ici : les sous-classes ne doivent plus appeler tickCooldown().
+
     public final Projectile agir(List<Ennemi> ennemisActifs) {
         tickCooldown();
         return executerAction(ennemisActifs);

@@ -6,10 +6,10 @@ import java.util.List;
 
 public class Infirmier extends Tour {
 
-    private FlaqueGel flaqueActuelle = null;
+    private FlaqueGelAdaptateur flaqueActuelle = null;
 
     public Infirmier() {
-        super(75, 5, 1, 2, new ConfigProjectile("flaque.png", 72, true));
+        super(75, 7, 1, 2, new ConfigProjectile("flaque.png", 72, true));
 
     }
 
@@ -26,7 +26,7 @@ public class Infirmier extends Tour {
 
         Ennemi cible = choisirCible(ennemisActifs);
         if (cible != null) {
-            flaqueActuelle = new FlaqueGel(cible.getX() - 16, cible.getY() - 16, getDegat());
+            flaqueActuelle = new FlaqueGelAdaptateur(cible.getX() - 16, cible.getY() - 16, getDegat());
             setCooldownActuel(60);
             return flaqueActuelle;
         }
