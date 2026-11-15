@@ -57,6 +57,9 @@ public class Masquier extends Tour implements Obstacle {
     }
 
     @Override
+    public int getNumCaseApresRetrait() { return 0;}
+
+    @Override
     public boolean bloquerPassage() {
         return true;
     }

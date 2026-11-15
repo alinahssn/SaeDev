@@ -83,6 +83,7 @@ public abstract class Tour {
         return strategieCiblage.choisir(this, ennemisActifs);
     }
 
+    public int getNumCaseApresRetrait() { return 1;}
 
     public int getPrixRevente() {
         return (int) (this.cout * 0.7);

@@ -123,11 +123,8 @@ public class EnvironnementJeu {
         int ligne = tour.getY() / 32;
         ajouterBudget((int) (tour.getCout() * 0.7));
         toursActives.remove(tour);
-        if (tour instanceof Masquier) {
-            terrain.getMap()[ligne][col] = 0;
-        } else {
-            terrain.getMap()[ligne][col] = 1;
-        }
+        terrain.getMap()[ligne][col] = tour.getNumCaseApresRetrait();
+
     }
 
     private void gererPouvoirsEnnemis(Ennemi e) {
@@ -163,7 +160,6 @@ public class EnvironnementJeu {
         }
         return false;
     }
-
 
 
     public Terrain getTerrain() { return terrain; }
