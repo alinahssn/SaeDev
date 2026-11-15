@@ -76,7 +76,7 @@ public class EnvironnementJeu {
 
     private void attaquerPatientSiArrive(Ennemi e) {
         if (e.getX() == cible.getX() * 32 && e.getY() == cible.getY() * 32 && patient.estVivant()) {//virus arrivé au patient?
-            patient.setPv(patient.getPv() - e.getAttaque());
+            patient.subirDegats(e.getAttaque());
         }
     }
 
@@ -135,6 +135,7 @@ public class EnvironnementJeu {
     }
 
     public GestionMouchoirs getGestionMouchoirs() { return gestionMouchoirs;}
+
 
 
     public List<Tour> retirerMasquiersDetruits() {
