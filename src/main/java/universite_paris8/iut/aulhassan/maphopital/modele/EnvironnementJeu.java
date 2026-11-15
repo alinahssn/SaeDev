@@ -7,7 +7,6 @@ import universite_paris8.iut.aulhassan.maphopital.modele.BFS.BFS;
 import universite_paris8.iut.aulhassan.maphopital.modele.BFS.Graphes;
 import universite_paris8.iut.aulhassan.maphopital.modele.BFS.Sommet;
 import universite_paris8.iut.aulhassan.maphopital.modele.Ennemi.*;
-import universite_paris8.iut.aulhassan.maphopital.modele.Ennemi.Pouvoir.MouchoirEnrhumé;
 import universite_paris8.iut.aulhassan.maphopital.modele.Ennemi.Pouvoir.GestionMouchoirs;
 import universite_paris8.iut.aulhassan.maphopital.modele.Tour.Masquier;
 import universite_paris8.iut.aulhassan.maphopital.modele.Tour.Projectile;

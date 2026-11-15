@@ -24,8 +24,6 @@ public class Ennemi {
     private boolean estRalenti = false;
     private int recompense;
 
-    private boolean estMort;
-
     private StrategieDeplacement strategieDeplacement;
     private DeplacementBFS deplacementBFS;
 
@@ -117,13 +115,7 @@ public class Ennemi {
 
     public void subirDegats(int degats) {
         pv.set(Math.max(0, pv.get() - degats));
-
-        if (!estVivant()) {
-            mourir();
-        }
     }
-
-    private void mourir() { this.estMort = true; }
 
     public boolean estVivant() { return this.pv.get() > 0; }
 

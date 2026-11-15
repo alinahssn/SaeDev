@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class EnnemiTest {
 
 
-    private Ennemi ennemi = new Ennemi(80, 5, 1, 15);
+    private Ennemi ennemi = new Ennemi("Ennemi",80, 5, 1, 15);
 
     @Test
     void testConstructeurAvecParametres() {
