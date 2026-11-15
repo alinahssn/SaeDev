@@ -2,6 +2,7 @@ package universite_paris8.iut.aulhassan.maphopital.modele;
 
 import javafx.beans.property.SimpleIntegerProperty;
 import universite_paris8.iut.aulhassan.maphopital.modele.Ennemi.*;
+import universite_paris8.iut.aulhassan.maphopital.modele.Ennemi.FabriqueEnnemi.*;
 import universite_paris8.iut.aulhassan.maphopital.modele.BFS.Sommet;
 
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ public class Vague {
     public void lancerVague() {
         if (ennemisASpawner > 0) return;
 
-        if (numeroVague.get() >= 7) {
+        if (numeroVague.get() >= vagues.size()) {
             System.out.println("Plus de vagues !");
             return;
         }
@@ -55,55 +56,28 @@ public class Vague {
         ennemi.setY(spawn.getY() * 32);
         ennemi.setSpawn(spawn.getX() * 32, spawn.getY() * 32);
 
-        Sommet spawnEnnemi = new Sommet(ennemi.getX() / 32, ennemi.getY() / 32);
-        ArrayList<Sommet> chemin = environnement.getBfs().cheminVersCible(spawnEnnemi);
-        //java.util.Collections.reverse(chemin);
-        ennemi.setChemin(chemin);
+        ennemi.setChemin(environnement.getBfs().cheminVersCible(spawn));
 
         return ennemi;
     }
 
     private int getTailleVague(int vague) {
-        switch (vague) {
-            case 1: return 5;
-            case 2: return 5;
-            case 3: return 6;
-            case 4: return 6;
-            case 5: return 8;
-            case 6: return 8;
-            case 7: return 1;
-            default: return 0;
-        }
+        if (vague < 1 || vague > vagues.size()) return 0;
+        return vagues.get(vague - 1).size();
     }
 
+    private List<List<FabriqueEnnemi>> vagues = List.of(
+            List.of(new FabGastrique(), new FabGastrique(), new FabGastrique(), new FabGastrique(), new FabGastrique()),
+            List.of(new FabGastrique(), new FabGastrique(), new FabGastrique(), new FabEnrhume(), new FabEnrhume()),
+            List.of(new FabEnrhume(),new FabEnrhume(), new FabEnrhume(), new FabCovide(), new FabCovide(), new FabGrippe()),
+            List.of(new FabEnrhume(), new FabCovide(), new FabCovide(), new FabGrippe(), new FabGrippe(), new FabEbola()),
+            List.of(new FabEbola(), new FabEbola(), new FabRabique(), new FabGrippe(), new FabGastrique(), new FabGastrique(), new FabGastrique(),new FabGastrique()),
+            List.of(new FabGastrique(), new FabGastrique(), new FabGastrique(), new FabGastrique(), new FabGastrique(), new FabGastrique(), new FabGastrique(), new FabGastrique()),
+            List.of(new FabSujetAlpha())
+    );
+
     private Ennemi creerEnnemi(int vague, int index) {
-        switch (vague) {
-            case 1:
-                return new Gastrique();
-            case 2:
-                if (index < 3) return new Gastrique();
-                else           return new Enrhumé();
-            case 3:
-                if (index < 3)      return new Enrhumé();
-                else if (index < 5) return new Covidé();
-                else                return new Grippé();
-            case 4:
-                if (index == 0)     return new Enrhumé();
-                else if (index < 3) return new Covidé();
-                else if (index < 5) return new Grippé();
-                else                return new Ebola();
-            case 5:
-                if (index < 2)       return new Ebola();
-                else if (index == 2) return new Rabique();
-                else if (index == 3) return new Grippé();
-                else                 return new Gastrique();
-            case 6:
-                return new Gastrique();
-            case 7:
-                return new SujetAlpha();
-            default:
-                return new Gastrique();
-        }
+        return vagues.get(vague - 1).get(index).creerEnnemi();
     }
 
     public int[] getSpawnsActifsVague() {
@@ -130,19 +104,20 @@ public class Vague {
         return spawns.get(indiceSpawn);
     }
 
-    public boolean vagueEnCours() {
+    /*public boolean vagueEnCours() {
         return ennemisASpawner > 0;
     }
 
     public int getNumeroVague() {
         return numeroVague.get();
     }
+    */
 
     public SimpleIntegerProperty numeroVagueProperty() {
         return numeroVague;
     }
 
     public boolean toutesLesVaguesFinies() {
-        return this.numeroVague.get() == 7 && this.ennemisASpawner == 0;
+        return this.numeroVague.get() == vagues.size() && this.ennemisASpawner == 0;
     }
 }
