@@ -58,6 +58,12 @@ public class Controleur implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         this.environnement = new EnvironnementJeu();
 
+        environnement.getPatient().pvProperty().addListener((obs, ancien, nouveau) -> {
+            if (nouveau.intValue() <= 0) {
+                afficherGameOver();
+            }
+        });
+
         this.vueTerrain = new VueTerrain(tilehopital, environnement.getTerrain());
         vueTerrain.dessinerCartographie();
 
@@ -91,10 +97,7 @@ public class Controleur implements Initializable {
                 new VueEnnemi(nouvelEnnemi, panneauJeu, environnement);
             }
 
-            if (!environnement.getPatient().estVivant()) {
-                ecranGameOver.setVisible(true);
-                gameloop.stop();
-            } else if (vague.toutesLesVaguesFinies() && environnement.getEnnemisActifs().isEmpty()) {
+            if (environnement.getPatient().estVivant() && vague.toutesLesVaguesFinies() && environnement.getEnnemisActifs().isEmpty()) {
                 ecranVictoire.setVisible(true);
                 gameloop.stop();
             }
@@ -111,6 +114,11 @@ public class Controleur implements Initializable {
         });
 
         gameloop.getKeyFrames().add(keyFrame);
+    }
+
+    private void afficherGameOver() {
+        ecranGameOver.setVisible(true);
+        gameloop.stop();
     }
 
     @FXML
@@ -138,8 +146,8 @@ public class Controleur implements Initializable {
             else {
                 System.out.println("Tu peux pas avoir un bonus t'as déjà tous les PV !");
             }
+        }
     }
-}
     @FXML
     private void retourMenu() throws IOException {
         Stage stage = (Stage) panneauJeu.getScene().getWindow();

@@ -4,45 +4,38 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
 public class Patient {
-    private static final int pvDepart = 200;
+    private static final int PV_DEPART = 200;
 
-    private IntegerProperty pv = new SimpleIntegerProperty(pvDepart);
-    private int pvMax;
-    private boolean vivant;
-
-    public Patient() {
-        this.pvMax = pvDepart;
-        this.vivant = true;
-    }
+    private final IntegerProperty pv = new SimpleIntegerProperty(PV_DEPART);
+    private final int pvMax = PV_DEPART;
 
     public int getPv() {
         return pv.get();
     }
+
     public int getPvMax() {
         return pvMax;
-    }
-    public boolean estVivant() {
-        return vivant;
     }
 
     public IntegerProperty pvProperty() {
         return pv;
     }
 
-    public void setPv(int nouveauPv) {
-        this.pv.set(nouveauPv);
-        if (nouveauPv <= 0){
-            vivant = false;
+    public boolean estVivant() {
+        return pv.get() > 0;
+    }
+
+    public boolean estBlesse() {
+        return estVivant() && pv.get() < pvMax;
+    }
+
+    public void subirDegats(int degats) {
+        pv.set(Math.max(0, pv.get() - degats));
+    }
+
+    public void soigner(int soin) {
+        if (estBlesse()) {
+            pv.set(Math.min(pvMax, pv.get() + soin));
         }
     }
-
-    public void soigner(int soin){
-        if(vivant && getPv() < pvMax) {
-            this.setPv(getPv() + soin);
-        } else {
-            System.out.println("PV FULL");
-    }
-
-
-  }
 }

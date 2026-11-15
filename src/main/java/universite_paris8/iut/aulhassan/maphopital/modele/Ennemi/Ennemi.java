@@ -6,6 +6,7 @@ import universite_paris8.iut.aulhassan.maphopital.modele.BFS.deplacement.Deplace
 import universite_paris8.iut.aulhassan.maphopital.modele.BFS.deplacement.StrategieDeplacement;
 import universite_paris8.iut.aulhassan.maphopital.modele.Ennemi.Pouvoir.ActionsMouchoir;
 import universite_paris8.iut.aulhassan.maphopital.modele.Tour.Masquier;
+import universite_paris8.iut.aulhassan.maphopital.modele.Tour.Tour;
 
 import java.util.ArrayList;
 
@@ -24,10 +25,13 @@ public class Ennemi {
     private boolean estRalenti = false;
     private int recompense;
 
+    private boolean estMort;
+
     private StrategieDeplacement strategieDeplacement;
     private DeplacementBFS deplacementBFS;
 
     private int framesBloque = 0;
+    private int cooldownAttaqueMasquier = 0;
     private int spawnX;
     private int spawnY;
 
@@ -69,6 +73,14 @@ public class Ennemi {
         this.vitesse = vitesse;
     }
 
+
+    public void changerVitesseBase(int nouvelleVitesse) {
+        this.vitesseBase = nouvelleVitesse;
+        if (!estRalenti) {
+            this.vitesse = nouvelleVitesse;
+        }
+    }
+
     public void ralentir(double facteur) {
         if (!estRalenti) {
             this.vitesse = Math.max(1, (int)(vitesseBase * facteur));
@@ -84,6 +96,11 @@ public class Ennemi {
     }
 
     public boolean estRalenti() { return estRalenti; }
+
+
+    public double getMalusCooldownSur(Tour tour) {
+        return 1.0;
+    }
 
     public String getNom() { return nom;}
     public int getPv() { return pv.get(); }
@@ -105,7 +122,13 @@ public class Ennemi {
 
     public void subirDegats(int degats) {
         pv.set(Math.max(0, pv.get() - degats));
+
+        if (!estVivant()) {
+            mourir();
+        }
     }
+
+    private void mourir() { this.estMort = true; }
 
     public boolean estVivant() { return this.pv.get() > 0; }
 
@@ -146,4 +169,3 @@ public class Ennemi {
     }
 
 }
-

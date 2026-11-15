@@ -51,7 +51,7 @@ public class GestClic {
 
     private void enregistrerClicBouton(Button bouton, int idTour, String nomTour) {
         bouton.setOnAction(event -> {
-            if (environnement.getPatient().getPv() == 0) {
+            if (!environnement.getPatient().estVivant()) {
                 System.out.println("GAME OVER : Le patient est mort ! Impossible de poser une tour");
                 return;
             }
