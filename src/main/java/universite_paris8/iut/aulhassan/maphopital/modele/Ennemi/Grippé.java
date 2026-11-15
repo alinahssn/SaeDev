@@ -1,5 +1,8 @@
 package universite_paris8.iut.aulhassan.maphopital.modele.Ennemi;
 
+import universite_paris8.iut.aulhassan.maphopital.modele.Terrain;
+import universite_paris8.iut.aulhassan.maphopital.modele.Tour.Tour;
+
 public class Grippé extends Ennemi {
 
     private static final int PV_DEPART = 100;
@@ -9,9 +12,23 @@ public class Grippé extends Ennemi {
 
     // Portée en cases dans laquelle le Grippé ralentit les tours
     public static final int PORTEE_RALENTISSEMENT = 3;
+    public static final double MALUS_COOLDOWN = 2.0;
 
     public Grippé() {
         super("Grippé",PV_DEPART, ATTAQUE, VITESSE, RECOMPENSE);
     }
 
+    @Override
+    public double getMalusCooldownSur(Tour tour) {
+        if (!estVivant()) {
+            return 1.0;
+        }
+        int dx = tour.getX() - getX();
+        int dy = tour.getY() - getY();
+        double distance = Math.sqrt(dx * dx + dy * dy);
+        if (distance <= PORTEE_RALENTISSEMENT * Terrain.TAILLE_CASE) {
+            return MALUS_COOLDOWN;
+        }
+        return 1.0;
+    }
 }

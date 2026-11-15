@@ -7,6 +7,7 @@ import universite_paris8.iut.aulhassan.maphopital.modele.BFS.BFS;
 import universite_paris8.iut.aulhassan.maphopital.modele.BFS.Graphes;
 import universite_paris8.iut.aulhassan.maphopital.modele.BFS.Sommet;
 import universite_paris8.iut.aulhassan.maphopital.modele.Ennemi.*;
+import universite_paris8.iut.aulhassan.maphopital.modele.Ennemi.Pouvoir.MouchoirEnrhumé;
 import universite_paris8.iut.aulhassan.maphopital.modele.Ennemi.Pouvoir.GestionMouchoirs;
 import universite_paris8.iut.aulhassan.maphopital.modele.Tour.Masquier;
 import universite_paris8.iut.aulhassan.maphopital.modele.Tour.Projectile;
@@ -102,15 +103,7 @@ public class EnvironnementJeu {
         for (Tour tour : toursActives) {
             double multiplicateur = 1.0;
             for (Ennemi e : ennemisActifs) {
-                if (e instanceof Grippé && e.estVivant()) {
-                    int dx = tour.getX() - e.getX();
-                    int dy = tour.getY() - e.getY();
-                    double distance = Math.sqrt(dx * dx + dy * dy);
-                    if (distance <= Grippé.PORTEE_RALENTISSEMENT * 32) {
-                        multiplicateur = 2.0;
-                        break;
-                    }
-                }
+                multiplicateur = Math.max(multiplicateur, e.getMalusCooldownSur(tour));
             }
             tour.setMultiplicateurCooldownProjectil(multiplicateur);
         }

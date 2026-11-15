@@ -1,6 +1,11 @@
 package universite_paris8.iut.aulhassan.maphopital.modele;
 
 public class Terrain {
+
+    public static final int TAILLE_CASE = 32;   // taille d'une case en pixels
+    public static final int CIBLE_COL = 23;     // case où se trouve le patient
+    public static final int CIBLE_LIGNE = 12;
+
     private int[][] map;
 
     public Terrain() {
