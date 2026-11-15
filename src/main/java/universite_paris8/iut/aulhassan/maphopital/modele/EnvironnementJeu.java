@@ -60,7 +60,6 @@ public class EnvironnementJeu {
 
         if (temps % 12 == 0) {
             faireAvancerEnnemis();
-            gererMasquiersDetruits();
         }
     }
 
@@ -144,9 +143,6 @@ public class EnvironnementJeu {
 
     public GestionMouchoirs getGestionMouchoirs() { return gestionMouchoirs;}
 
-    private void gererMasquiersDetruits() {
-        retirerMasquiersDetruits();
-    }
 
     public List<Tour> retirerMasquiersDetruits() {
         List<Tour> detruits = new ArrayList<>();
