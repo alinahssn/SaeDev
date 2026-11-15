@@ -28,7 +28,6 @@ public class Ennemi {
     private DeplacementBFS deplacementBFS;
 
     private int framesBloque = 0;
-    private int cooldownAttaqueMasquier = 0;
     private int spawnX;
     private int spawnY;
 
@@ -60,15 +59,6 @@ public class Ennemi {
         if (framesBloque > 0) {
             framesBloque--;
         }
-    }
-
-    public void attaquerMasquier(Masquier masquier) {
-        if (cooldownAttaqueMasquier > 0) {
-            cooldownAttaqueMasquier--;
-            return;
-        }
-        masquier.subirDegats(attaque);
-        cooldownAttaqueMasquier = 30;
     }
 
     public void setAttaque(int attaque) {

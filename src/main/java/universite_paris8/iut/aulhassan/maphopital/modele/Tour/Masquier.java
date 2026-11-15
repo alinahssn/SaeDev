@@ -8,6 +8,8 @@ public class Masquier extends Tour implements Obstacle {
 
     private static final int RAYON_DETECTION = 16;
     private static final int PV_MAX = 100;
+    private static final int COOLDOWN_ATTAQUE = 30;
+    private int cooldownAttaque = 0;
     private SimpleIntegerProperty pv = new SimpleIntegerProperty(PV_MAX);
 
     public Masquier() {
@@ -29,15 +31,27 @@ public class Masquier extends Tour implements Obstacle {
 
     @Override
    public Projectile executerAction(List<Ennemi> ennemisActifs) {
+        boolean peutAttaquer = (cooldownAttaque == 0);
+        boolean aAttaque = false;
+
         for (Ennemi e : ennemisActifs) {
             if (e.estVivant()) {
                 double dx = getX() - e.getX();
                 double dy = getY() - e.getY();
                 if (Math.sqrt(dx * dx + dy * dy) <= RAYON_DETECTION) {
                     e.bloquer(2);
-                    e.attaquerMasquier(this);
+                    if (peutAttaquer) {
+                        subirDegats(e.getAttaque());
+                        aAttaque = true;
+                    }
                 }
             }
+        }
+
+        if (aAttaque) {
+            cooldownAttaque = COOLDOWN_ATTAQUE;
+        } else if (cooldownAttaque > 0) {
+            cooldownAttaque--;
         }
         return null;
     }
