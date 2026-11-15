@@ -11,9 +11,7 @@ public class Ebola extends Ennemi {
     public Ebola() {
         super("Ebola",PV_DEPART, 5,8, RECOMPENSE);
     }
-    public int getPhase() {
-        return phase;
-    }
+
 
     @Override
     public void subirDegats(int degat){
@@ -42,9 +40,9 @@ public class Ebola extends Ennemi {
         if(phase != nouvellePhase){
             phase = nouvellePhase;
             switch (phase){
-                case 2 -> {setAttaque(10); setVitesse(16);}
-                case 3 -> {setAttaque(15); setVitesse(32);}
-                case 4 -> {setAttaque(20); setVitesse(64);}
+                case 2 -> {setAttaque(10); changerVitesseBase(16);}
+                case 3 -> {setAttaque(15); changerVitesseBase(32);}
+                case 4 -> {setAttaque(20); changerVitesseBase(64);}
             }
         }
     }

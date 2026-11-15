@@ -69,6 +69,13 @@ public class Ennemi {
         this.vitesse = vitesse;
     }
 
+    public void changerVitesseBase(int nouvelleVitesse) {
+        this.vitesseBase = nouvelleVitesse;
+        if (!estRalenti) {
+            this.vitesse = nouvelleVitesse;
+        }
+    }
+
     public void ralentir(double facteur) {
         if (!estRalenti) {
             this.vitesse = Math.max(1, (int)(vitesseBase * facteur));
