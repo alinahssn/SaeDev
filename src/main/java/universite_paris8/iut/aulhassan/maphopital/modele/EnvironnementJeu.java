@@ -56,13 +56,32 @@ public class EnvironnementJeu {
     public void unTour(int temps) {
 
         this.mettreAJourMalusTours();
+        faireAgirTours();
+        deplacerProjectiles();
 
-        for (Tour tour : toursActives) {
-            Projectile proj = tour.agir(ennemisActifs);
-            if (proj != null) {
-                projectilesActifs.add(proj);
+        if (temps % 12 == 0) {
+            faireAvancerEnnemis();
+            gererMasquiersDetruits();
+        }
+    }
+
+    private void faireAvancerEnnemis() {
+        for (Ennemi e : ennemisActifs) {
+            if (e.estVivant()) {
+                e.deplacer();
+                gererPouvoirsEnnemis(e);
+                attaquerPatientSiArrive(e);
             }
         }
+    }
+
+    private void attaquerPatientSiArrive(Ennemi e) {
+        if (e.getX() == cible.getX() * 32 && e.getY() == cible.getY() * 32 && patient.estVivant()) {//virus arrivé au patient?
+            patient.setPv(patient.getPv() - e.getAttaque());
+        }
+    }
+
+    private void deplacerProjectiles() {
         for (int i = projectilesActifs.size() - 1; i >= 0; i--) {
             Projectile proj = projectilesActifs.get(i);
             proj.deplacer();
@@ -70,18 +89,14 @@ public class EnvironnementJeu {
                 projectilesActifs.remove(i);
             }
         }
+    }
 
-        if (temps % 12 == 0) {
-            for (Ennemi e : ennemisActifs) {
-                if (e.estVivant()) {
-                    e.deplacer();
-                    gererPouvoirsEnnemis(e);
-                    if (e.getX() == cible.getX() * 32 && e.getY() == cible.getY() * 32 && patient.estVivant()) {//virus arrivé au patient?
-                        patient.setPv(patient.getPv() - e.getAttaque());
-                    }
-                }
+    private void faireAgirTours() {
+        for (Tour tour : toursActives) {
+            Projectile proj = tour.agir(ennemisActifs);
+            if (proj != null) {
+                projectilesActifs.add(proj);
             }
-            gererMasquiersDetruits();
         }
     }
 
@@ -129,7 +144,7 @@ public class EnvironnementJeu {
     }
 
     public GestionMouchoirs getGestionMouchoirs() { return gestionMouchoirs;}
-    
+
     private void gererMasquiersDetruits() {
         retirerMasquiersDetruits();
     }
