@@ -61,9 +61,20 @@ public class EnvironnementJeu {
         this.mettreAJourMalusTours();
         faireAgirTours();
         deplacerProjectiles();
+        gererEnnemisMorts();
 
         if (temps % 12 == 0) {
             faireAvancerEnnemis();
+        }
+    }
+
+    private void gererEnnemisMorts() {
+        for (int i = ennemisActifs.size() - 1; i >= 0; i--) {
+            Ennemi e = ennemisActifs.get(i);
+            if (!e.estVivant()) {
+                ajouterBudget(e.getRecompense());
+                ennemisActifs.remove(i);
+            }
         }
     }
 
@@ -112,9 +123,19 @@ public class EnvironnementJeu {
         }
     }
 
-    public boolean poserTour(Tour tour, int col, int ligne) {
+    public boolean poserTour(Tour tour, int col, int ligne, int idTourSelect) {
+        if (patient == null || !patient.estVivant()) return false;
+
+        int[][] map = terrain.getMap();
+        if (ligne < 0 || ligne >= map.length || col < 0 || col >= map[0].length) return false;
+
+        int valeurCase = map[ligne][col];
+        boolean caseValide = (idTourSelect == 5) ? (valeurCase == 0) : (valeurCase == 1);
+        if (!caseValide) return false;
+
         if (!dépense(tour.getCout())) return false;
-        terrain.getMap()[ligne][col] = 12;
+
+        map[ligne][col] = 12;
         tour.setX(col * 32);
         tour.setY(ligne * 32);
         toursActives.add(tour);
@@ -155,7 +176,6 @@ public class EnvironnementJeu {
     }
 
     public void ajouterBudget(int montant) { this.budget.set(this.budget.get() + montant); }
-
 
     public boolean morphineUtile() {
         return patient.estBlesse();

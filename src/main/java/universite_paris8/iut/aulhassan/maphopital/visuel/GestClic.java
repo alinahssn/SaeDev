@@ -85,7 +85,7 @@ public class GestClic {
                 Tour nouvelleTour = creerTour(idTourSelect);
                 ImageView tourPosee = creerImageTour(idTourSelect);
 
-                if (nouvelleTour != null && environnement.poserTour(nouvelleTour, col, ligne)) {
+                if (nouvelleTour != null && environnement.poserTour(nouvelleTour, col, ligne, idTourSelect)) {
                     vueTour.afficherTour(nouvelleTour, col, ligne, tourPosee);
 
                     AnimationRecompense.jouerAchat(panneauJeu, nouvelleTour.getCout(), col * 32, ligne * 32);
