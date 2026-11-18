@@ -5,10 +5,11 @@ import java.util.List;
 
 public class InterneDeGarde extends Tour {
 
+    private static final int DEGATS_BASE = 15;
     private static final int BONUS_DEGATS = 5;
 
     public InterneDeGarde() {
-        super(50, 20, 3, 3, new ConfigProjectile("pillule.png",16, false));
+        super(50, DEGATS_BASE + BONUS_DEGATS, 3, 3, new ConfigProjectile("pillule.png", 16, false));
     }
 
     @Override
@@ -16,10 +17,8 @@ public class InterneDeGarde extends Tour {
         Ennemi cible = choisirCible(ennemisActifs);
         if (cible == null) return null;
 
-        Projectile proj = new Projectile(getX() + 16, getY() + 16, cible, getDegat() - BONUS_DEGATS,
-                getProjectileFixe(), getNomImageProjectile(), getTailleProjectile());
         setCooldownActuel(60);
-        return new ProjectileDegatsBonus(proj, BONUS_DEGATS);
+        return new ProjectileDegatsBonus(creerProjectile(cible, DEGATS_BASE), BONUS_DEGATS);
     }
 
     @Override
