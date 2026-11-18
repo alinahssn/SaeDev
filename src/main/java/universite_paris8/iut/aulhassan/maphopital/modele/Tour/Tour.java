@@ -2,6 +2,7 @@ package universite_paris8.iut.aulhassan.maphopital.modele.Tour;
 
 import javafx.beans.property.SimpleIntegerProperty;
 import universite_paris8.iut.aulhassan.maphopital.modele.Ennemi.Ennemi;
+import universite_paris8.iut.aulhassan.maphopital.modele.Terrain;
 
 import java.util.List;
 
@@ -17,7 +18,6 @@ public abstract class Tour {
     private ConfigProjectile configProjectile;
     private Cooldown cooldown;
     private StrategieCiblage strategieCiblage = new CiblagePremierEnPortee();
-
 
     public Tour(int cout, int degat, int vitesse, int portee, ConfigProjectile configProjectile) {
         this.cout = cout;
@@ -43,30 +43,21 @@ public abstract class Tour {
     public void setX(int nx) { x.set(nx); }
     public void setY(int ny) { y.set(ny); }
 
-
-
-    // appelé à chaque frame dans la game loop
-    // décrémente le compteur de 1 jusqu'à ce qu'il atteigne 0
     public void tickCooldown() {
         cooldown.tick();
     }
 
     public boolean peutTirer(Ennemi cible) {
-        if (cible == null || !cible.estVivant()) return false;//pas de cible ou deja morte non
-        if (!cooldown.estPret()) return false;//encore en train de recharger non
+        if (cible == null || !cible.estVivant()) return false;
+        if (!cooldown.estPret()) return false;
 
-        int dx = this.x.get() - cible.getX();
-        int dy = this.y.get() - cible.getY();
         double distance = Position.calculerDistance(this.getX(), this.getY(), cible.getX(), cible.getY());
         return distance <= (this.portee * 32);
+    }
 
-    }//calcul distance pixel entre tour et virus -> si inférieur ou = à la portée -> tour convertie en pixel portee*32 et renvoie true -> peutTirer
-
-    // Fonction pour le Grippé (ralentissemnt des projectils)
     public void setMultiplicateurCooldownProjectil(double multiplicateur) {
         cooldown.setMultiplicateur(multiplicateur);
     }
-
 
     public final Projectile agir(List<Ennemi> ennemisActifs) {
         tickCooldown();
@@ -87,6 +78,9 @@ public abstract class Tour {
         return strategieCiblage.choisir(this, ennemisActifs);
     }
 
+    protected Projectile creerProjectile(Ennemi cible, int degats) {
+        return new Projectile(getX() + 16, getY() + 16, cible, degats,getProjectileFixe(), getNomImageProjectile(), getTailleProjectile());
+    }
 
     public int getPrixRevente() {
         return (int) (this.cout * 0.7);

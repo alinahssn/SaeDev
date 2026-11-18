@@ -9,6 +9,7 @@ public class Projectile {
     private int degats;
     private double vitesse = 15.0;
     protected boolean actif = true;
+    private boolean aTouche = false;
     private boolean fixe;
     private String nomImage;
     private int taille;
@@ -34,16 +35,18 @@ public class Projectile {
         double dx = cible.getX() - x;
         double dy = cible.getY() - y;
         double dist = Position.calculerDistance(this.x, this.y, cible.getX(), cible.getY());
-        if (dist <= vitesse) { //projectile va l'atteindre
+        if (dist <= vitesse) {
             cible.subirDegats(degats);
+            aTouche = true;
             actif = false;
         } else {
             x += vitesse * dx / dist;
-            y += vitesse * dy / dist;//creation du vecteur unitaire
+            y += vitesse * dy / dist;
         }
     }
 
     public boolean estActif() { return actif; }
+    public boolean aTouche() { return aTouche; }
     public double getX() { return x; }
     public double getY() { return y; }
     public boolean estFixe() { return fixe; }

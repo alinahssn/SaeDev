@@ -1,10 +1,9 @@
 package universite_paris8.iut.aulhassan.maphopital.modele.Tour;
 
-import universite_paris8.iut.aulhassan.maphopital.modele.Ennemi.Ennemi;
-
 public class ProjectileDegatsBonus extends ProjectileDecorator {
 
     private final int bonus;
+    private boolean bonusApplique = false;
 
     public ProjectileDegatsBonus(Projectile enveloppe, int bonus) {
         super(enveloppe);
@@ -13,13 +12,11 @@ public class ProjectileDegatsBonus extends ProjectileDecorator {
 
     @Override
     public void deplacer() {
-        Ennemi cible = getCible();
-        boolean vivantAvant = cible != null && cible.estVivant();
-
         super.deplacer();
 
-        if (vivantAvant && !estActif() && cible.estVivant()) {
-            cible.subirDegats(bonus);
+        if (!bonusApplique && aTouche() && getCible().estVivant()) {
+            getCible().subirDegats(bonus);
+            bonusApplique = true;
         }
     }
 }
